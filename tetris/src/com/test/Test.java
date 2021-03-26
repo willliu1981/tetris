@@ -14,7 +14,7 @@ public class Test {
 	}
 	
 	public static class T{
-		Optional<String> opt=Optional.empty();
+		Optional<String> opt;
 	}
 
 }
