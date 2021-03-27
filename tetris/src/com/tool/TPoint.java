@@ -50,8 +50,8 @@ public class TPoint {
 
 	@Override
 	public int hashCode() {
-		
-		return this.getX()*3+this.getY()*5;
+
+		return this.getX() * 3 + this.getY() * 5;
 	}
 
 	/*

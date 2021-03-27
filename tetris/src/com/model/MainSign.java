@@ -20,7 +20,7 @@ public class MainSign extends Sign {
 	}
 
 	public MainSign(int x, int y) {
-		super(x,y);
+		super(x, y);
 		mapCube = new HashMap<>();
 	}
 
@@ -28,10 +28,8 @@ public class MainSign extends Sign {
 	 * get and set
 	 */
 
-
-
 	public String toString() {
-		return String.format("%s point=%s", this.getName(), this.getPoint());
+		return String.format("%s point=%s", this.getName(), this.getSignPoint());
 	}
 
 }

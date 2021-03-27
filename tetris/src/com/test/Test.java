@@ -20,6 +20,7 @@ public class Test {
 		System.out.println(p1.equals(p2));
 		
 		
+		
 	}
 	
 	public static class T{
