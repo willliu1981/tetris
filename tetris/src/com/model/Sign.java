@@ -68,8 +68,12 @@ public abstract class Sign {
 	public void addCubeMap(int x, int y) {
 		this.mapCube.put(new TPoint(x, y), new Cube());
 	}
+	
+	public Cube getCube(int x,int y) {//test
+		return this.mapCube.get(new TPoint(x,y));
+	}
 
-	public Map<TPoint, Cube> getCubeMap() {
+	public Map<TPoint, Cube> getCubeMap() {//test
 		return this.mapCube;
 	}
 

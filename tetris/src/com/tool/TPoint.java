@@ -18,6 +18,42 @@ public class TPoint {
 		this.pivot = new Point();
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (obj == null) {
+			return false;
+		}
+
+		TPoint o = null;
+		if (obj instanceof TPoint) {
+			o = (TPoint) obj;
+		} else {
+			return false;
+		}
+
+		if (this.point != null && o.point != null) {
+			return equal(this.point, o.point);
+		} else if (this.point == null && o.point == null) {
+			return true;
+		}
+
+		return false;
+	}
+
+	protected static boolean equal(Point p1, Point p2) {
+		return p1.x == p2.x && p1.y == p2.y;
+	}
+
+	@Override
+	public int hashCode() {
+		
+		return this.getX()*3+this.getY()*5;
+	}
+
 	/*
 	 * get and set
 	 */
