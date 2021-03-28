@@ -8,8 +8,12 @@ import com.model.Sign;
 /*
  * for get Sign
  */
-public abstract class SignGetter< V extends Sign> {
+public abstract class SignGetter< V extends Sign> implements java.io.Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Map<Enum<?>, V> mapSign;
 	
 	protected SignGetter() {

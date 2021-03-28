@@ -5,7 +5,11 @@ import java.awt.Point;
 /*
  * tetris 專用 point
  */
-public class TPoint {
+public class TPoint implements java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Point local;// 於主座標上的位置, 通常是父座標系統上的位置
 	private Point pivot;// this座標系統的軸心點, 於this座標系統上的位置
 

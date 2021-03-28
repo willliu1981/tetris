@@ -49,5 +49,13 @@ public class SignManager {
 	protected SignGetter<?> getGetter() {
 		return SignManager.mapSignKV.get(this.type);
 	}
+	
+	public static Map<SignType, SignGetter<? extends Sign>> getSignKVMap(){
+		return mapSignKV;
+	}
+	
+	public static void setSignKVMap(Map<SignType, SignGetter<? extends Sign>> map) {
+		mapSignKV=map;
+	}
 
 }

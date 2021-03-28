@@ -8,12 +8,21 @@ import com.controller.exception.TNullException;
 import com.sun.glass.ui.Size;
 import com.tool.TPoint;
 
-public abstract class Sign {
+public abstract class Sign implements java.io.Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/*
 	 * 最小單位方塊
 	 */
-	protected static class Cube {
+	protected static class Cube implements java.io.Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		protected Optional<String> name;
 		protected Optional<TPoint> point = Optional.empty();// 座標資訊
 		protected Optional<Picture> picture;
