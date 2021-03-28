@@ -6,6 +6,13 @@ package com.model;
  */
 public class MainSign extends Sign {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
 	public MainSign() {
 		this(0, 0);
 	}

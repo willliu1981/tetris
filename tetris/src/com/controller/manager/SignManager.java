@@ -24,14 +24,14 @@ public class SignManager {
 		return new SignManager(type);
 	}
 
-	static private Map<SignType, SignGetter<? extends Sign>> mapSignKV;
+	static private Map<SignType, SignGetter<? extends Sign>> mapSignGetter;
 
 	/*
 	 * factory-init
 	 */
 	{
-		mapSignKV = new HashMap<>();
-		mapSignKV.put(SignType.MainSign, new MainSignGetter());
+		mapSignGetter = new HashMap<>();
+		mapSignGetter.put(SignType.MainSign, new MainSignGetter());
 	}
 
 	/*
@@ -47,15 +47,15 @@ public class SignManager {
 	}
 
 	protected SignGetter<?> getGetter() {
-		return SignManager.mapSignKV.get(this.type);
+		return SignManager.mapSignGetter.get(this.type);
 	}
 	
-	public static Map<SignType, SignGetter<? extends Sign>> getSignKVMap(){
-		return mapSignKV;
+	public static Map<SignType, SignGetter<? extends Sign>> getSignGetterMap(){
+		return mapSignGetter;
 	}
 	
-	public static void setSignKVMap(Map<SignType, SignGetter<? extends Sign>> map) {
-		mapSignKV=map;
+	public static void setSignGetterMap(Map<SignType, SignGetter<? extends Sign>> map) {
+		mapSignGetter=map;
 	}
 
 }

@@ -27,12 +27,12 @@ public class FileManager {
 
 		}
 		
-		SignManager.setSignKVMap(map);
+		SignManager.setSignGetterMap(map);
 
 	}
 	
 	public static void writeSignDate() {
-		Map<SignType, SignGetter<? extends Sign>> map = SignManager.getSignKVMap();
+		Map<SignType, SignGetter<? extends Sign>> map = SignManager.getSignGetterMap();
 		try (FileOutputStream fos = new FileOutputStream(Basepath + File.separator + MainSignFileName);
 				ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 			oos.writeObject(map);

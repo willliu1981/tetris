@@ -70,14 +70,22 @@ public abstract class Sign implements java.io.Serializable {
 	/*
 	 * 外觀
 	 */
-	protected static class Picture {
+	protected static class Picture implements java.io.Serializable  {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		protected Integer id;
 	}
 
 	/*
 	 * 動畫音效
 	 */
-	protected static class Sound {
+	protected static class Sound implements java.io.Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		protected Integer id;
 	}
 

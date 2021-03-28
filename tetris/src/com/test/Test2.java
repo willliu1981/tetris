@@ -27,7 +27,7 @@ public class Test2 {
 		Map<String, Book> map2 = new HashMap<>();
 		map2 = read("data\\testA.data");
 
-		System.out.println("get2:" + map2.get("b"));
+		System.out.println("get2:" + map2.get("a"));
 
 	}
 
