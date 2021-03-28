@@ -27,7 +27,7 @@ public class Test2 {
 		Map<String, Book> map2 = new HashMap<>();
 		map2 = read("data\\testA.data");
 
-		System.out.println("get2:" + map.get("a"));
+		System.out.println("get2:" + map2.get("b"));
 
 	}
 
@@ -73,7 +73,11 @@ public class Test2 {
 		}
 	}
 
-	static public class Author {
+	static public class Author implements java.io.Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		public String name;
 
 		public Author(String name) {
