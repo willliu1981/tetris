@@ -1,10 +1,5 @@
 package com.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.tool.TPoint;
-
 /*
  * 由小方塊組成的形狀
  * 例如:S、Z、T、L、J、O、I *可能需要一點想像力
@@ -21,8 +16,13 @@ public class MainSign extends Sign {
 
 	public MainSign(int x, int y) {
 		super(x, y);
-		mapCube = new HashMap<>();
 	}
+
+	public MainSign(String name, int x, int y) {
+		super(name, x, y);
+	}
+
+
 
 	/*
 	 * get and set

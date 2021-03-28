@@ -6,7 +6,7 @@ import java.awt.Point;
  * tetris 專用 point
  */
 public class TPoint {
-	private Point point;// 於主座標上的位置, 通常是父座標系統上的位置
+	private Point local;// 於主座標上的位置, 通常是父座標系統上的位置
 	private Point pivot;// this座標系統的軸心點, 於this座標系統上的位置
 
 	public TPoint() {
@@ -14,7 +14,7 @@ public class TPoint {
 	}
 
 	public TPoint(int x, int y) {
-		this.point = new Point(x, y);
+		this.local = new Point(x, y);
 		this.pivot = new Point();
 	}
 
@@ -35,9 +35,9 @@ public class TPoint {
 			return false;
 		}
 
-		if (this.point != null && o.point != null) {
-			return equal(this.point, o.point);
-		} else if (this.point == null && o.point == null) {
+		if (this.local != null && o.local != null) {
+			return equal(this.local, o.local);
+		} else if (this.local == null && o.local == null) {
 			return true;
 		}
 
@@ -59,16 +59,16 @@ public class TPoint {
 	 */
 
 	public int getLeftTop_X() {// get this 座標系統 left-top point 於父座標系統上的位置
-		return this.point.x - this.point.x;
+		return this.local.x - this.local.x;
 	}
 
 	public int getLeftTop_Y() {// get this 座標系統 left-top point 於父座標系統上的位置
-		return this.point.y - this.point.y;
+		return this.local.y - this.local.y;
 	}
 
-	public void setPoint(int x, int y) {
-		this.point.x = x;
-		this.point.y = y;
+	public void setLocal(int x, int y) {
+		this.local.x = x;
+		this.local.y = y;
 	}
 
 	public void setPivot(int x, int y) {
@@ -77,11 +77,11 @@ public class TPoint {
 	}
 
 	public int getX() {
-		return this.point.x;
+		return this.local.x;
 	}
 
 	public int getY() {
-		return this.point.y;
+		return this.local.y;
 	}
 
 	public int getPivotX() {

@@ -1,5 +1,6 @@
 package com.model;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -90,7 +91,8 @@ public abstract class Sign {
 		this(name, 0, 0);
 	}
 
-	private Sign(String name, int x, int y) {
+	protected Sign(String name, int x, int y) {
+		mapCube=new HashMap<>();
 		this.name = Optional.ofNullable(name);
 		this.signPoint = Optional.of(new TPoint(x, y));
 	}
@@ -121,7 +123,7 @@ public abstract class Sign {
 	}
 
 	public void setPoint(int x, int y) {
-		this.getSignPoint().setPoint(x, y);
+		this.getSignPoint().setLocal(x, y);
 	}
 
 	public void setPivot(int x, int y) {
