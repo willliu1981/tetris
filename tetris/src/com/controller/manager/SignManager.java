@@ -58,7 +58,7 @@ public class SignManager {
 		return this.getSignGetter().getSign(type).getDirection();
 	}
 
-	protected SignGetter<?> getSignGetter() {
+	public SignGetter<?> getSignGetter() {
 		return SignManager.mapSignGetter.get(this.type);
 	}
 
