@@ -39,14 +39,14 @@ public class SignManager {
 	 */
 
 	public Sign getSign(Enum<?> type) {
-		return this.getGetter().getSign(type);
+		return this.getSignGetter().getSign(type);
 	}
 
 	public void addSign(Enum<?> type, int x, int y) {
-		this.getGetter().addSign(type, x, y);
+		this.getSignGetter().addSign(type, x, y);
 	}
 
-	protected SignGetter<?> getGetter() {
+	protected SignGetter<?> getSignGetter() {
 		return SignManager.mapSignGetter.get(this.type);
 	}
 	

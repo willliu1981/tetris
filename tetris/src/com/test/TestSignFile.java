@@ -14,9 +14,9 @@ public class TestSignFile {
 
 		Sign sign=manager.getSign(MainSignGetter.GetterType.SignS);
 		System.out.println("before io signS="+sign);
-		System.out.println("after io getter="+manager.getSignGetterMap().get(SignManager.SignType.MainSign));
+		System.out.println("before io getter="+manager.getSignGetterMap().get(SignManager.SignType.MainSign));
 		System.out.println("before io getter map size="+manager.getSignGetterMap().size());
-		System.out.println("after io sign map="+manager.getSignGetterMap().get(SignManager.SignType.MainSign).getMap_Test());
+		System.out.println("before io sign map="+manager.getSignGetterMap().get(SignManager.SignType.MainSign).getMap_Test());
 		//*
 		FileManager.writeSignDate();
 		 //*/
@@ -25,9 +25,9 @@ public class TestSignFile {
 		System.out.println("---------------");
 		SignManager manager2=SignManager.getManager(SignManager.SignType.MainSign);
 		Sign sign2=manager2.getSign(MainSignGetter.GetterType.SignS);
-		System.out.println("before io signS="+sign2);
+		System.out.println("after io signS="+sign2);
 		System.out.println("after io getter="+manager2.getSignGetterMap().get(SignManager.SignType.MainSign));
-		System.out.println("before io getter map size="+manager2.getSignGetterMap().size());
+		System.out.println("after io getter map size="+manager2.getSignGetterMap().size());
 		System.out.println("after io sign map="+manager2.getSignGetterMap().get(SignManager.SignType.MainSign).getMap_Test());
 	}
 }

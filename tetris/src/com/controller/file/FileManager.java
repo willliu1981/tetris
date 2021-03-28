@@ -28,6 +28,7 @@ public class FileManager {
 		}
 
 		SignManager.setSignGetterMap(map);
+		System.out.println("xxx:"+map.get(SignManager.SignType.MainSign).getMap_Test());
 	}
 
 	public static void writeSignDate() {

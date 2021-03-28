@@ -2,9 +2,7 @@ package com.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
-import com.controller.exception.TNullException;
 import com.sun.glass.ui.Size;
 import com.tool.TPoint;
 
@@ -23,9 +21,9 @@ public abstract class Sign implements java.io.Serializable {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		protected Optional<String> name;
-		protected Optional<TPoint> point = Optional.empty();// 座標資訊
-		protected Optional<Picture> picture;
+		protected String name;
+		protected TPoint point;// 座標資訊
+		protected Picture picture;
 
 		protected Cube() {
 			this(null, 0, 0);
@@ -40,8 +38,8 @@ public abstract class Sign implements java.io.Serializable {
 		}
 
 		private Cube(String name, int x, int y) {
-			this.name = Optional.ofNullable(name);
-			this.point = Optional.of(new TPoint(x, y));
+			this.name = name;
+			this.point = new TPoint(x, y);
 		}
 
 		/*
@@ -49,16 +47,16 @@ public abstract class Sign implements java.io.Serializable {
 		 */
 
 		public Picture getPicture() {
-			return this.picture.orElseThrow(TNullException::new);
+			return this.picture;
 		}
 
 		protected String getName() {
-			return this.name.orElse("Cube");
+			return this.name;
 		}
 
 		protected TPoint getPoint() {
-			this.point = Optional.of(this.point.orElseGet(TPoint::new));
-			return this.point.get();
+
+			return this.point;
 		}
 
 		public String toString() {
@@ -70,7 +68,7 @@ public abstract class Sign implements java.io.Serializable {
 	/*
 	 * 外觀
 	 */
-	protected static class Picture implements java.io.Serializable  {
+	protected static class Picture implements java.io.Serializable {
 		/**
 		 * 
 		 */
@@ -90,11 +88,11 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	protected Map<TPoint, Cube> mapCube;
-	protected Optional<String> name = Optional.empty();
-	protected Optional<TPoint> signPoint = Optional.empty();
+	protected String name;
+	protected TPoint signPoint;
 	protected Picture picture;
 	protected Sound sound;
-	protected Optional<Size> size = Optional.empty();
+	protected Size size;
 
 	protected Sign() {
 		this(null, 0, 0);
@@ -109,9 +107,9 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	protected Sign(String name, int x, int y) {
-		mapCube=new HashMap<>();
-		this.name = Optional.ofNullable(name);
-		this.signPoint = Optional.of(new TPoint(x, y));
+		mapCube = new HashMap<>();
+		this.name = name;
+		this.signPoint = new TPoint(x, y);
 	}
 
 	/*
@@ -131,12 +129,17 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	public String getName() {
-		return this.name.orElse("Sign");
+		if (this.name == null) {
+			this.name = "Sign";
+		}
+		return this.name;
 	}
 
 	protected TPoint getSignPoint() {
-		this.signPoint = Optional.of(this.signPoint.orElseGet(TPoint::new));
-		return this.signPoint.get();
+		if (this.signPoint == null) {
+			this.signPoint = new TPoint();
+		}
+		return this.signPoint;
 	}
 
 	public void setPoint(int x, int y) {
@@ -148,8 +151,10 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	public Size getSize() {
-		this.size = Optional.of(this.size.orElseGet(Size::new));
-		return this.size.get();
+		if(this.size==null) {
+			this.size=new Size(1,1);
+		}
+		return this.size;
 	}
 
 	public void setSize(int w, int h) {
