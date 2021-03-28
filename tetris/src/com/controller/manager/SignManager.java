@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.controller.manager.keyvalue.MainSignGetter;
-import com.controller.manager.keyvalue.MainSignGetter.GetterType;
 import com.controller.manager.keyvalue.SignGetter;
 import com.model.Sign;
+import com.tool.Direction;
 
 public class SignManager {
 
@@ -29,7 +29,7 @@ public class SignManager {
 	/*
 	 * factory-init
 	 */
-	static{
+	static {
 		mapSignGetter = new HashMap<>();
 		mapSignGetter.put(SignType.MainSign, new MainSignGetter());
 	}
@@ -46,18 +46,28 @@ public class SignManager {
 		this.getSignGetter().addSign(type, x, y);
 	}
 
+	public void setPoint(Enum<?> type, int x, int y) {
+		this.getSignGetter().getSign(type).setPoint(x, y);
+	}
+
+	public void setPivot(Enum<?> type, int x, int y) {
+		this.getSignGetter().getSign(type).setPivot(x, y);
+	}
+
+	public Direction getDirection() {
+		return this.getSignGetter().getSign(type).getDirection();
+	}
+
 	protected SignGetter<?> getSignGetter() {
 		return SignManager.mapSignGetter.get(this.type);
 	}
-	
-	public static Map<SignType, SignGetter<? extends Sign>> getSignGetterMap(){
-		System.out.println(">>> yyyget:"+mapSignGetter);
+
+	public static Map<SignType, SignGetter<? extends Sign>> getSignGetterMap() {
 		return mapSignGetter;
 	}
-	
+
 	public static void setSignGetterMap(Map<SignType, SignGetter<? extends Sign>> map) {
-		mapSignGetter=map;
-		System.out.println(">>> yyyset:"+mapSignGetter);
+		mapSignGetter = map;
 	}
 
 }

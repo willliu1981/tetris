@@ -36,7 +36,7 @@ public class MainSign extends Sign {
 	 */
 
 	public String toString() {
-		return String.format("%s point=%s", this.getName(), this.getSignPoint());
+		return String.format("%s point=%s", this.getName(), this.getDirection());
 	}
 
 }

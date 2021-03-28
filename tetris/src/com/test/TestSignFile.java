@@ -16,21 +16,16 @@ public class TestSignFile {
 		System.out.println("signS=" + sign);
 		System.out.println("getter=" + SignManager.getSignGetterMap().get(SignManager.SignType.MainSign));
 		System.out.println("getter map size=" + SignManager.getSignGetterMap().size());
-		System.out.println("sign map="
-				+ SignManager.getSignGetterMap().get(SignManager.SignType.MainSign).getMap_Test());
-		/*
+		//*
 		FileManager.writeSignDate();
-		 */
+		 ///*/
 		FileManager.loadSignDate();
 
 		System.out.println("---------------");
 		SignManager manager2 = SignManager.getManager(SignManager.SignType.MainSign);
 		Sign sign2 = manager2.getSign(MainSignGetter.GetterType.SignZ);
 		System.out.println("signS=" + sign2);
-		System.out.println(">>>>>" + SignManager.getSignGetterMap());
 		System.out.println("getter=" + SignManager.getSignGetterMap().get(SignManager.SignType.MainSign));
 		System.out.println("getter map size=" + SignManager.getSignGetterMap().size());
-		System.out.println("sign map="
-				+ SignManager.getSignGetterMap().get(SignManager.SignType.MainSign).getMap_Test());
 	}
 }

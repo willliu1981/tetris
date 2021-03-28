@@ -2,7 +2,7 @@ package com.test;
 
 import java.util.Optional;
 
-import com.tool.TPoint;
+import com.tool.Direction;
 
 public class Test {
 
@@ -14,9 +14,9 @@ public class Test {
 		System.out.println(t.opt==null);
 		
 		System.out.println("equal...");
-		TPoint p1=new TPoint(1,1);
-		TPoint p2=new TPoint(1,2);
-		TPoint p3=p1;
+		Direction p1=new Direction(1,1);
+		Direction p2=new Direction(1,2);
+		Direction p3=p1;
 		System.out.println(p1.equals(p2));
 		
 		

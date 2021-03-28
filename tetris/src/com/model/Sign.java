@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sun.glass.ui.Size;
-import com.tool.TPoint;
+import com.tool.Direction;
 
 public abstract class Sign implements java.io.Serializable {
 
@@ -22,7 +22,7 @@ public abstract class Sign implements java.io.Serializable {
 		 */
 		private static final long serialVersionUID = 1L;
 		protected String name;
-		protected TPoint point;// 座標資訊
+		protected Direction point;// 座標資訊
 		protected Picture picture;
 
 		protected Cube() {
@@ -39,7 +39,7 @@ public abstract class Sign implements java.io.Serializable {
 
 		private Cube(String name, int x, int y) {
 			this.name = name;
-			this.point = new TPoint(x, y);
+			this.point = new Direction(x, y);
 		}
 
 		/*
@@ -54,7 +54,7 @@ public abstract class Sign implements java.io.Serializable {
 			return this.name;
 		}
 
-		protected TPoint getPoint() {
+		protected Direction getPoint() {
 
 			return this.point;
 		}
@@ -87,9 +87,9 @@ public abstract class Sign implements java.io.Serializable {
 		protected Integer id;
 	}
 
-	protected Map<TPoint, Cube> mapCube;
+	protected Map<Direction, Cube> mapCube;
 	protected String name;
-	protected TPoint signPoint;
+	protected Direction direction;
 	protected Picture picture;
 	protected Sound sound;
 	protected Size size;
@@ -109,7 +109,7 @@ public abstract class Sign implements java.io.Serializable {
 	protected Sign(String name, int x, int y) {
 		mapCube = new HashMap<>();
 		this.name = name;
-		this.signPoint = new TPoint(x, y);
+		this.direction = new Direction(x, y);
 	}
 
 	/*
@@ -117,16 +117,10 @@ public abstract class Sign implements java.io.Serializable {
 	 */
 
 	public void addCubeMap(int x, int y) {
-		this.mapCube.put(new TPoint(x, y), new Cube());
+		this.mapCube.put(new Direction(x, y), new Cube());
 	}
 
-	public Cube getCube(int x, int y) {// test
-		return this.mapCube.get(new TPoint(x, y));
-	}
-
-	public Map<TPoint, Cube> getCubeMap() {// test
-		return this.mapCube;
-	}
+	
 
 	public String getName() {
 		if (this.name == null) {
@@ -135,19 +129,19 @@ public abstract class Sign implements java.io.Serializable {
 		return this.name;
 	}
 
-	protected TPoint getSignPoint() {
-		if (this.signPoint == null) {
-			this.signPoint = new TPoint();
+	public Direction getDirection() {
+		if (this.direction == null) {
+			this.direction = new Direction();
 		}
-		return this.signPoint;
+		return this.direction;
 	}
 
 	public void setPoint(int x, int y) {
-		this.getSignPoint().setLocal(x, y);
+		this.getDirection().setPoint(x, y);
 	}
 
 	public void setPivot(int x, int y) {
-		this.getSignPoint().setPivot(x, y);
+		this.getDirection().setPivot(x, y);
 	}
 
 	public Size getSize() {

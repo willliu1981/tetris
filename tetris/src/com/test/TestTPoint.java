@@ -23,7 +23,7 @@ public class TestTPoint {
 		s3.addCubeMap( 7, 9);
 		s3.addCubeMap( 7, 9);
 		System.out.println(s3);
-		System.out.println(s3.getCubeMap());
+		//System.out.println(s3.getCubeMap());
 		
 		
 		

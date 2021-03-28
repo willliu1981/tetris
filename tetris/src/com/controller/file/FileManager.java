@@ -27,10 +27,7 @@ public class FileManager {
 			ex.printStackTrace();
 		}
 
-		System.out.println(">>> yyy file:"+map);
 		SignManager.setSignGetterMap(map);
-			
-		//System.out.println("xxx:"+map.get(SignManager.SignType.MainSign).getMap_Test());
 	}
 
 	public static void writeSignDate() {
