@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.controller.manager.SignManager;
 import com.controller.manager.keyvalue.MainSignGetter;
+import com.controller.manager.keyvalue.MainSignGetter.GetterType;
 import com.model.MainSign;
 import com.model.Sign;
 import com.sun.glass.ui.Size;
@@ -33,8 +34,10 @@ public class TestTPoint {
 		
 		System.out.println("manager...");
 		SignManager manager= SignManager.getManager(SignManager.SignType.MainSign);
-		Sign sign=manager.getSign(MainSignGetter.GetterType.SignS);
-		System.out.println(ss);
+		manager.addSign(GetterType.SignS, 1, 2);
+		manager.addSign(GetterType.SignZ, 3, 5);
+		Sign sign=manager.getSign(MainSignGetter.GetterType.SignL);
+		System.out.println(sign);
 	}
 	
 	static void setSize(int w,int h) {
