@@ -29,7 +29,7 @@ public class SignManager {
 	/*
 	 * factory-init
 	 */
-	{
+	static{
 		mapSignGetter = new HashMap<>();
 		mapSignGetter.put(SignType.MainSign, new MainSignGetter());
 	}
@@ -51,11 +51,13 @@ public class SignManager {
 	}
 	
 	public static Map<SignType, SignGetter<? extends Sign>> getSignGetterMap(){
+		System.out.println(">>> yyyget:"+mapSignGetter);
 		return mapSignGetter;
 	}
 	
 	public static void setSignGetterMap(Map<SignType, SignGetter<? extends Sign>> map) {
 		mapSignGetter=map;
+		System.out.println(">>> yyyset:"+mapSignGetter);
 	}
 
 }
