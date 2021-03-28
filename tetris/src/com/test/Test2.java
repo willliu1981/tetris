@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.editor.sign.SignEditor;
 
@@ -17,12 +18,12 @@ public class Test2 {
 
 		Map<String, Book> map = new HashMap<>();
 
-		map.put("a", new Book("AA","1" ,"John","2","Helen"));
-		map.put("b", new Book("BB","1", "David","2","Peter"));
+		map.put("a", new Book("AA", "John", "Helen"));
+		map.put("b", new Book("BB", "David", "Peter"));
 
 		System.out.println("get1:" + map.get("b"));
 
-		// write(map,"data\\testA.data");
+		 write(map,"data\\testA.data");
 
 		Map<String, Book> map2 = new HashMap<>();
 		map2 = read("data\\testA.data");
@@ -36,7 +37,7 @@ public class Test2 {
 				ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 			oos.writeObject(map);
 		} catch (IOException ex) {
-
+			ex.printStackTrace();
 		}
 	}
 
@@ -46,30 +47,38 @@ public class Test2 {
 		try (FileInputStream fis = new FileInputStream(filename); ObjectInputStream ois = new ObjectInputStream(fis)) {
 			map = (Map<String, Book>) ois.readObject();
 		} catch (IOException | ClassNotFoundException ex) {
-
+			ex.printStackTrace();
 		}
 
 		return map;
 	}
 
 	static public class Book implements java.io.Serializable {
+		public enum AuthorIndex {
+			Index1, Index2
+		}
 
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
 
-		public String name;
-		public Map<String, Author> author = new HashMap<>();
+		public Optional< String> name=Optional.empty();
+		public Map<Enum, Author> author = new HashMap<>();
 
-		public Book(String name, String index, String author, String index2, String author2) {
-			this.name = name;
-			this.author.put(index, new Author(author));
-			this.author.put(index2, new Author(author2));
+		public Book(String name, String author, String author2) {
+			this.name = Optional.ofNullable(name);
+			this.author.put(AuthorIndex.Index1, new Author(author));
+			this.author.put(AuthorIndex.Index2, new Author(author2));
+		}
+		
+		public String getName() {
+			return this.name.orElse("no name");
 		}
 
 		public String toString() {
-			return String.format("name=%s author1=%s author2=%s", this.name, this.author.get("1"), this.author.get("2"));
+			return String.format("name=%s author1=%s author2=%s", this.getName(), this.author.get(AuthorIndex.Index1),
+					this.author.get(AuthorIndex.Index2));
 		}
 	}
 
@@ -84,6 +93,8 @@ public class Test2 {
 			this.name = name;
 		}
 		
+
+
 		public String toString() {
 			return this.name;
 		}

@@ -24,22 +24,20 @@ public class FileManager {
 				ObjectInputStream ois = new ObjectInputStream(fis)) {
 			map = (Map<SignType, SignGetter<? extends Sign>>) ois.readObject();
 		} catch (IOException | ClassNotFoundException ex) {
-
+			ex.printStackTrace();
 		}
-		
-		SignManager.setSignGetterMap(map);
 
+		SignManager.setSignGetterMap(map);
 	}
-	
+
 	public static void writeSignDate() {
 		Map<SignType, SignGetter<? extends Sign>> map = SignManager.getSignGetterMap();
 		try (FileOutputStream fos = new FileOutputStream(Basepath + File.separator + MainSignFileName);
 				ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 			oos.writeObject(map);
 		} catch (IOException ex) {
-			
+			ex.printStackTrace();
 		}
-		
-		
+
 	}
 }
