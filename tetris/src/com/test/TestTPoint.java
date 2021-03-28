@@ -3,7 +3,7 @@ package com.test;
 import java.util.Optional;
 
 import com.controller.manager.SignManager;
-import com.controller.manager.keyvalue.MainSignKV;
+import com.controller.manager.keyvalue.MainSignGetter;
 import com.model.MainSign;
 import com.model.Sign;
 import com.sun.glass.ui.Size;
@@ -32,7 +32,8 @@ public class TestTPoint {
 		System.out.println(ss);
 		
 		System.out.println("manager...");
-		Sign ss= SignManager.getManager(SignManager.SignType.MainSign).getSign(MainSignKV.MainSignType.SignS);
+		SignManager manager= SignManager.getManager(SignManager.SignType.MainSign);
+		Sign sign=manager.getSign(MainSignGetter.GetterType.SignS);
 		System.out.println(ss);
 	}
 	

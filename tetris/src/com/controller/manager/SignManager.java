@@ -3,8 +3,9 @@ package com.controller.manager;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.controller.manager.keyvalue.MainSignKV;
-import com.controller.manager.keyvalue.SignKV;
+import com.controller.manager.keyvalue.MainSignGetter;
+import com.controller.manager.keyvalue.MainSignGetter.GetterType;
+import com.controller.manager.keyvalue.SignGetter;
 import com.model.Sign;
 
 public class SignManager {
@@ -23,18 +24,30 @@ public class SignManager {
 		return new SignManager(type);
 	}
 
-	static private Map<SignType, SignKV<? extends Enum<?>, ? extends Sign>> mapSignKV;
+	static private Map<SignType, SignGetter<? extends Sign>> mapSignKV;
 
 	/*
-	 * init
+	 * factory-init
 	 */
 	{
 		mapSignKV = new HashMap<>();
-		mapSignKV.put(SignType.MainSign, new MainSignKV());
+		mapSignKV.put(SignType.MainSign, new MainSignGetter());
 	}
 
+	/*
+	 * get and set
+	 */
+
 	public Sign getSign(Enum<?> type) {
-		return SignManager.mapSignKV.get(this.type).getSign(type);
+		return this.getGetter().getSign(type);
+	}
+
+	public void addSign(Enum<?> type, int x, int y) {
+		this.getGetter().addSign(type, x, y);
+	}
+
+	protected SignGetter<?> getGetter() {
+		return SignManager.mapSignKV.get(this.type);
 	}
 
 }
