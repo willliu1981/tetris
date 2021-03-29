@@ -2,8 +2,10 @@ package com.tool;
 
 import java.awt.Point;
 
+import com.sun.glass.ui.Size;
+
 /*
- * tetris 專用 point
+ * tetris 專用 座標
  */
 public class Direction implements java.io.Serializable {
 	/**
@@ -12,14 +14,20 @@ public class Direction implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private Point point;// 於主座標上的位置, 通常是父座標系統上的位置
 	private Point pivot;// this座標系統的軸心點, 於this座標系統上的位置
+	private Size size;// this座標系統的size ,x and y 的個數
 
 	public Direction() {
-		this(0, 0);
+		this(0, 0, 0, 0);
 	}
 
 	public Direction(int x, int y) {
+		this(x, y, 0, 0);
+	}
+
+	public Direction(int x, int y, int w, int h) {
 		this.point = new Point(x, y);
 		this.pivot = new Point();
+		this.size = new Size(w, h);
 	}
 
 	@Override
@@ -79,6 +87,11 @@ public class Direction implements java.io.Serializable {
 		this.pivot.x = x;
 		this.pivot.y = y;
 	}
+	
+	public void setSize(int w,int h) {
+		this.size.width=w;
+		this.size.height=h;
+	}
 
 	public int getX() {
 		return this.point.x;
@@ -94,6 +107,14 @@ public class Direction implements java.io.Serializable {
 
 	public int getPivotY() {
 		return this.pivot.y;
+	}
+
+	public int getWidth() {
+		return this.size.width;
+	}
+
+	public int getHeight() {
+		return this.size.height;
 	}
 
 	public String toString() {

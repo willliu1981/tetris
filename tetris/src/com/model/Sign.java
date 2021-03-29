@@ -92,7 +92,6 @@ public abstract class Sign implements java.io.Serializable {
 	protected Direction direction;
 	protected Picture picture;
 	protected Sound sound;
-	protected Size size;
 
 	protected Sign() {
 		this(null, 0, 0);
@@ -144,16 +143,17 @@ public abstract class Sign implements java.io.Serializable {
 		this.getDirection().setPivot(x, y);
 	}
 
-	public Size getSize() {
-		if(this.size==null) {
-			this.size=new Size(1,1);
-		}
-		return this.size;
+	
+	public int getWidth() {
+		return this.getDirection() .getWidth();
+	}
+	
+	public int getHeight() {
+		return this.getDirection().getHeight();
 	}
 
 	public void setSize(int w, int h) {
-		this.getSize().width = w;
-		this.getSize().height = h;
+		this.getDirection().setSize(w, h);
 	}
 
 	public String toString() {
