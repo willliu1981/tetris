@@ -36,6 +36,8 @@ public class SignEditor extends JFrame {
 	private JList<?> list_signtype;
 	private JPanel panel_grid_main;
 	private BorderFixer<JPanel> center_grid_fixer = BorderFixer.<JPanel>getFixer();
+	private volatile JPanel panel_c1_main;
+	private JList<?> list_signilk;
 
 	/**
 	 * Launch the application.
@@ -76,9 +78,9 @@ public class SignEditor extends JFrame {
 		Sign signS = manager.getSign(MainSignGetter.GetterType.SignS);
 		signS.setSize(4, 4);
 		Sign signZ = manager.getSign(MainSignGetter.GetterType.SignZ);
-		signZ.setSize(3, 5);
+		signZ.setSize(3, 7);
 		Sign signT = manager.getSign(MainSignGetter.GetterType.SignT);
-		signT.setSize(5, 3);
+		signT.setSize(7, 3);
 
 		/*
 		 * init
@@ -95,7 +97,7 @@ public class SignEditor extends JFrame {
 		panel_center.add(panel_c1, BorderLayout.CENTER);
 		panel_c1.setLayout(new BorderLayout(0, 0));
 
-		JPanel panel_c1_main = new JPanel();
+		panel_c1_main = new JPanel();
 		panel_c1_main.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel_c1.add(panel_c1_main);
 		panel_c1_main.setLayout(new BorderLayout(0, 0));
@@ -129,7 +131,7 @@ public class SignEditor extends JFrame {
 		panel_lbar_top.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		panel_c1_west.add(panel_lbar_top);
 
-		JList<?> list_signilk = new JList();
+		list_signilk = new JList();
 		list_signilk.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		list_signilk.addMouseListener(new MouseAdapter() {
 			@Override
@@ -180,7 +182,7 @@ public class SignEditor extends JFrame {
 				Behavior behavior = new ListSelectSignTypeBehavior();
 				behavior.setRequest("list_signilk", list_signilk);
 				behavior.setRequest("list_signtype", list_signtype);
-				behavior.setRequest("panel_grid", panel_grid_main);
+				behavior.setRequest("panel_grid_main", panel_grid_main);
 				behavior.setRequest("center_grid_fixer", center_grid_fixer);
 
 				BehaviorController.sendBehavior(behavior);
@@ -192,6 +194,18 @@ public class SignEditor extends JFrame {
 		JPanel panel_lbar_bottom = new JPanel();
 		panel_lbar_bottom.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		panel_c1_west.add(panel_lbar_bottom);
+		panel_lbar_bottom.setLayout(new BoxLayout(panel_lbar_bottom, BoxLayout.X_AXIS));
+
+		JPanel panel = new JPanel();
+		panel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				center_grid_fixer.reset();
+				System.out.println("reset...");
+			}
+		});
+		panel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		panel_lbar_bottom.add(panel);
 	}
 
 }

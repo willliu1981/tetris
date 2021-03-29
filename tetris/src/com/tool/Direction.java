@@ -118,7 +118,7 @@ public class Direction implements java.io.Serializable {
 	}
 
 	public String toString() {
-		return String.format("[p_x=%d,p_y=%d,pi_x=%d,pi_y=%d]", this.getX(), this.getY(), this.getPivotX(),
-				this.getPivotY());
+		return String.format("[p_x=%d,p_y=%d,pi_x=%d,pi_y=%d,w=%d,h=%d]", this.getX(), this.getY(), this.getPivotX(),
+				this.getPivotY(),this.getWidth(),this.getHeight());
 	}
 }

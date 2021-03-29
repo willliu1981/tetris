@@ -4,6 +4,9 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+
+import com.control.exception.TNullException;
 
 public class BorderFixer<T extends Component> {
 	public static final String Top = "top";
@@ -11,7 +14,8 @@ public class BorderFixer<T extends Component> {
 	public static final String Left = "left";
 	public static final String Right = "right";
 
-	private Map<String, T> mapBorder = new HashMap<>();
+	private Map<String, Optional<T>> mapBorder = new HashMap<>();
+	private Optional<Direction> parentSize = Optional.empty();
 
 	private BorderFixer() {
 
@@ -21,39 +25,87 @@ public class BorderFixer<T extends Component> {
 		return new BorderFixer<T>();
 	}
 
+	public void reset() {
+		this.mapBorder.values().stream().forEach(x -> x.orElseThrow(() -> new TNullException("element is null"))
+				.setPreferredSize(new Dimension(10, 10)));
+	}
+
+	/*
+	 * 置中調整
+	 */
+	public void fixAsCenter(Direction fixSize) {
+		this.setLeftSize(fixSize.getWidth() / 2 + this.getLeftSize());
+		this.setRightSize(fixSize.getWidth() / 2 + this.getRightSize());
+		this.setTopSize(fixSize.getHeight() / 2 + this.getTopSize());
+		this.setBottomSize(fixSize.getHeight() / 2 + this.getBottomSize());
+	}
+
+	/*
+	 * get and set
+	 */
+
 	public void add(String name, T comp) {
-		this.mapBorder.put(name, comp);
+		this.mapBorder.put(name, Optional.of(comp));
 	}
 
 	public T get(String name) {
-		return this.mapBorder.get(name);
-	}
-
-	public void init() {
-		this.reset();
-	}
-
-	private void reset() {
-		this.mapBorder.values().stream().forEach(x -> x.setPreferredSize(new Dimension(10, 10)));
+		return this.mapBorder.get(name).orElseThrow(() -> new TNullException(name));
 	}
 
 	public void setTopSize(int size) {
-		Dimension ori = this.mapBorder.get(BorderFixer.Top).getPreferredSize();
-		this.mapBorder.get(BorderFixer.Top).setPreferredSize(new Dimension((int) ori.getWidth(), size));
+		Dimension ori = this.get(BorderFixer.Top).getPreferredSize();
+		this.get(BorderFixer.Top).setPreferredSize(new Dimension((int) ori.getWidth(), size));
 	}
 
 	public void setBottomSize(int size) {
-		Dimension ori = this.mapBorder.get(BorderFixer.Bottom).getPreferredSize();
-		this.mapBorder.get(BorderFixer.Bottom).setPreferredSize(new Dimension((int) ori.getWidth(), size));
+		Dimension ori = this.get(BorderFixer.Bottom).getPreferredSize();
+		this.get(BorderFixer.Bottom).setPreferredSize(new Dimension((int) ori.getWidth(), size));
 	}
 
 	public void setLeftSize(int size) {
-		Dimension ori = this.mapBorder.get(BorderFixer.Left).getPreferredSize();
-		this.mapBorder.get(BorderFixer.Left).setPreferredSize(new Dimension(size, (int) ori.getHeight()));
+		Dimension ori = this.get(BorderFixer.Left).getPreferredSize();
+		this.get(BorderFixer.Left).setPreferredSize(new Dimension(size, (int) ori.getHeight()));
 	}
 
 	public void setRightSize(int size) {
-		Dimension ori = this.mapBorder.get(BorderFixer.Right).getPreferredSize();
-		this.mapBorder.get(BorderFixer.Right).setPreferredSize(new Dimension(size, (int) ori.getHeight()));
+		Dimension ori = this.get(BorderFixer.Right).getPreferredSize();
+		this.get(BorderFixer.Right).setPreferredSize(new Dimension(size, (int) ori.getHeight()));
 	}
+
+	public int getTopSize() {
+		return this.get(BorderFixer.Top).getPreferredSize().height;
+	}
+
+	public int getBottomSize() {
+		return this.get(BorderFixer.Bottom).getPreferredSize().height;
+	}
+
+	public int getLeftSize() {
+		return this.get(BorderFixer.Left).getPreferredSize().width;
+	}
+
+	public int getRightSize() {
+		return this.get(BorderFixer.Right).getPreferredSize().width;
+	}
+
+	public void setParentSize(Direction size) {
+		this.parentSize = Optional.of(size);
+	}
+
+	public Direction getParentSize() {
+		return this.parentSize.orElseThrow(() -> new TNullException("parent size null"));
+	}
+
+	public Direction getCenterSize() {
+		int w = 0;
+		int h = 0;
+		try {
+			w = this.getParentSize().getWidth() - (this.getLeftSize() + this.getRightSize());
+			h = this.getParentSize().getHeight() - (this.getTopSize() + this.getBottomSize());
+		} catch (TNullException ex) {
+			ex.printStackTrace();
+		}
+		return new Direction(0, 0, w, h);
+	}
+
 }
