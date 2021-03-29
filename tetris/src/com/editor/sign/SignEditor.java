@@ -2,28 +2,31 @@ package com.editor.sign;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.AbstractListModel;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 
 import com.controller.manager.SignManager;
+import com.controller.manager.SignManager.SignType;
 import com.controller.manager.keyvalue.MainSignGetter;
+import com.controller.manager.keyvalue.MainSignGetter.GetterType;
 import com.model.Sign;
-
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import com.sun.glass.ui.Size;
+import com.view.EditorSign;
 
 public class SignEditor extends JFrame {
 
 	private JPanel contentPane;
 	private JList list_signtype;
+	private JPanel panel_grid;
 
 	/**
 	 * Launch the application.
@@ -55,10 +58,19 @@ public class SignEditor extends JFrame {
 		JPanel panel_top = new JPanel();
 		contentPane.add(panel_top, BorderLayout.NORTH);
 
+		//test init
 		SignManager manager = SignManager.getManager(SignManager.SignType.MainSign);
 		manager.addSign(MainSignGetter.GetterType.SignS, 1, 2);
 		manager.addSign(MainSignGetter.GetterType.SignZ, 3, 5);
+		
+		Sign signS=manager.getSign(MainSignGetter.GetterType.SignS);
+		signS.setSize(8, 8);
+		Sign signZ=manager.getSign(MainSignGetter.GetterType.SignZ);
+		signZ.setSize(2, 4);
 
+		/*
+		 * init
+		 */
 		createCenter();
 	}
 
@@ -73,7 +85,11 @@ public class SignEditor extends JFrame {
 
 		JPanel panel_c1_main = new JPanel();
 		panel_c1.add(panel_c1_main);
-		panel_c1_main.setLayout(new GridLayout(1, 0, 0, 0));
+		panel_c1_main.setLayout(new BorderLayout(0, 0));
+
+		panel_grid = new JPanel();
+		panel_c1_main.add(panel_grid, BorderLayout.CENTER);
+		panel_grid.setLayout(new GridLayout(2, 2, 0, 0));
 
 		JPanel panel_c1_west = new JPanel();
 		panel_c1.add(panel_c1_west, BorderLayout.WEST);
@@ -89,7 +105,7 @@ public class SignEditor extends JFrame {
 				list_signtype.setModel(new AbstractListModel() {
 					Enum[] signs;
 					{
-						SignManager manager = SignManager.getManager(SignManager.SignType.MainSign);
+						SignManager manager = SignManager.getManager((SignType) list_signilk.getSelectedValue());
 						signs = new Enum[manager.getSignGetter().getSignMap().size()];
 						manager.getSignGetter().getSignMap().keySet().toArray(signs);
 					}
@@ -105,9 +121,9 @@ public class SignEditor extends JFrame {
 					}
 
 				});
-				if(list_signtype.getModel().getSize()>0) {
+				if (list_signtype.getModel().getSize() > 0) {
 					list_signtype.setSelectedIndex(0);
-				}else {
+				} else {
 					list_signtype.setSelectedIndex(-1);
 				}
 			}
@@ -131,9 +147,9 @@ public class SignEditor extends JFrame {
 				return signs[index];
 			}
 		});
-		if(list_signilk.getModel().getSize()>0) {
+		if (list_signilk.getModel().getSize() > 0) {
 			list_signilk.setSelectedIndex(0);
-		}else {
+		} else {
 			list_signilk.setSelectedIndex(-1);
 		}
 		panel_lbar_top.add(list_signilk);
@@ -142,6 +158,26 @@ public class SignEditor extends JFrame {
 		panel_c1_west.add(panel_lbar_center);
 
 		list_signtype = new JList();
+		list_signtype.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				SignManager manager = SignManager.getManager((SignType) list_signilk.getSelectedValue());
+				GetterType type = (GetterType) list_signtype.getSelectedValue();
+				Sign sign = manager.getSign(type);
+				Size size = sign.getSize();
+				GridLayout layout = (GridLayout) (panel_grid.getLayout());
+				layout.setColumns(size.width);
+				layout.setRows(size.height);
+
+				panel_grid.removeAll();
+				for (int h = 0; h < size.height; h++) {
+					for (int w = 0; w < size.width; w++) {
+						panel_grid.add(new EditorSign(String.format("%d , %d", w, h)));
+					}
+				}
+				panel_grid.revalidate();
+			}
+		});
 		list_signtype.setFont(new Font("新細明體", Font.PLAIN, 18));
 		panel_lbar_center.add(list_signtype);
 
