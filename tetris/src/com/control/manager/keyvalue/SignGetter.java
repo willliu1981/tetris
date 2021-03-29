@@ -1,4 +1,4 @@
-package com.controller.manager.keyvalue;
+package com.control.manager.keyvalue;
 
 import java.util.HashMap;
 import java.util.Map;

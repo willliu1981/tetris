@@ -1,4 +1,4 @@
-package com.editor.sign;
+package com.editor.sign.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -14,10 +14,14 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.controller.manager.SignManager;
-import com.controller.manager.SignManager.SignType;
-import com.controller.manager.keyvalue.MainSignGetter;
-import com.controller.manager.keyvalue.MainSignGetter.GetterType;
+import com.control.manager.SignManager;
+import com.control.manager.SignManager.SignType;
+import com.control.manager.keyvalue.MainSignGetter;
+import com.control.manager.keyvalue.MainSignGetter.GetterType;
+import com.editor.sign.control.Behavior;
+import com.editor.sign.control.BehaviorController;
+import com.editor.sign.control.ListSelectSignIlkBehavior;
+import com.editor.sign.control.ListSelectSignTypeBehavior;
 import com.model.Sign;
 import com.sun.glass.ui.Size;
 import com.view.EditorSign;
@@ -58,14 +62,14 @@ public class SignEditor extends JFrame {
 		JPanel panel_top = new JPanel();
 		contentPane.add(panel_top, BorderLayout.NORTH);
 
-		//test init
+		// test init
 		SignManager manager = SignManager.getManager(SignManager.SignType.MainSign);
 		manager.addSign(MainSignGetter.GetterType.SignS, 1, 2);
 		manager.addSign(MainSignGetter.GetterType.SignZ, 3, 5);
-		
-		Sign signS=manager.getSign(MainSignGetter.GetterType.SignS);
+
+		Sign signS = manager.getSign(MainSignGetter.GetterType.SignS);
 		signS.setSize(8, 8);
-		Sign signZ=manager.getSign(MainSignGetter.GetterType.SignZ);
+		Sign signZ = manager.getSign(MainSignGetter.GetterType.SignZ);
 		signZ.setSize(2, 4);
 
 		/*
@@ -102,30 +106,12 @@ public class SignEditor extends JFrame {
 		list_signilk.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				list_signtype.setModel(new AbstractListModel() {
-					Enum[] signs;
-					{
-						SignManager manager = SignManager.getManager((SignType) list_signilk.getSelectedValue());
-						signs = new Enum[manager.getSignGetter().getSignMap().size()];
-						manager.getSignGetter().getSignMap().keySet().toArray(signs);
-					}
+				Behavior behavior = new ListSelectSignIlkBehavior();
+				behavior.setSession("list_signilk", list_signilk);
+				behavior.setSession("list_signtype", list_signtype);
 
-					@Override
-					public Enum getElementAt(int index) {
-						return signs[index];
-					}
+				BehaviorController.sendBehavior(behavior);
 
-					@Override
-					public int getSize() {
-						return signs.length;
-					}
-
-				});
-				if (list_signtype.getModel().getSize() > 0) {
-					list_signtype.setSelectedIndex(0);
-				} else {
-					list_signtype.setSelectedIndex(-1);
-				}
 			}
 		});
 		list_signilk.setFont(new Font("新細明體", Font.PLAIN, 18));
@@ -161,21 +147,12 @@ public class SignEditor extends JFrame {
 		list_signtype.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				SignManager manager = SignManager.getManager((SignType) list_signilk.getSelectedValue());
-				GetterType type = (GetterType) list_signtype.getSelectedValue();
-				Sign sign = manager.getSign(type);
-				Size size = sign.getSize();
-				GridLayout layout = (GridLayout) (panel_grid.getLayout());
-				layout.setColumns(size.width);
-				layout.setRows(size.height);
+				Behavior behavior = new ListSelectSignTypeBehavior();
+				behavior.setSession("list_signilk", list_signilk);
+				behavior.setSession("list_signtype", list_signtype);
+				behavior.setSession("panel_grid", panel_grid);
 
-				panel_grid.removeAll();
-				for (int h = 0; h < size.height; h++) {
-					for (int w = 0; w < size.width; w++) {
-						panel_grid.add(new EditorSign(String.format("%d , %d", w, h)));
-					}
-				}
-				panel_grid.revalidate();
+				BehaviorController.sendBehavior(behavior);
 			}
 		});
 		list_signtype.setFont(new Font("新細明體", Font.PLAIN, 18));

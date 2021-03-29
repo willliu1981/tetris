@@ -1,10 +1,10 @@
-package com.controller.manager;
+package com.control.manager;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.controller.manager.keyvalue.MainSignGetter;
-import com.controller.manager.keyvalue.SignGetter;
+import com.control.manager.keyvalue.MainSignGetter;
+import com.control.manager.keyvalue.SignGetter;
 import com.model.Sign;
 import com.tool.Direction;
 

@@ -1,4 +1,4 @@
-package com.controller.file;
+package com.control.file;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,9 +9,9 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.controller.manager.SignManager;
-import com.controller.manager.SignManager.SignType;
-import com.controller.manager.keyvalue.SignGetter;
+import com.control.manager.SignManager;
+import com.control.manager.SignManager.SignType;
+import com.control.manager.keyvalue.SignGetter;
 import com.model.Sign;
 
 public class FileManager {

@@ -2,9 +2,9 @@ package com.test;
 
 import java.util.Optional;
 
-import com.controller.manager.SignManager;
-import com.controller.manager.keyvalue.MainSignGetter;
-import com.controller.manager.keyvalue.MainSignGetter.GetterType;
+import com.control.manager.SignManager;
+import com.control.manager.keyvalue.MainSignGetter;
+import com.control.manager.keyvalue.MainSignGetter.GetterType;
 import com.model.MainSign;
 import com.model.Sign;
 import com.sun.glass.ui.Size;

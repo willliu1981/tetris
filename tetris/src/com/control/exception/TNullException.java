@@ -1,4 +1,4 @@
-package com.controller.exception;
+package com.control.exception;
 
 public class TNullException extends RuntimeException {
 	private static String defaultMsg = "Null";

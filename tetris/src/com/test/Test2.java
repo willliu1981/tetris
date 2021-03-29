@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.editor.sign.SignEditor;
+import com.editor.sign.view.SignEditor;
 
 public class Test2 {
 	public static void main(String s[]) {
