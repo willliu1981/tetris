@@ -25,6 +25,8 @@ import com.editor.sign.control.ListSelectSignTypeBehavior;
 import com.model.Sign;
 import com.sun.glass.ui.Size;
 import com.tool.BorderFixer;
+import com.tool.Direction;
+import com.tool.Directions;
 import com.view.EditorSign;
 import java.awt.Dimension;
 import javax.swing.border.SoftBevelBorder;
@@ -135,13 +137,12 @@ public class SignEditor extends JFrame {
 		list_signilk.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		list_signilk.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent e) {
 				Behavior behavior = new ListSelectSignIlkBehavior();
 				behavior.setRequest("list_signilk", list_signilk);
 				behavior.setRequest("list_signtype", list_signtype);
 
 				BehaviorController.sendBehavior(behavior);
-
 			}
 		});
 		list_signilk.setFont(new Font("新細明體", Font.PLAIN, 18));
@@ -178,14 +179,20 @@ public class SignEditor extends JFrame {
 		list_signtype.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		list_signtype.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mousePressed(MouseEvent e) {
 				Behavior behavior = new ListSelectSignTypeBehavior();
 				behavior.setRequest("list_signilk", list_signilk);
 				behavior.setRequest("list_signtype", list_signtype);
 				behavior.setRequest("panel_grid_main", panel_grid_main);
 				behavior.setRequest("center_grid_fixer", center_grid_fixer);
 
-				BehaviorController.sendBehavior(behavior);
+				center_grid_fixer.reset();
+				new Thread() {
+					@Override
+					public void run() {
+						BehaviorController.sendBehavior(behavior);
+					}
+				}.start();
 			}
 		});
 		list_signtype.setFont(new Font("新細明體", Font.PLAIN, 18));
@@ -200,7 +207,11 @@ public class SignEditor extends JFrame {
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				center_grid_fixer.reset();
+				center_grid_fixer.reset2();
+
+				panel_c1_main.revalidate();
+
+				panel_c1_main.setSize(panel_c1_main.getSize().width + 1, panel_c1_main.getSize().height + 1);
 				System.out.println("reset...");
 			}
 		});

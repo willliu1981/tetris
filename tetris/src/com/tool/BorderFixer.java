@@ -15,7 +15,6 @@ public class BorderFixer<T extends Component> {
 	public static final String Right = "right";
 
 	private Map<String, Optional<T>> mapBorder = new HashMap<>();
-	private Optional<Direction> parentSize = Optional.empty();
 
 	private BorderFixer() {
 
@@ -28,6 +27,10 @@ public class BorderFixer<T extends Component> {
 	public void reset() {
 		this.mapBorder.values().stream().forEach(x -> x.orElseThrow(() -> new TNullException("element is null"))
 				.setPreferredSize(new Dimension(10, 10)));
+	}
+	public void reset2() {
+		this.mapBorder.values().stream().forEach(x -> x.orElseThrow(() -> new TNullException("element is null"))
+				.setPreferredSize(new Dimension(50, 50)));
 	}
 
 	/*
@@ -88,24 +91,6 @@ public class BorderFixer<T extends Component> {
 		return this.get(BorderFixer.Right).getPreferredSize().width;
 	}
 
-	public void setParentSize(Direction size) {
-		this.parentSize = Optional.of(size);
-	}
 
-	public Direction getParentSize() {
-		return this.parentSize.orElseThrow(() -> new TNullException("parent size null"));
-	}
-
-	public Direction getCenterSize() {
-		int w = 0;
-		int h = 0;
-		try {
-			w = this.getParentSize().getWidth() - (this.getLeftSize() + this.getRightSize());
-			h = this.getParentSize().getHeight() - (this.getTopSize() + this.getBottomSize());
-		} catch (TNullException ex) {
-			ex.printStackTrace();
-		}
-		return new Direction(0, 0, w, h);
-	}
 
 }

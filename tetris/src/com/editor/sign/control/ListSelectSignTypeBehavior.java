@@ -32,8 +32,6 @@ public class ListSelectSignTypeBehavior extends Behavior {
 		layout.setColumns(sign.getWidth());
 		layout.setRows(sign.getHeight());
 
-		center_grid_fixer.reset();
-		
 		panel_grid_main.removeAll();
 		for (int h = 0; h < sign.getHeight(); h++) {
 			for (int w = 0; w < sign.getWidth(); w++) {
