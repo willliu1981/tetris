@@ -111,7 +111,7 @@ public abstract class Sign implements java.io.Serializable {
 		this.direction = new Direction(x, y);
 	}
 
-	public boolean containLocalPoint(int x, int y) {
+	public boolean containCube(int x, int y) {
 		return this.mapCube.containsKey(new Direction(x, y));
 	}
 
@@ -119,13 +119,16 @@ public abstract class Sign implements java.io.Serializable {
 		return this.direction.getPivotX() == x && this.direction.getPivotY() == y;
 	}
 
+	public void addCube(int x, int y) {
+		this.mapCube.put(new Direction(x, y), new Cube());
+	}
+
+	public void removeCube(int x, int y) {
+		this.mapCube.remove(new Direction(x, y));
+	}
 	/*
 	 * get and set
 	 */
-
-	public void addCubeMap(int x, int y) {
-		this.mapCube.put(new Direction(x, y), new Cube());
-	}
 
 	public String getName() {
 		if (this.name == null) {

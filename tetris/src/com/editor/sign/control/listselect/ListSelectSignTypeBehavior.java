@@ -26,6 +26,7 @@ public class ListSelectSignTypeBehavior extends Behavior {
 
 	@Override
 	public void run() {
+		JPanel panel_c1_main = (JPanel) this.getRequest("panel_c1_main");
 		JList<?> list_signilk = (JList<?>) this.getRequest("list_signilk");
 		JList<?> list_signtype = (JList<?>) this.getRequest("list_signtype");
 		JPanel panel_grid_main = (JPanel) this.getRequest("panel_grid_main");
@@ -37,26 +38,29 @@ public class ListSelectSignTypeBehavior extends Behavior {
 		GridLayout layout = (GridLayout) (panel_grid_main.getLayout());
 		layout.setColumns(sign.getWidth());
 		layout.setRows(sign.getHeight());
-
+		
+		center_grid_fixer.reset();
 		panel_grid_main.removeAll();
 		int w = sign.getWidth();
 		int h = sign.getHeight();
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {
-				EditorSign editorsign = new EditorSign(String.format("%d , %d", x, y));
+				EditorSign editorsign = new EditorSign(sign);
 				editorsign.setDirection(x, y);
 
 				Behavior behavior = new EditorSignShowBehavior();
 				behavior.setRequest("editorsign", editorsign);
 				behavior.setRequest("sign", sign);
 				BehaviorController.sendBehavior(behavior);
-				
+
 				panel_grid_main.add(editorsign);
+
 			}
 		}
 		panel_grid_main.revalidate();
 
-		Direction fixSize = BorderFixers.getFixingAdvice(w, h, panel_grid_main.getWidth(), panel_grid_main.getHeight());
+		Direction d = center_grid_fixer.inferCenterSize(panel_c1_main.getWidth(), panel_c1_main.getHeight());
+		Direction fixSize = BorderFixers.getFixingAdvice(w, h, d.getWidth(), d.getHeight());
 		center_grid_fixer.fixAsCenter(fixSize);
 
 	}

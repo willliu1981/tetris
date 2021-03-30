@@ -31,6 +31,7 @@ import com.view.EditorSign;
 import java.awt.Dimension;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
 public class SignEditor extends JFrame {
 
@@ -181,18 +182,14 @@ public class SignEditor extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				Behavior behavior = new ListSelectSignTypeBehavior();
+				behavior.setRequest("panel_c1_main", panel_c1_main);
 				behavior.setRequest("list_signilk", list_signilk);
 				behavior.setRequest("list_signtype", list_signtype);
 				behavior.setRequest("panel_grid_main", panel_grid_main);
 				behavior.setRequest("center_grid_fixer", center_grid_fixer);
 
-				center_grid_fixer.reset();
-				new Thread() {
-					@Override
-					public void run() {
-						BehaviorController.sendBehavior(behavior);
-					}
-				}.start();
+
+				BehaviorController.sendBehavior(behavior);
 			}
 		});
 		list_signtype.setFont(new Font("新細明體", Font.PLAIN, 18));

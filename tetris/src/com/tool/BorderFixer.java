@@ -42,6 +42,12 @@ public class BorderFixer<T extends Component> {
 		this.setTopSize(fixSize.getHeight() / 2 + this.getTopSize());
 		this.setBottomSize(fixSize.getHeight() / 2 + this.getBottomSize());
 	}
+	
+	public Direction inferCenterSize(int parentW,int parentH) {
+		int w=parentW-(this.getLeftSize()+this.getRightSize());
+		int h=parentH-(this.getTopSize() +this.getBottomSize());
+		return new Direction(0,0,w,h); 
+	}
 
 	/*
 	 * get and set

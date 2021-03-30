@@ -15,7 +15,7 @@ public class EditorSignShowBehavior extends Behavior {
 		EditorSign editorsign = (EditorSign) this.getRequest("editorsign");
 		Sign sign = (Sign) this.getRequest("sign");
 		Direction d = editorsign.getDirection();
-		if (sign.containLocalPoint(d.getX(), d.getY())) {
+		if (sign.containCube(d.getX(), d.getY())) {
 			editorsign.getMainPanel().setBackground(Color.red);
 		} else {
 			editorsign.setBackground(TColor.baseColor);

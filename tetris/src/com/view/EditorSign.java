@@ -9,42 +9,51 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.SoftBevelBorder;
 
+import com.control.exception.TNullException;
+import com.model.Sign;
 import com.tool.Direction;
 
 import javax.swing.border.BevelBorder;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class EditorSign extends JPanel {
 	private JPanel panel;
+	private Optional<Sign> sign = Optional.empty();
 	private Optional<Direction> direction = Optional.empty();
 
 	/**
 	 * Create the panel.
 	 */
-	public EditorSign() {
-		this("Label");
-	}
-
-	public EditorSign(Direction direction) {
+	public EditorSign(Sign sign) {
 		this();
-		this.direction = Optional.of(direction);
+		this.sign = Optional.of(sign);
 	}
 
-	public EditorSign(String name) {
+	private EditorSign() {
 		setLayout(new BorderLayout(0, 0));
 		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 
 		panel = new JPanel();
+		panel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				try {
+					if (getSign().containCube(getDirection().getX(), getDirection().getY())) {
+						getSign().removeCube(getDirection().getX(), getDirection().getY());
+					} else {
+						getSign().addCube(getDirection().getX(), getDirection().getY());
+					}
+				} catch (TNullException ex) {
+					ex.printStackTrace();
+				}
+				panel.revalidate();
+			}
+		});
 		panel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
-
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setFont(new Font("新細明體", Font.PLAIN, 18));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblNewLabel, BorderLayout.CENTER);
-
-		((JLabel) panel.getComponent(0)).setText(name);
 
 	}
 
@@ -60,7 +69,11 @@ public class EditorSign extends JPanel {
 		this.direction = Optional.of(this.direction.orElseGet(Direction::new));
 		return this.direction.get();
 	}
-	
+
+	public Sign getSign() {
+		return this.sign.orElseThrow(() -> new TNullException("sign is null"));
+	}
+
 	public JPanel getMainPanel() {
 		return this.panel;
 	}
