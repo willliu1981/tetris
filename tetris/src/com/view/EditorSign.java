@@ -10,6 +10,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.SoftBevelBorder;
 
 import com.control.exception.TNullException;
+import com.editor.sign.control.Behavior;
+import com.editor.sign.control.BehaviorController;
+import com.editor.sign.control.editorsign.EditorSignShowBehavior;
 import com.model.Sign;
 import com.tool.Direction;
 
@@ -48,7 +51,11 @@ public class EditorSign extends JPanel {
 				} catch (TNullException ex) {
 					ex.printStackTrace();
 				}
-				panel.revalidate();
+
+				Behavior behavior = new EditorSignShowBehavior();
+				behavior.setRequest("editorsign", getThis());
+				behavior.setRequest("sign", getSign());
+				BehaviorController.sendBehavior(behavior);
 			}
 		});
 		panel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
@@ -66,8 +73,7 @@ public class EditorSign extends JPanel {
 	}
 
 	public Direction getDirection() {
-		this.direction = Optional.of(this.direction.orElseGet(Direction::new));
-		return this.direction.get();
+		return this.direction.orElseThrow(() -> new TNullException("direction is null"));
 	}
 
 	public Sign getSign() {
@@ -76,6 +82,10 @@ public class EditorSign extends JPanel {
 
 	public JPanel getMainPanel() {
 		return this.panel;
+	}
+
+	public EditorSign getThis() {
+		return this;
 	}
 
 }

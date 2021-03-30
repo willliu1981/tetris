@@ -57,12 +57,12 @@ public class ListSelectSignTypeBehavior extends Behavior {
 
 			}
 		}
-		panel_grid_main.revalidate();
-
+		
 		Direction d = center_grid_fixer.inferCenterSize(panel_c1_main.getWidth(), panel_c1_main.getHeight());
 		Direction fixSize = BorderFixers.getFixingAdvice(w, h, d.getWidth(), d.getHeight());
 		center_grid_fixer.fixAsCenter(fixSize);
 
+		panel_grid_main.revalidate();
 	}
 
 }

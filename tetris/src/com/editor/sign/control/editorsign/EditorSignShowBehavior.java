@@ -16,14 +16,14 @@ public class EditorSignShowBehavior extends Behavior {
 		Sign sign = (Sign) this.getRequest("sign");
 		Direction d = editorsign.getDirection();
 		if (sign.containCube(d.getX(), d.getY())) {
-			editorsign.getMainPanel().setBackground(Color.red);
+			editorsign.getMainPanel().setBackground(Color.orange);
 		} else {
-			editorsign.setBackground(TColor.baseColor);
+			editorsign.getMainPanel().setBackground(TColor.baseColor);
 		}
-		
-		if(sign.isPivot(d.getX(), d.getY())) {
+
+		if (sign.isPivot(d.getX(), d.getY())) {
 			editorsign.setBackground(Color.cyan);
-		}else {
+		} else {
 			editorsign.setBackground(TColor.baseColor);
 		}
 
