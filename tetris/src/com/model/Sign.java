@@ -3,6 +3,7 @@ package com.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.control.exception.TNullException;
 import com.sun.glass.ui.Size;
 import com.tool.Direction;
 
@@ -87,7 +88,7 @@ public abstract class Sign implements java.io.Serializable {
 		protected Integer id;
 	}
 
-	protected Map<Direction, Cube> mapCube;
+	protected Map<Direction, Cube> mapCube = new HashMap<>();
 	protected String name;
 	protected Direction direction;
 	protected Picture picture;
@@ -106,9 +107,16 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	protected Sign(String name, int x, int y) {
-		mapCube = new HashMap<>();
 		this.name = name;
 		this.direction = new Direction(x, y);
+	}
+
+	public boolean containLocalPoint(int x, int y) {
+		return this.mapCube.containsKey(new Direction(x, y));
+	}
+
+	public boolean isPivot(int x, int y) {
+		return this.direction.getPivotX() == x && this.direction.getPivotY() == y;
 	}
 
 	/*
@@ -118,8 +126,6 @@ public abstract class Sign implements java.io.Serializable {
 	public void addCubeMap(int x, int y) {
 		this.mapCube.put(new Direction(x, y), new Cube());
 	}
-
-	
 
 	public String getName() {
 		if (this.name == null) {
@@ -143,11 +149,10 @@ public abstract class Sign implements java.io.Serializable {
 		this.getDirection().setPivot(x, y);
 	}
 
-	
 	public int getWidth() {
-		return this.getDirection() .getWidth();
+		return this.getDirection().getWidth();
 	}
-	
+
 	public int getHeight() {
 		return this.getDirection().getHeight();
 	}

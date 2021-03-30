@@ -20,8 +20,8 @@ import com.control.manager.keyvalue.MainSignGetter;
 import com.control.manager.keyvalue.MainSignGetter.GetterType;
 import com.editor.sign.control.Behavior;
 import com.editor.sign.control.BehaviorController;
-import com.editor.sign.control.ListSelectSignIlkBehavior;
-import com.editor.sign.control.ListSelectSignTypeBehavior;
+import com.editor.sign.control.listselect.ListSelectSignIlkBehavior;
+import com.editor.sign.control.listselect.ListSelectSignTypeBehavior;
 import com.model.Sign;
 import com.sun.glass.ui.Size;
 import com.tool.BorderFixer;
@@ -207,12 +207,7 @@ public class SignEditor extends JFrame {
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				center_grid_fixer.reset2();
 
-				panel_c1_main.revalidate();
-
-				panel_c1_main.setSize(panel_c1_main.getSize().width + 1, panel_c1_main.getSize().height + 1);
-				System.out.println("reset...");
 			}
 		});
 		panel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));

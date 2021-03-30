@@ -1,5 +1,6 @@
-package com.editor.sign.control;
+package com.editor.sign.control.listselect;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.MediaTracker;
 
@@ -9,10 +10,15 @@ import javax.swing.JPanel;
 import com.control.manager.SignManager;
 import com.control.manager.SignManager.SignType;
 import com.control.manager.keyvalue.MainSignGetter.GetterType;
+import com.editor.sign.control.Behavior;
+import com.editor.sign.control.BehaviorController;
+import com.editor.sign.control.editorsign.EditorSignShowBehavior;
 import com.model.Sign;
 import com.sun.glass.ui.Size;
+import com.sun.javafx.scene.control.skin.BehaviorSkinBase;
 import com.tool.BorderFixer;
 import com.tool.Direction;
+import com.tool.TColor;
 import com.tool.BorderFixers;
 import com.view.EditorSign;
 
@@ -33,15 +39,24 @@ public class ListSelectSignTypeBehavior extends Behavior {
 		layout.setRows(sign.getHeight());
 
 		panel_grid_main.removeAll();
-		for (int h = 0; h < sign.getHeight(); h++) {
-			for (int w = 0; w < sign.getWidth(); w++) {
-				panel_grid_main.add(new EditorSign(String.format("%d , %d", w, h)));
+		int w = sign.getWidth();
+		int h = sign.getHeight();
+		for (int y = 0; y < h; y++) {
+			for (int x = 0; x < w; x++) {
+				EditorSign editorsign = new EditorSign(String.format("%d , %d", x, y));
+				editorsign.setDirection(x, y);
+
+				Behavior behavior = new EditorSignShowBehavior();
+				behavior.setRequest("editorsign", editorsign);
+				behavior.setRequest("sign", sign);
+				BehaviorController.sendBehavior(behavior);
+				
+				panel_grid_main.add(editorsign);
 			}
 		}
 		panel_grid_main.revalidate();
 
-		Direction fixSize = BorderFixers.fixRectangle(sign.getWidth(), sign.getHeight(), panel_grid_main.getWidth(),
-				panel_grid_main.getHeight());
+		Direction fixSize = BorderFixers.getFixingAdvice(w, h, panel_grid_main.getWidth(), panel_grid_main.getHeight());
 		center_grid_fixer.fixAsCenter(fixSize);
 
 	}
