@@ -22,7 +22,7 @@ public class EditorSignShowBehavior extends Behavior {
 		}
 
 		if (sign.isPivot(d.getX(), d.getY())) {
-			editorsign.setBackground(Color.cyan);
+			editorsign.setBackground(Color.blue);
 		} else {
 			editorsign.setBackground(TColor.baseColor);
 		}

@@ -237,10 +237,13 @@ public class SignEditor extends JFrame {
 		panel_btnpanel1.setLayout(new GridLayout(0, 2, 0, 0));
 
 		JButton btnNewButton_col_subtract = new JButton("-◄");
-		btnNewButton_col_subtract.addMouseListener(new MouseAdapter() {
+		btnNewButton_col_subtract.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent arg0) {
-
+			public Sign getSign() {
+				Sign sign=SignManager.getManager((SignType) list_signilk.getSelectedValue())
+						.getSign((GetterType) list_signtype.getSelectedValue());
+				sign.setSize(sign.getWidth()-1, sign.getHeight());
+				return sign;
 			}
 		});
 		btnNewButton_col_subtract.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
@@ -248,6 +251,15 @@ public class SignEditor extends JFrame {
 		panel_btnpanel1.add(btnNewButton_col_subtract);
 
 		JButton btnNewButton_col_add = new JButton("►+");
+		btnNewButton_col_add.addMouseListener(new SelectSignTypeMouseAdapter() {
+			@Override
+			public Sign getSign() {
+				Sign sign=SignManager.getManager((SignType) list_signilk.getSelectedValue())
+						.getSign((GetterType) list_signtype.getSelectedValue());
+				sign.setSize(sign.getWidth()+1, sign.getHeight());
+				return sign;
+			}
+		});
 		btnNewButton_col_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_col_add.setBackground(SystemColor.controlHighlight);
 		panel_btnpanel1.add(btnNewButton_col_add);
@@ -260,11 +272,29 @@ public class SignEditor extends JFrame {
 		panel_btnpanel2.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JButton btnNewButton_row_subtract = new JButton("▲-");
+		btnNewButton_row_subtract.addMouseListener(new SelectSignTypeMouseAdapter() {
+			@Override
+			public Sign getSign() {
+				Sign sign=SignManager.getManager((SignType) list_signilk.getSelectedValue())
+						.getSign((GetterType) list_signtype.getSelectedValue());
+				sign.setSize(sign.getWidth(), sign.getHeight()-1);
+				return sign;
+			}
+		});
 		btnNewButton_row_subtract.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_row_subtract.setBackground(SystemColor.controlHighlight);
 		panel_btnpanel2.add(btnNewButton_row_subtract);
 
 		JButton btnNewButton_row_add = new JButton("▼+");
+		btnNewButton_row_add.addMouseListener(new SelectSignTypeMouseAdapter() {
+			@Override
+			public Sign getSign() {
+				Sign sign=SignManager.getManager((SignType) list_signilk.getSelectedValue())
+						.getSign((GetterType) list_signtype.getSelectedValue());
+				sign.setSize(sign.getWidth(), sign.getHeight()+1);
+				return sign;
+			}
+		});
 		btnNewButton_row_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_row_add.setBackground(SystemColor.controlHighlight);
 		panel_btnpanel2.add(btnNewButton_row_add);

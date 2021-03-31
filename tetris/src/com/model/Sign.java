@@ -161,6 +161,26 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	public void setSize(int w, int h) {
+		Direction d;
+		d = this.mapCube.keySet().stream().max((d1, d2) -> d1.getX() - d2.getX()).orElseGet(Direction::new);
+		System.out.println(d);
+		if (w <= d.getX()) {
+			w=d.getX()+1;
+		}
+		
+
+		d = this.mapCube.keySet().stream().max((d1, d2) -> d1.getY() - d2.getY()).orElseGet(Direction::new);
+		if (h <= d.getY()) {
+			h=d.getY()+1;
+		}
+
+		if (w < 1) {
+			w = 0;
+		}
+
+		if (h < 1) {
+			h = 0;
+		}
 		this.getDirection().setSize(w, h);
 	}
 
