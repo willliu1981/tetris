@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.control.manager.Behavior;
 import com.control.manager.BehaviorController;
+import com.control.manager.Session;
 import com.control.manager.SignManager;
 import com.control.manager.SignManager.SignType;
 import com.control.manager.keyvalue.MainSignGetter;
@@ -41,6 +42,7 @@ public class SignEditor extends JFrame {
 	private BorderFixer<JPanel> center_grid_fixer = BorderFixer.<JPanel>getFixer();
 	private volatile JPanel panel_c1_main;
 	private JList<?> list_signilk;
+	private static Session session;
 
 	/**
 	 * Launch the application.
@@ -140,8 +142,8 @@ public class SignEditor extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				Behavior behavior = new ListSelectSignIlkBehavior();
-				behavior.setRequest("list_signilk", list_signilk);
-				behavior.setRequest("list_signtype", list_signtype);
+				behavior.setParameter("list_signilk", list_signilk);
+				behavior.setParameter("list_signtype", list_signtype);
 
 				BehaviorController.sendBehavior(behavior);
 			}
@@ -184,10 +186,12 @@ public class SignEditor extends JFrame {
 				Sign sign = SignManager.getManager((SignType) list_signilk.getSelectedValue())
 						.getSign((GetterType) list_signtype.getSelectedValue());
 				Behavior behavior = new ListSelectSignTypeBehavior();
-				behavior.setRequest("panel_c1_main", panel_c1_main);
-				behavior.setRequest("sign", sign);
-				behavior.setRequest("panel_grid_main", panel_grid_main);
-				behavior.setRequest("center_grid_fixer", center_grid_fixer);
+				Session session = getSession();
+				session.addAttribute("panel_c1_main", panel_c1_main);
+				session.addAttribute("panel_grid_main", panel_grid_main);
+				session.addAttribute("center_grid_fixer", center_grid_fixer);
+
+				behavior.setParameter("sign", sign);
 
 				BehaviorController.sendBehavior(behavior);
 			}
@@ -209,6 +213,17 @@ public class SignEditor extends JFrame {
 		});
 		panel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		panel_lbar_bottom.add(panel);
+	}
+
+	/*
+	 * get and set
+	 */
+
+	public static Session getSession() {
+		if (session == null) {
+			session = new Session();
+		}
+		return session;
 	}
 
 }

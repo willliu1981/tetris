@@ -6,16 +6,20 @@ import java.util.Map;
 public class Session {
 	private Map<String ,Object> session=new HashMap<>();
 	
-	public void addSesstion(String name,Object obj) {
+	public void addAttribute(String name,Object obj) {
 		this.session.put(name, obj);
 	}
 	
-	public Object getSession(String name) {
-		if(this.session.containsKey(session)) {
+	public Object getAttribute(String name) {
+		if(this.session.containsKey(name)) {
 			return this.session.get(name);
 		}else {
 			return null;
 		}
+	}
+	
+	public void clear() {
+		this.session.clear();
 	}
 	
 }

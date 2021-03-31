@@ -2,6 +2,7 @@ package com.view;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.util.Optional;
 
 import javax.swing.JLabel;
@@ -12,8 +13,12 @@ import javax.swing.border.SoftBevelBorder;
 import com.control.exception.TNullException;
 import com.control.manager.Behavior;
 import com.control.manager.BehaviorController;
+import com.control.manager.Session;
 import com.editor.sign.control.editorsign.EditorSignShowBehavior;
+import com.editor.sign.control.listselect.ListSelectSignTypeBehavior;
+import com.editor.sign.view.SignEditor;
 import com.model.Sign;
+import com.tool.BorderFixer;
 import com.tool.Direction;
 
 import javax.swing.border.BevelBorder;
@@ -25,6 +30,7 @@ public class EditorSign extends JPanel {
 	private JPanel panel;
 	private Optional<Sign> sign = Optional.empty();
 	private Optional<Direction> direction = Optional.empty();
+	private volatile boolean isDBClick = false;// 用於雙擊滑鼠忽略單擊事件
 
 	/**
 	 * Create the panel.
@@ -44,26 +50,42 @@ public class EditorSign extends JPanel {
 			public void mousePressed(MouseEvent arg) {
 				if (arg.getButton() == arg.BUTTON1) {
 					if (arg.getClickCount() == 1) {
+						new Thread() {
+							@Override
+							public void run() {
+								try {
+									Thread.sleep((Integer) Toolkit.getDefaultToolkit()
+											.getDesktopProperty("awt.multiClickInterval"));
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+								if (!isDBClick) {
+									try {
+										if (getSign().containCube(getDirection().getX(), getDirection().getY())) {
+											getSign().removeCube(getDirection().getX(), getDirection().getY());
+										} else {
+											getSign().addCube(getDirection().getX(), getDirection().getY());
+										}
+									} catch (TNullException ex) {
+										ex.printStackTrace();
+									}
 
-						try {
-							if (getSign().containCube(getDirection().getX(), getDirection().getY())) {
-								getSign().removeCube(getDirection().getX(), getDirection().getY());
-							} else {
-								getSign().addCube(getDirection().getX(), getDirection().getY());
+									Behavior behavior = new EditorSignShowBehavior();
+									behavior.setParameter("editorsign", getThis());
+									behavior.setParameter("sign", getSign());
+									BehaviorController.sendBehavior(behavior);
+								} else {
+									isDBClick = false;
+								}
 							}
-						} catch (TNullException ex) {
-							ex.printStackTrace();
-						}
-
-						Behavior behavior = new EditorSignShowBehavior();
-						behavior.setRequest("editorsign", getThis());
-						behavior.setRequest("sign", getSign());
-						BehaviorController.sendBehavior(behavior);
+						}.start();
 					} else {
+						isDBClick = true;
+						
+						Behavior behavior = new ListSelectSignTypeBehavior();
+						behavior.setParameter("sign", getSign());
 						getSign().setPivot(getDirection().getX(), getDirection().getY());
-						Behavior behavior = new EditorSignShowBehavior();
-						behavior.setRequest("editorsign", getThis());
-						behavior.setRequest("sign", getSign());
+						
 						BehaviorController.sendBehavior(behavior);
 					}
 				}

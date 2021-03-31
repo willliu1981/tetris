@@ -18,8 +18,8 @@ public class ListSelectSignIlkBehavior extends Behavior {
 
 	@Override
 	public void run() {
-		JList<?> list_signilk=(JList<?>)this.getRequest("list_signilk");
-		JList<?> list_signtype=(JList<?>)this.getRequest("list_signtype");
+		JList<?> list_signilk=(JList<?>)this.getParameter("list_signilk");
+		JList<?> list_signtype=(JList<?>)this.getParameter("list_signtype");
 		
 		list_signtype.setModel(new AbstractListModel() {
 			Enum[] signs;

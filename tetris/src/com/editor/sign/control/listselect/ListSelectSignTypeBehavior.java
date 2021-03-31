@@ -9,10 +9,12 @@ import javax.swing.JPanel;
 
 import com.control.manager.Behavior;
 import com.control.manager.BehaviorController;
+import com.control.manager.Session;
 import com.control.manager.SignManager;
 import com.control.manager.SignManager.SignType;
 import com.control.manager.keyvalue.MainSignGetter.GetterType;
 import com.editor.sign.control.editorsign.EditorSignShowBehavior;
+import com.editor.sign.view.SignEditor;
 import com.model.Sign;
 import com.sun.glass.ui.Size;
 import com.sun.javafx.scene.control.skin.BehaviorSkinBase;
@@ -26,11 +28,13 @@ public class ListSelectSignTypeBehavior extends Behavior {
 
 	@Override
 	public void run() {
-		JPanel panel_c1_main = (JPanel) this.getRequest("panel_c1_main");
-		Sign sign = (Sign) this.getRequest("sign");
-		JPanel panel_grid_main = (JPanel) this.getRequest("panel_grid_main");
-		BorderFixer<?> center_grid_fixer = (BorderFixer<?>) this.getRequest("center_grid_fixer");
-
+		Session session=SignEditor.getSession();
+		JPanel panel_c1_main = (JPanel) session.getAttribute("panel_c1_main");
+		JPanel panel_grid_main = (JPanel) session.getAttribute("panel_grid_main");
+		BorderFixer<?> center_grid_fixer = (BorderFixer<?>) session.getAttribute("center_grid_fixer");
+		
+		Sign sign = (Sign) this.getParameter("sign");
+		
 		GridLayout layout = (GridLayout) (panel_grid_main.getLayout());
 		layout.setColumns(sign.getWidth());
 		layout.setRows(sign.getHeight());
@@ -45,8 +49,8 @@ public class ListSelectSignTypeBehavior extends Behavior {
 				editorsign.setDirection(x, y);
 
 				Behavior behavior = new EditorSignShowBehavior();
-				behavior.setRequest("editorsign", editorsign);
-				behavior.setRequest("sign", sign);
+				behavior.setParameter("editorsign", editorsign);
+				behavior.setParameter("sign", sign);
 				BehaviorController.sendBehavior(behavior);
 
 				panel_grid_main.add(editorsign);
