@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.function.Supplier;
 
 import javax.swing.AbstractListModel;
 import javax.swing.BoxLayout;
@@ -106,9 +107,17 @@ public class SignEditor extends JFrame {
 		 */
 
 		/*
-		 * init
+		 * create component
 		 */
 		createCenter();
+
+		/*
+		 * init after components created
+		 */
+		Session session = getSession();
+		session.addAttribute("panel_c1_main", panel_c1_main);
+		session.addAttribute("panel_grid_main", panel_grid_main);
+		session.addAttribute("center_grid_fixer", center_grid_fixer);
 
 	}
 
@@ -199,22 +208,14 @@ public class SignEditor extends JFrame {
 
 		list_signtype = new JList();
 		list_signtype.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		list_signtype.addMouseListener(new MouseAdapter() {
+		list_signtype.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
-				Sign sign = SignManager.getManager((SignType) list_signilk.getSelectedValue())
+			public Sign getSign() {
+				return SignManager.getManager((SignType) list_signilk.getSelectedValue())
 						.getSign((GetterType) list_signtype.getSelectedValue());
-				Behavior behavior = new ListSelectSignTypeBehavior();
-				Session session = getSession();
-				session.addAttribute("panel_c1_main", panel_c1_main);
-				session.addAttribute("panel_grid_main", panel_grid_main);
-				session.addAttribute("center_grid_fixer", center_grid_fixer);
-
-				behavior.setParameter("sign", sign);
-
-				BehaviorController.sendBehavior(behavior);
 			}
 		});
+
 		list_signtype.setFont(new Font("新細明體", Font.PLAIN, 18));
 		panel_lbar_center.add(list_signtype);
 
@@ -224,52 +225,52 @@ public class SignEditor extends JFrame {
 		panel_lbar_bottom.setLayout(new BoxLayout(panel_lbar_bottom, BoxLayout.X_AXIS));
 
 		JPanel panel_col_and_row = new JPanel();
-		panel_col_and_row.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-
-			}
-		});
 		panel_col_and_row.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		panel_lbar_bottom.add(panel_col_and_row);
 		panel_col_and_row.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
+		JPanel panel_spacepanel0 = new JPanel();
+		panel_col_and_row.add(panel_spacepanel0);
+
 		JPanel panel_btnpanel1 = new JPanel();
 		panel_col_and_row.add(panel_btnpanel1);
 		panel_btnpanel1.setLayout(new GridLayout(0, 2, 0, 0));
-		
+
 		JButton btnNewButton_col_subtract = new JButton("-◄");
+		btnNewButton_col_subtract.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+
+			}
+		});
 		btnNewButton_col_subtract.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_col_subtract.setBackground(SystemColor.controlHighlight);
 		panel_btnpanel1.add(btnNewButton_col_subtract);
-		
+
 		JButton btnNewButton_col_add = new JButton("►+");
 		btnNewButton_col_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_col_add.setBackground(SystemColor.controlHighlight);
 		panel_btnpanel1.add(btnNewButton_col_add);
-		
+
 		JPanel panel_spacepanel1 = new JPanel();
 		panel_col_and_row.add(panel_spacepanel1);
-		
+
 		JPanel panel_btnpanel2 = new JPanel();
 		panel_col_and_row.add(panel_btnpanel2);
 		panel_btnpanel2.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		JButton btnNewButton_row_subtract = new JButton("▲-");
 		btnNewButton_row_subtract.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_row_subtract.setBackground(SystemColor.controlHighlight);
 		panel_btnpanel2.add(btnNewButton_row_subtract);
-		
+
 		JButton btnNewButton_row_add = new JButton("▼+");
 		btnNewButton_row_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_row_add.setBackground(SystemColor.controlHighlight);
 		panel_btnpanel2.add(btnNewButton_row_add);
-		
+
 		JPanel panel_spacepanel2 = new JPanel();
 		panel_col_and_row.add(panel_spacepanel2);
-		
-		JPanel panel = new JPanel();
-		panel_col_and_row.add(panel);
 	}
 
 	/*
@@ -283,4 +284,19 @@ public class SignEditor extends JFrame {
 		return session;
 	}
 
+}
+
+abstract class SelectSignTypeMouseAdapter extends MouseAdapter implements SignSupplier{
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		Behavior behavior = new ListSelectSignTypeBehavior();
+		behavior.setParameter("sign", getSign());
+		BehaviorController.sendBehavior(behavior);
+
+	}
+}
+
+interface SignSupplier {
+	public  Sign getSign();
 }
