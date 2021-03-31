@@ -8,9 +8,33 @@ import com.sun.glass.ui.Size;
  * tetris 專用 座標
  */
 public class Direction implements java.io.Serializable {
-	/**
-	 * 
-	 */
+
+	public static class Size implements java.io.Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private int width;
+		private int height;
+
+		/*
+		 * get and set
+		 */
+		public Size(int w, int h) {
+			this.width = w;
+			this.height = h;
+		}
+
+		public int getWidth() {
+			return this.width ;
+		}
+		
+		public int getHeight() {
+			return this.height;
+		}
+
+	}
+
 	private static final long serialVersionUID = 1L;
 	private Point point;// 於主座標上的位置, 通常是父座標系統上的位置
 	private Point pivot;// this座標系統的軸心點, 於this座標系統上的位置
@@ -87,10 +111,10 @@ public class Direction implements java.io.Serializable {
 		this.pivot.x = x;
 		this.pivot.y = y;
 	}
-	
-	public void setSize(int w,int h) {
-		this.size.width=w;
-		this.size.height=h;
+
+	public void setSize(int w, int h) {
+		this.size.width = w;
+		this.size.height = h;
 	}
 
 	public int getX() {
@@ -119,6 +143,6 @@ public class Direction implements java.io.Serializable {
 
 	public String toString() {
 		return String.format("[p_x=%d,p_y=%d,pi_x=%d,pi_y=%d,w=%d,h=%d]", this.getX(), this.getY(), this.getPivotX(),
-				this.getPivotY(),this.getWidth(),this.getHeight());
+				this.getPivotY(), this.getWidth(), this.getHeight());
 	}
 }

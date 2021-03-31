@@ -1,5 +1,6 @@
 package com.control.file;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -19,10 +20,17 @@ public class FileManager {
 	private static final String MainSignFileName = "mainsign.data";
 
 	public static void loadSignDate() {
+		String fname = Basepath + File.separator + MainSignFileName;
+		File f = new File(fname);
+		if (!f.exists()) {
+			System.out.format( "file:%s is not exist",fname);
+			return;
+		}
 		Map<SignType, SignGetter<? extends Sign>> map = new HashMap<>();
-		try (FileInputStream fis = new FileInputStream(Basepath + File.separator + MainSignFileName);
-				ObjectInputStream ois = new ObjectInputStream(fis)) {
+		try (FileInputStream fis = new FileInputStream(f); ObjectInputStream ois = new ObjectInputStream(fis)) {
 			map = (Map<SignType, SignGetter<? extends Sign>>) ois.readObject();
+		} catch (EOFException e) {
+			System.out.println(e.getMessage());
 		} catch (IOException | ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}

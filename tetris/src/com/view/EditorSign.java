@@ -55,7 +55,7 @@ public class EditorSign extends JPanel {
 							public void run() {
 								try {
 									Thread.sleep((Integer) Toolkit.getDefaultToolkit()
-											.getDesktopProperty("awt.multiClickInterval"));
+											.getDesktopProperty("awt.multiClickInterval")/2);
 								} catch (InterruptedException e) {
 									e.printStackTrace();
 								}
@@ -81,7 +81,6 @@ public class EditorSign extends JPanel {
 						}.start();
 					} else {
 						isDBClick = true;
-						
 						Behavior behavior = new ListSelectSignTypeBehavior();
 						behavior.setParameter("sign", getSign());
 						getSign().setPivot(getDirection().getX(), getDirection().getY());

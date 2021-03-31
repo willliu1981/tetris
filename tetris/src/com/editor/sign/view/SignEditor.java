@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.AbstractListModel;
 import javax.swing.BoxLayout;
@@ -14,6 +16,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.control.file.FileManager;
 import com.control.manager.Behavior;
 import com.control.manager.BehaviorController;
 import com.control.manager.Session;
@@ -70,27 +73,37 @@ public class SignEditor extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				FileManager.writeSignDate();
+				super.windowClosing(arg0);
+			}
+		});
+		FileManager.loadSignDate();
 
 		JPanel panel_top = new JPanel();
 		contentPane.add(panel_top, BorderLayout.NORTH);
 
 		// test init
-		SignManager manager = SignManager.getManager(SignManager.SignType.MainSign);
-		manager.addSign(MainSignGetter.GetterType.SignS, 2, 2);
-		manager.addSign(MainSignGetter.GetterType.SignZ, 3, 5);
-		manager.addSign(MainSignGetter.GetterType.SignT, 5, 2);
-
-		Sign signS = manager.getSign(MainSignGetter.GetterType.SignS);
-		signS.setSize(4, 4);
-		Sign signZ = manager.getSign(MainSignGetter.GetterType.SignZ);
-		signZ.setSize(3, 7);
-		Sign signT = manager.getSign(MainSignGetter.GetterType.SignT);
-		signT.setSize(7, 3);
+		/*
+		 * SignManager manager = SignManager.getManager(SignManager.SignType.MainSign);
+		 * manager.addSign(MainSignGetter.GetterType.SignS, 2, 2);
+		 * manager.addSign(MainSignGetter.GetterType.SignZ, 3, 5);
+		 * manager.addSign(MainSignGetter.GetterType.SignT, 5, 2);
+		 * 
+		 * Sign signS = manager.getSign(MainSignGetter.GetterType.SignS);
+		 * signS.setSize(4, 4); Sign signZ =
+		 * manager.getSign(MainSignGetter.GetterType.SignZ); signZ.setSize(3, 7); Sign
+		 * signT = manager.getSign(MainSignGetter.GetterType.SignT); signT.setSize(7,
+		 * 3); //
+		 */
 
 		/*
 		 * init
 		 */
 		createCenter();
+
 	}
 
 	private void createCenter() {
