@@ -6,10 +6,10 @@ import javax.swing.AbstractListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
+import com.control.manager.Behavior;
 import com.control.manager.SignManager;
 import com.control.manager.SignManager.SignType;
 import com.control.manager.keyvalue.MainSignGetter.GetterType;
-import com.editor.sign.control.Behavior;
 import com.model.Sign;
 import com.sun.glass.ui.Size;
 import com.view.EditorSign;

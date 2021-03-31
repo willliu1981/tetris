@@ -14,12 +14,12 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.control.manager.Behavior;
+import com.control.manager.BehaviorController;
 import com.control.manager.SignManager;
 import com.control.manager.SignManager.SignType;
 import com.control.manager.keyvalue.MainSignGetter;
 import com.control.manager.keyvalue.MainSignGetter.GetterType;
-import com.editor.sign.control.Behavior;
-import com.editor.sign.control.BehaviorController;
 import com.editor.sign.control.listselect.ListSelectSignIlkBehavior;
 import com.editor.sign.control.listselect.ListSelectSignTypeBehavior;
 import com.model.Sign;
@@ -181,13 +181,13 @@ public class SignEditor extends JFrame {
 		list_signtype.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				Sign sign = SignManager.getManager((SignType) list_signilk.getSelectedValue())
+						.getSign((GetterType) list_signtype.getSelectedValue());
 				Behavior behavior = new ListSelectSignTypeBehavior();
 				behavior.setRequest("panel_c1_main", panel_c1_main);
-				behavior.setRequest("list_signilk", list_signilk);
-				behavior.setRequest("list_signtype", list_signtype);
+				behavior.setRequest("sign", sign);
 				behavior.setRequest("panel_grid_main", panel_grid_main);
 				behavior.setRequest("center_grid_fixer", center_grid_fixer);
-
 
 				BehaviorController.sendBehavior(behavior);
 			}

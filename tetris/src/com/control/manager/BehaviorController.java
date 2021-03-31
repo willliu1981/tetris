@@ -1,4 +1,4 @@
-package com.editor.sign.control;
+package com.control.manager;
 
 public class BehaviorController {
 	

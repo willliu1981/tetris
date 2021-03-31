@@ -10,8 +10,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.SoftBevelBorder;
 
 import com.control.exception.TNullException;
-import com.editor.sign.control.Behavior;
-import com.editor.sign.control.BehaviorController;
+import com.control.manager.Behavior;
+import com.control.manager.BehaviorController;
 import com.editor.sign.control.editorsign.EditorSignShowBehavior;
 import com.model.Sign;
 import com.tool.Direction;
@@ -41,21 +41,33 @@ public class EditorSign extends JPanel {
 		panel = new JPanel();
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent arg0) {
-				try {
-					if (getSign().containCube(getDirection().getX(), getDirection().getY())) {
-						getSign().removeCube(getDirection().getX(), getDirection().getY());
+			public void mousePressed(MouseEvent arg) {
+				if (arg.getButton() == arg.BUTTON1) {
+					if (arg.getClickCount() == 1) {
+
+						try {
+							if (getSign().containCube(getDirection().getX(), getDirection().getY())) {
+								getSign().removeCube(getDirection().getX(), getDirection().getY());
+							} else {
+								getSign().addCube(getDirection().getX(), getDirection().getY());
+							}
+						} catch (TNullException ex) {
+							ex.printStackTrace();
+						}
+
+						Behavior behavior = new EditorSignShowBehavior();
+						behavior.setRequest("editorsign", getThis());
+						behavior.setRequest("sign", getSign());
+						BehaviorController.sendBehavior(behavior);
 					} else {
-						getSign().addCube(getDirection().getX(), getDirection().getY());
+						getSign().setPivot(getDirection().getX(), getDirection().getY());
+						Behavior behavior = new EditorSignShowBehavior();
+						behavior.setRequest("editorsign", getThis());
+						behavior.setRequest("sign", getSign());
+						BehaviorController.sendBehavior(behavior);
 					}
-				} catch (TNullException ex) {
-					ex.printStackTrace();
 				}
 
-				Behavior behavior = new EditorSignShowBehavior();
-				behavior.setRequest("editorsign", getThis());
-				behavior.setRequest("sign", getSign());
-				BehaviorController.sendBehavior(behavior);
 			}
 		});
 		panel.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));

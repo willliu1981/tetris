@@ -2,7 +2,7 @@ package com.editor.sign.control.editorsign;
 
 import java.awt.Color;
 
-import com.editor.sign.control.Behavior;
+import com.control.manager.Behavior;
 import com.model.Sign;
 import com.tool.Direction;
 import com.tool.TColor;
