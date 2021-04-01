@@ -15,12 +15,12 @@ public class Cycle<E> extends ArrayDeque<E> implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public void rotateForward() {
-		this.offerLast(this.pollFirst());
+	public void rotateLeft() {
+		this.offerFirst(this.pollLast());
 	}
 
-	public void rotateBack() {
-		this.offerFirst(this.pollLast());
+	public void rotateRight() {
+		this.offerLast(this.pollFirst());
 	}
 
 	public E get() {

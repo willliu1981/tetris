@@ -94,8 +94,7 @@ public class SignEditor extends JFrame {
 		contentPane.add(panel_top, BorderLayout.NORTH);
 
 		/*
-		 *test init 
-		 * SignManager manager =
+		 * test init SignManager manager =
 		 * SignManager.getManager(SignManager.SignType.MainSign);
 		 * manager.addSign(MainSignGetter.GetterType.SignS, 2, 2);
 		 * manager.addSign(MainSignGetter.GetterType.SignZ, 3, 5);
@@ -105,7 +104,7 @@ public class SignEditor extends JFrame {
 		 * signS.setSize(4, 4); Sign signZ =
 		 * manager.getSign(MainSignGetter.GetterType.SignZ); signZ.setSize(3, 7); Sign
 		 * signT = manager.getSign(MainSignGetter.GetterType.SignT); signT.setSize(7,
-		 * 3); 
+		 * 3);
 		 */
 
 		/*
@@ -223,87 +222,87 @@ public class SignEditor extends JFrame {
 		});
 
 		list_signtype.setFont(new Font("新細明體", Font.PLAIN, 18));
-		
+
 		JPanel panel_lbar_center2 = new JPanel();
 		panel_c1_west.add(panel_lbar_center2);
-														panel_lbar_center2.setLayout(new GridLayout(2, 1, 0, 0));
-														
-														JPanel panel_add_and_subtract_cycle = new JPanel();
-														panel_lbar_center2.add(panel_add_and_subtract_cycle);
-														panel_add_and_subtract_cycle.setPreferredSize(new Dimension(20, 10));
-														
-														JButton btnNewButton_cycle_add = new JButton("+");
-														btnNewButton_cycle_add.addMouseListener(new SelectSignTypeMouseAdapter() {
-															@Override
-															public Sign getSign() {
-																Sign sign = null;
-																if ((sign = getCurrentSign()) == null) {
-																	return null;
-																}
-																
-																sign.insertSignMapAtTheBack();
-																return sign;
-															}
-														});
-														panel_add_and_subtract_cycle.setLayout(new BoxLayout(panel_add_and_subtract_cycle, BoxLayout.X_AXIS));
-														
-														JButton btnNewButton_cycle_subtract = new JButton("-");
-														btnNewButton_cycle_subtract.addMouseListener(new SelectSignTypeMouseAdapter() {
-															@Override
-															public Sign getSign() {
-																Sign sign = null;
-																if ((sign = getCurrentSign()) == null) {
-																	return null;
-																}
-																
-																sign.removeCurrentSignMap();
-																return sign;
-															}
-														});
-														btnNewButton_cycle_subtract.setPreferredSize(new Dimension(60, 23));
-														btnNewButton_cycle_subtract.setFont(new Font("新細明體", Font.BOLD, 18));
-														btnNewButton_cycle_subtract.setBackground(SystemColor.controlHighlight);
-														panel_add_and_subtract_cycle.add(btnNewButton_cycle_subtract);
-														btnNewButton_cycle_add.setPreferredSize(new Dimension(60, 23));
-														btnNewButton_cycle_add.setFont(new Font("新細明體", Font.BOLD, 18));
-														btnNewButton_cycle_add.setBackground(SystemColor.controlHighlight);
-														panel_add_and_subtract_cycle.add(btnNewButton_cycle_add);
-														
-																JPanel panel_list_signtype_index = new JPanel();
-																panel_lbar_center2.add(panel_list_signtype_index);
-																panel_list_signtype_index.setLayout(new BoxLayout(panel_list_signtype_index, BoxLayout.X_AXIS));
-																
-																		JButton btnNewButton_signtype_rotate_backword = new JButton("◄");
-																		btnNewButton_signtype_rotate_backword.addMouseListener(new SelectSignTypeMouseAdapter() {
-																			@Override
-																			public Sign getSign() {
-																				Sign sign = null;
-																				if ((sign = getCurrentSign()) == null) {
-																					return null;
-																				}
+		panel_lbar_center2.setLayout(new GridLayout(2, 1, 0, 0));
 
-																				sign.rotateForward();
-																				return sign;
-																			}
-																		});
-																		btnNewButton_signtype_rotate_backword.setBackground(SystemColor.controlHighlight);
-																		panel_list_signtype_index.add(btnNewButton_signtype_rotate_backword);
-																		
-																				JButton btnNewButton_signtype_rotate_forword = new JButton("►");
-																				btnNewButton_signtype_rotate_forword.addMouseListener(new SelectSignTypeMouseAdapter() {
-																					@Override
-																					public Sign getSign() {
-																						Sign sign = null;
-																						if ((sign = getCurrentSign()) == null) {
-																							return null;
-																						}
+		JPanel panel_list_signtype_index = new JPanel();
+		panel_lbar_center2.add(panel_list_signtype_index);
+		panel_list_signtype_index.setLayout(new BoxLayout(panel_list_signtype_index, BoxLayout.X_AXIS));
 
-																						sign.rotateBackward();
-																						return sign;
-																					}
-																				});
-																				btnNewButton_signtype_rotate_forword.setBackground(SystemColor.controlHighlight);
-																				panel_list_signtype_index.add(btnNewButton_signtype_rotate_forword);
+		JButton btnNewButton_signtype_rotate_backword = new JButton("◄");
+		btnNewButton_signtype_rotate_backword.addMouseListener(new SelectSignTypeMouseAdapter() {
+			@Override
+			public Sign getSign() {
+				Sign sign = null;
+				if ((sign = getCurrentSign()) == null) {
+					return null;
+				}
+
+				sign.rotateLeft();
+				return sign;
+			}
+		});
+		btnNewButton_signtype_rotate_backword.setBackground(SystemColor.controlHighlight);
+		panel_list_signtype_index.add(btnNewButton_signtype_rotate_backword);
+
+		JButton btnNewButton_signtype_rotate_forword = new JButton("►");
+		btnNewButton_signtype_rotate_forword.addMouseListener(new SelectSignTypeMouseAdapter() {
+			@Override
+			public Sign getSign() {
+				Sign sign = null;
+				if ((sign = getCurrentSign()) == null) {
+					return null;
+				}
+
+				sign.rotateRight();
+				return sign;
+			}
+		});
+		btnNewButton_signtype_rotate_forword.setBackground(SystemColor.controlHighlight);
+		panel_list_signtype_index.add(btnNewButton_signtype_rotate_forword);
+
+		JPanel panel_add_and_subtract_cycle = new JPanel();
+		panel_lbar_center2.add(panel_add_and_subtract_cycle);
+		panel_add_and_subtract_cycle.setPreferredSize(new Dimension(20, 10));
+
+		JButton btnNewButton_cycle_add = new JButton("+");
+		btnNewButton_cycle_add.addMouseListener(new SelectSignTypeMouseAdapter() {
+			@Override
+			public Sign getSign() {
+				Sign sign = null;
+				if ((sign = getCurrentSign()) == null) {
+					return null;
+				}
+
+				sign.insertSignMapAtTheBack();
+				return sign;
+			}
+		});
+		panel_add_and_subtract_cycle.setLayout(new BoxLayout(panel_add_and_subtract_cycle, BoxLayout.X_AXIS));
+
+		JButton btnNewButton_cycle_subtract = new JButton("-");
+		btnNewButton_cycle_subtract.addMouseListener(new SelectSignTypeMouseAdapter() {
+			@Override
+			public Sign getSign() {
+				Sign sign = null;
+				if ((sign = getCurrentSign()) == null) {
+					return null;
+				}
+
+				sign.removeCurrentSignMap();
+				return sign;
+			}
+		});
+		btnNewButton_cycle_subtract.setPreferredSize(new Dimension(60, 23));
+		btnNewButton_cycle_subtract.setFont(new Font("新細明體", Font.BOLD, 18));
+		btnNewButton_cycle_subtract.setBackground(SystemColor.controlHighlight);
+		panel_add_and_subtract_cycle.add(btnNewButton_cycle_subtract);
+		btnNewButton_cycle_add.setPreferredSize(new Dimension(60, 23));
+		btnNewButton_cycle_add.setFont(new Font("新細明體", Font.BOLD, 18));
+		btnNewButton_cycle_add.setBackground(SystemColor.controlHighlight);
+		panel_add_and_subtract_cycle.add(btnNewButton_cycle_add);
 
 		JPanel panel_lbar_bottom = new JPanel();
 		panel_lbar_bottom.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));

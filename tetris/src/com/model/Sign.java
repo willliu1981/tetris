@@ -118,12 +118,12 @@ public abstract class Sign implements java.io.Serializable {
 		return this.direction.getPivotX() == x && this.direction.getPivotY() == y;
 	}
 
-	public void rotateForward() {
-		this.cycleCubeMap.rotateForward();
+	public void rotateLeft() {
+		this.cycleCubeMap.rotateLeft();
 	}
 
-	public void rotateBackward() {
-		this.cycleCubeMap.rotateBack();
+	public void rotateRight() {
+		this.cycleCubeMap.rotateRight();
 	}
 
 	/*
@@ -139,7 +139,7 @@ public abstract class Sign implements java.io.Serializable {
 	}
 	
 	public void insertSignMapAtTheBack() {
-		//this.rotateBackward();
+		this.cycleCubeMap.rotateRight();
 		this.cycleCubeMap.offerFirst(new HashMap<>());
 	}
 	
