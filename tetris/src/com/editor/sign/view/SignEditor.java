@@ -49,6 +49,8 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import java.awt.SystemColor;
 import java.awt.FlowLayout;
+import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
 
 public class SignEditor extends JFrame {
 
@@ -230,6 +232,12 @@ public class SignEditor extends JFrame {
 			public Sign getSign() {
 				return getCurrentSign();
 			}
+			
+			@Override
+			public Component getPointerComponent() {
+				return lblNewLabel_pointer;
+			}
+
 		});
 
 		list_signtype.setFont(new Font("新細明體", Font.PLAIN, 18));
@@ -239,10 +247,11 @@ public class SignEditor extends JFrame {
 		panel_lbar_center2.setLayout(new GridLayout(2, 1, 0, 0));
 
 		JPanel panel_list_signtype_index = new JPanel();
+		panel_list_signtype_index.setPreferredSize(new Dimension(20, 20));
 		panel_lbar_center2.add(panel_list_signtype_index);
-		panel_list_signtype_index.setLayout(new BoxLayout(panel_list_signtype_index, BoxLayout.X_AXIS));
 
 		JButton btnNewButton_signtype_rotate_backword = new JButton("◄");
+		btnNewButton_signtype_rotate_backword.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_signtype_rotate_backword.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
@@ -261,10 +270,12 @@ public class SignEditor extends JFrame {
 			}
 
 		});
+		panel_list_signtype_index.setLayout(new GridLayout(0, 2, 0, 0));
 		btnNewButton_signtype_rotate_backword.setBackground(SystemColor.controlHighlight);
 		panel_list_signtype_index.add(btnNewButton_signtype_rotate_backword);
 
 		JButton btnNewButton_signtype_rotate_forword = new JButton("►");
+		btnNewButton_signtype_rotate_forword.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_signtype_rotate_forword.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
@@ -287,10 +298,11 @@ public class SignEditor extends JFrame {
 		panel_list_signtype_index.add(btnNewButton_signtype_rotate_forword);
 
 		JPanel panel_add_and_subtract_cycle = new JPanel();
+		panel_add_and_subtract_cycle.setPreferredSize(new Dimension(20, 20));
 		panel_lbar_center2.add(panel_add_and_subtract_cycle);
-		panel_add_and_subtract_cycle.setPreferredSize(new Dimension(20, 10));
 
 		JButton btnNewButton_cycle_add = new JButton("+");
+		btnNewButton_cycle_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_cycle_add.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
@@ -302,10 +314,17 @@ public class SignEditor extends JFrame {
 				sign.insertSignMapAtTheBack();
 				return sign;
 			}
+			
+			@Override
+			public Component getPointerComponent() {
+				return lblNewLabel_pointer;
+			}
+
 		});
 		panel_add_and_subtract_cycle.setLayout(new BoxLayout(panel_add_and_subtract_cycle, BoxLayout.X_AXIS));
 
 		JButton btnNewButton_cycle_subtract = new JButton("-");
+		btnNewButton_cycle_subtract.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_cycle_subtract.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
@@ -317,6 +336,12 @@ public class SignEditor extends JFrame {
 				sign.removeCurrentSignMap();
 				return sign;
 			}
+			
+			@Override
+			public Component getPointerComponent() {
+				return lblNewLabel_pointer;
+			}
+
 		});
 		btnNewButton_cycle_subtract.setPreferredSize(new Dimension(60, 23));
 		btnNewButton_cycle_subtract.setFont(new Font("新細明體", Font.BOLD, 18));
@@ -356,6 +381,7 @@ public class SignEditor extends JFrame {
 				sign.setSize(sign.getWidth() - 1, sign.getHeight());
 				return sign;
 			}
+
 		});
 		btnNewButton_col_subtract.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_col_subtract.setBackground(SystemColor.controlHighlight);
@@ -373,6 +399,7 @@ public class SignEditor extends JFrame {
 				sign.setSize(sign.getWidth() + 1, sign.getHeight());
 				return sign;
 			}
+
 		});
 		btnNewButton_col_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_col_add.setBackground(SystemColor.controlHighlight);
@@ -397,6 +424,7 @@ public class SignEditor extends JFrame {
 				sign.setSize(sign.getWidth(), sign.getHeight() - 1);
 				return sign;
 			}
+
 		});
 		btnNewButton_row_subtract.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_row_subtract.setBackground(SystemColor.controlHighlight);
@@ -434,9 +462,36 @@ public class SignEditor extends JFrame {
 		panel_rbar_top.add(lblNewLabel_pointer);
 
 		JPanel panel_rbar_center = new JPanel();
+		panel_rbar_center.setPreferredSize(new Dimension(10, 5));
 		panel_c1_east.add(panel_rbar_center);
+		panel_rbar_center.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton btnNewButton_reset_pointer = new JButton("reset");
+		btnNewButton_reset_pointer.addMouseListener(new SelectSignTypeMouseAdapter() {
+			@Override
+			public Sign getSign() {
+				Sign sign = null;
+				if ((sign = getCurrentSign()) == null) {
+					return null;
+				}
+
+				sign.resetPointerToCurrentCycleElement();
+				return sign;
+			}
+			
+			@Override
+			public Component getPointerComponent() {
+				return lblNewLabel_pointer;
+			}
+
+		});
+		btnNewButton_reset_pointer.setFont(new Font("新細明體", Font.PLAIN, 14));
+		btnNewButton_reset_pointer.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		btnNewButton_reset_pointer.setBackground(SystemColor.controlHighlight);
+		panel_rbar_center.add(btnNewButton_reset_pointer);
 
 		JPanel panel_rbar_bottom = new JPanel();
+		panel_rbar_bottom.setPreferredSize(new Dimension(10, 250));
 		panel_c1_east.add(panel_rbar_bottom);
 	}
 
@@ -468,7 +523,6 @@ abstract class SelectSignTypeMouseAdapter extends MouseAdapter implements SignSu
 	public void mousePressed(MouseEvent e) {
 		Behavior behavior = new ListSelectSignTypeBehavior();
 		behavior.setParameter("sign", getSign());
-		System.out.println("xxx " + ((JLabel) getPointerComponent()));
 		behavior.setParameter("lblNewLabel_pointer", getPointerComponent());
 
 		BehaviorController.sendBehavior(behavior);
@@ -483,5 +537,4 @@ abstract class SelectSignTypeMouseAdapter extends MouseAdapter implements SignSu
 
 interface SignSupplier {
 	public Sign getSign();
-	public Component getPointerComponent() ;
 }

@@ -125,6 +125,10 @@ public abstract class Sign implements java.io.Serializable {
 	public void rotateRight() {
 		this.cycleCubeMap.rotateRight();
 	}
+	
+	public void resetPointerToCurrentCycleElement() {
+		this.cycleCubeMap.resetPointerToCurrentElement();
+	}
 
 	/*
 	 * get and set

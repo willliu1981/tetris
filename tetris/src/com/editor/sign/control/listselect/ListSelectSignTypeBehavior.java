@@ -33,8 +33,8 @@ public class ListSelectSignTypeBehavior extends Behavior {
 		JPanel panel_c1_main = (JPanel) session.getAttribute("panel_c1_main");
 		JPanel panel_grid_main = (JPanel) session.getAttribute("panel_grid_main");
 		BorderFixer<?> center_grid_fixer = (BorderFixer<?>) session.getAttribute("center_grid_fixer");
-		JLabel lblNewLabel_pointer = (JLabel) session.getAttribute("lblNewLabel_pointer");
 
+		JLabel lblNewLabel_pointer = (JLabel) this.getParameter("lblNewLabel_pointer");
 		Sign sign = (Sign) this.getParameter("sign");
 		if (sign == null) {
 			return;
@@ -70,7 +70,7 @@ public class ListSelectSignTypeBehavior extends Behavior {
 		panel_grid_main.revalidate();
 
 		if (lblNewLabel_pointer != null) {
-			lblNewLabel_pointer.setText(String.format("%d / %d", sign.getCycleCurrentPointer(), sign.getCycleSize()));
+			lblNewLabel_pointer.setText(String.format("%d / %d", sign.getCycleCurrentPointer()+1, sign.getCycleSize()));
 		}
 	}
 
