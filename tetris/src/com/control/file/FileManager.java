@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.control.exception.FileErrorException;
 import com.control.manager.SignManager;
 import com.control.manager.SignManager.SignType;
 import com.control.manager.getter.SignGetter;
@@ -23,8 +24,7 @@ public class FileManager {
 		String fname = Basepath + File.separator + MainSignFileName;
 		File f = new File(fname);
 		if (!f.exists()) {
-			System.out.format( "file:%s is not exist\n",fname);
-			return;
+			throw new FileErrorException("can't find file " + fname);
 		}
 		Map<SignType, SignGetter<? extends Sign>> map = new HashMap<>();
 		try (FileInputStream fis = new FileInputStream(f); ObjectInputStream ois = new ObjectInputStream(fis)) {
@@ -48,4 +48,5 @@ public class FileManager {
 		}
 
 	}
+
 }

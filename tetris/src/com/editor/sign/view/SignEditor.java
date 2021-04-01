@@ -17,6 +17,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.control.exception.FileErrorException;
 import com.control.file.FileManager;
 import com.control.manager.Behavior;
 import com.control.manager.BehaviorController;
@@ -88,7 +89,12 @@ public class SignEditor extends JFrame {
 				super.windowClosing(arg0);
 			}
 		});
-		FileManager.loadSignDate();
+
+		try {
+			FileManager.loadSignDate();
+		} catch (FileErrorException ex) {
+			SignManager.initialize();
+		}
 
 		JPanel panel_top = new JPanel();
 		contentPane.add(panel_top, BorderLayout.NORTH);

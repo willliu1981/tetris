@@ -11,19 +11,16 @@ public class TestCycle {
 			cycle.add("B");
 			cycle.add("C");
 			cycle.add("D");
-			
+			cycle.add("E");
+			cycle.add("F");
+			cycle.add("G");
+
 			System.out.println(cycle);
-			System.out.println(cycle.get());
 			
-			cycle.rotateLeft();
+			System.out.println(cycle.get(3));
 			System.out.println(cycle);
-			System.out.println(cycle.get());
 			
-			cycle.offerFirst("rrr");
-			System.out.println(cycle);
-			System.out.println(cycle.get());
-		
-			cycle.rotateLeft();
+			cycle.rotateTo(3);
 			System.out.println(cycle);
 			System.out.println(cycle.get());
 	}

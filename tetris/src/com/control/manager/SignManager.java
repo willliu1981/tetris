@@ -34,6 +34,26 @@ public class SignManager {
 		mapSignGetter.put(SignType.MainSign, new MainSignGetter());
 	}
 
+	public static void initialize() {
+		SignManager manager = SignManager.getManager(SignManager.SignType.MainSign);
+		manager.addSign(MainSignGetter.GetterType.SignS);
+		manager.addSign(MainSignGetter.GetterType.SignZ);
+		manager.addSign(MainSignGetter.GetterType.SignT);
+		manager.addSign(MainSignGetter.GetterType.SignL);
+		manager.addSign(MainSignGetter.GetterType.SignJ);
+		manager.addSign(MainSignGetter.GetterType.SignO);
+		manager.addSign(MainSignGetter.GetterType.SignI);
+
+		/*
+		Sign signS = manager.getSign(MainSignGetter.GetterType.SignS);
+		signS.setSize(4, 4);
+		Sign signZ = manager.getSign(MainSignGetter.GetterType.SignZ);
+		signZ.setSize(3, 7);
+		Sign signT = manager.getSign(MainSignGetter.GetterType.SignT);
+		signT.setSize(7, 3);
+		*/
+	}
+
 	/*
 	 * get and set
 	 */
@@ -44,6 +64,10 @@ public class SignManager {
 
 	public void addSign(Enum<?> type, int x, int y) {
 		this.getSignGetter().addSign(type, x, y);
+	}
+
+	public void addSign(Enum<?> type) {
+		this.getSignGetter().addSign(type, 0, 0);
 	}
 
 	public void setPoint(Enum<?> type, int x, int y) {
