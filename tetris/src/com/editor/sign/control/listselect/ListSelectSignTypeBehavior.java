@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.MediaTracker;
 
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
@@ -28,16 +29,17 @@ public class ListSelectSignTypeBehavior extends Behavior {
 
 	@Override
 	public void run() {
-		Session session=SignEditor.getSession();
+		Session session = SignEditor.getSession();
 		JPanel panel_c1_main = (JPanel) session.getAttribute("panel_c1_main");
 		JPanel panel_grid_main = (JPanel) session.getAttribute("panel_grid_main");
 		BorderFixer<?> center_grid_fixer = (BorderFixer<?>) session.getAttribute("center_grid_fixer");
-		
+		JLabel lblNewLabel_pointer = (JLabel) session.getAttribute("lblNewLabel_pointer");
+
 		Sign sign = (Sign) this.getParameter("sign");
-		if(sign==null) {
+		if (sign == null) {
 			return;
 		}
-		
+
 		GridLayout layout = (GridLayout) (panel_grid_main.getLayout());
 		layout.setColumns(sign.getWidth());
 		layout.setRows(sign.getHeight());
@@ -66,6 +68,10 @@ public class ListSelectSignTypeBehavior extends Behavior {
 		center_grid_fixer.fixAsCenter(fixSize);
 
 		panel_grid_main.revalidate();
+
+		if (lblNewLabel_pointer != null) {
+			lblNewLabel_pointer.setText(String.format("%d / %d", sign.getCycleCurrentPointer(), sign.getCycleSize()));
+		}
 	}
 
 }

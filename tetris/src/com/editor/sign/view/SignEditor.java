@@ -1,6 +1,7 @@
 package com.editor.sign.view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -8,6 +9,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.function.Supplier;
 
 import javax.swing.AbstractListModel;
@@ -55,6 +59,7 @@ public class SignEditor extends JFrame {
 	private volatile JPanel panel_c1_main;
 	private JList<?> list_signilk;
 	private static Session session;
+	private JLabel lblNewLabel_pointer;
 
 	/**
 	 * Launch the application.
@@ -249,6 +254,12 @@ public class SignEditor extends JFrame {
 				sign.rotateLeft();
 				return sign;
 			}
+
+			@Override
+			public Component getPointerComponent() {
+				return lblNewLabel_pointer;
+			}
+
 		});
 		btnNewButton_signtype_rotate_backword.setBackground(SystemColor.controlHighlight);
 		panel_list_signtype_index.add(btnNewButton_signtype_rotate_backword);
@@ -265,6 +276,12 @@ public class SignEditor extends JFrame {
 				sign.rotateRight();
 				return sign;
 			}
+
+			@Override
+			public Component getPointerComponent() {
+				return lblNewLabel_pointer;
+			}
+
 		});
 		btnNewButton_signtype_rotate_forword.setBackground(SystemColor.controlHighlight);
 		panel_list_signtype_index.add(btnNewButton_signtype_rotate_forword);
@@ -397,6 +414,7 @@ public class SignEditor extends JFrame {
 				sign.setSize(sign.getWidth(), sign.getHeight() + 1);
 				return sign;
 			}
+
 		});
 		btnNewButton_row_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_row_add.setBackground(SystemColor.controlHighlight);
@@ -404,6 +422,22 @@ public class SignEditor extends JFrame {
 
 		JPanel panel_spacepanel2 = new JPanel();
 		panel_col_and_row.add(panel_spacepanel2);
+
+		JPanel panel_c1_east = new JPanel();
+		panel_c1.add(panel_c1_east, BorderLayout.EAST);
+		panel_c1_east.setLayout(new BoxLayout(panel_c1_east, BoxLayout.Y_AXIS));
+
+		JPanel panel_rbar_top = new JPanel();
+		panel_c1_east.add(panel_rbar_top);
+
+		lblNewLabel_pointer = new JLabel("index");
+		panel_rbar_top.add(lblNewLabel_pointer);
+
+		JPanel panel_rbar_center = new JPanel();
+		panel_c1_east.add(panel_rbar_center);
+
+		JPanel panel_rbar_bottom = new JPanel();
+		panel_c1_east.add(panel_rbar_bottom);
 	}
 
 	/*
@@ -434,11 +468,20 @@ abstract class SelectSignTypeMouseAdapter extends MouseAdapter implements SignSu
 	public void mousePressed(MouseEvent e) {
 		Behavior behavior = new ListSelectSignTypeBehavior();
 		behavior.setParameter("sign", getSign());
+		System.out.println("xxx " + ((JLabel) getPointerComponent()));
+		behavior.setParameter("lblNewLabel_pointer", getPointerComponent());
+
 		BehaviorController.sendBehavior(behavior);
 
 	}
+
+	public Component getPointerComponent() {
+		return null;
+	}
+
 }
 
 interface SignSupplier {
 	public Sign getSign();
+	public Component getPointerComponent() ;
 }

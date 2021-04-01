@@ -126,10 +126,6 @@ public abstract class Sign implements java.io.Serializable {
 		this.cycleCubeMap.rotateRight();
 	}
 
-
-
-
-
 	/*
 	 * get and set
 	 */
@@ -215,6 +211,14 @@ public abstract class Sign implements java.io.Serializable {
 			h = 0;
 		}
 		this.getDirection().setSize(w, h);
+	}
+	
+	public int getCycleCurrentPointer() {
+		return this.cycleCubeMap.getCurrentPointer();
+	}
+	
+	public int getCycleSize() {
+		return this.cycleCubeMap.size();
 	}
 
 	public String toString() {

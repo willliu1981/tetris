@@ -28,6 +28,7 @@ public class Test3 {
 		Sign s = (Sign) o;
 		System.out.println(s);
 
+		
 	}
 
 	Timer timer;
