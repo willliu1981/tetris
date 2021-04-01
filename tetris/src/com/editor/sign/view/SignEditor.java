@@ -228,9 +228,9 @@ public class SignEditor extends JFrame {
 		panel_c1_west.add(panel_lbar_center2);
 														panel_lbar_center2.setLayout(new GridLayout(2, 1, 0, 0));
 														
-														JPanel panel_addcycle = new JPanel();
-														panel_lbar_center2.add(panel_addcycle);
-														panel_addcycle.setPreferredSize(new Dimension(20, 10));
+														JPanel panel_add_and_subtract_cycle = new JPanel();
+														panel_lbar_center2.add(panel_add_and_subtract_cycle);
+														panel_add_and_subtract_cycle.setPreferredSize(new Dimension(20, 10));
 														
 														JButton btnNewButton_cycle_add = new JButton("+");
 														btnNewButton_cycle_add.addMouseListener(new SelectSignTypeMouseAdapter() {
@@ -245,7 +245,7 @@ public class SignEditor extends JFrame {
 																return sign;
 															}
 														});
-														panel_addcycle.setLayout(new BoxLayout(panel_addcycle, BoxLayout.X_AXIS));
+														panel_add_and_subtract_cycle.setLayout(new BoxLayout(panel_add_and_subtract_cycle, BoxLayout.X_AXIS));
 														
 														JButton btnNewButton_cycle_subtract = new JButton("-");
 														btnNewButton_cycle_subtract.addMouseListener(new SelectSignTypeMouseAdapter() {
@@ -263,11 +263,11 @@ public class SignEditor extends JFrame {
 														btnNewButton_cycle_subtract.setPreferredSize(new Dimension(60, 23));
 														btnNewButton_cycle_subtract.setFont(new Font("新細明體", Font.BOLD, 18));
 														btnNewButton_cycle_subtract.setBackground(SystemColor.controlHighlight);
-														panel_addcycle.add(btnNewButton_cycle_subtract);
+														panel_add_and_subtract_cycle.add(btnNewButton_cycle_subtract);
 														btnNewButton_cycle_add.setPreferredSize(new Dimension(60, 23));
 														btnNewButton_cycle_add.setFont(new Font("新細明體", Font.BOLD, 18));
 														btnNewButton_cycle_add.setBackground(SystemColor.controlHighlight);
-														panel_addcycle.add(btnNewButton_cycle_add);
+														panel_add_and_subtract_cycle.add(btnNewButton_cycle_add);
 														
 																JPanel panel_list_signtype_index = new JPanel();
 																panel_lbar_center2.add(panel_list_signtype_index);
