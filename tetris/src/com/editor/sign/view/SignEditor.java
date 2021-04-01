@@ -92,7 +92,7 @@ public class SignEditor extends JFrame {
 		JPanel panel_top = new JPanel();
 		contentPane.add(panel_top, BorderLayout.NORTH);
 
-		// * test init
+		/* test init
 
 		SignManager manager = SignManager.getManager(SignManager.SignType.MainSign);
 		manager.addSign(MainSignGetter.GetterType.SignS, 2, 2);

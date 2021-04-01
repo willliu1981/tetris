@@ -15,9 +15,6 @@ public class Cycle<E> extends ArrayDeque<E> {
 	}
 
 	public E get() {
-		if(this.peek()==null) {
-			throw new TNullException("Cycle element is null");
-		}
 		return this.peek();
 	}
 

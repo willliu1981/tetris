@@ -1,5 +1,6 @@
 package com.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.tool.Cycle;
@@ -110,7 +111,7 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	public boolean containCube(int x, int y) {
-		return this.cycle.get() .containsKey(new Direction(x, y));
+		return this.getCubeMap().containsKey(new Direction(x, y));
 	}
 
 	public boolean isPivot(int x, int y) {
@@ -118,9 +119,7 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	public void addCube(int x, int y) {
-		
-		
-		//this.mapCube.put(new Direction(x, y), new Cube());
+		this.getCubeMap().put(new Direction(x, y), new Cube());
 	}
 
 	public void removeCube(int x, int y) {
@@ -160,18 +159,24 @@ public abstract class Sign implements java.io.Serializable {
 		return this.getDirection().getHeight();
 	}
 
+	protected Map<Direction, Cube> getCubeMap() {
+		if (this.cycle.get() == null) {
+			this.cycle.add(new HashMap<>());
+		}
+		return this.cycle.get();
+	}
+
 	public void setSize(int w, int h) {
 		Direction d;
-		d = this.cycle.get() .keySet().stream().max((d1, d2) -> d1.getX() - d2.getX()).orElseGet(Direction::new);
-		
-		if (w <= d.getX()) {
-			w=d.getX()+1;
-		}
-		
+		d = this.getCubeMap().keySet().stream().max((d1, d2) -> d1.getX() - d2.getX()).orElseGet(Direction::new);
 
-		d = this.cycle.get() .keySet().stream().max((d1, d2) -> d1.getY() - d2.getY()).orElseGet(Direction::new);
+		if (w <= d.getX()) {
+			w = d.getX() + 1;
+		}
+
+		d = this.getCubeMap().keySet().stream().max((d1, d2) -> d1.getY() - d2.getY()).orElseGet(Direction::new);
 		if (h <= d.getY()) {
-			h=d.getY()+1;
+			h = d.getY() + 1;
 		}
 
 		if (w < 1) {
