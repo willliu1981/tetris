@@ -92,20 +92,20 @@ public class SignEditor extends JFrame {
 		JPanel panel_top = new JPanel();
 		contentPane.add(panel_top, BorderLayout.NORTH);
 
-		/* test init
-
-		SignManager manager = SignManager.getManager(SignManager.SignType.MainSign);
-		manager.addSign(MainSignGetter.GetterType.SignS, 2, 2);
-		manager.addSign(MainSignGetter.GetterType.SignZ, 3, 5);
-		manager.addSign(MainSignGetter.GetterType.SignT, 5, 2);
-
-		Sign signS = manager.getSign(MainSignGetter.GetterType.SignS);
-		signS.setSize(4, 4);
-		Sign signZ = manager.getSign(MainSignGetter.GetterType.SignZ);
-		signZ.setSize(3, 7);
-		Sign signT = manager.getSign(MainSignGetter.GetterType.SignT);
-		signT.setSize(7, 3); //
-		// */
+		/*
+		 * test init
+		 * 
+		 * SignManager manager = SignManager.getManager(SignManager.SignType.MainSign);
+		 * manager.addSign(MainSignGetter.GetterType.SignS, 2, 2);
+		 * manager.addSign(MainSignGetter.GetterType.SignZ, 3, 5);
+		 * manager.addSign(MainSignGetter.GetterType.SignT, 5, 2);
+		 * 
+		 * Sign signS = manager.getSign(MainSignGetter.GetterType.SignS);
+		 * signS.setSize(4, 4); Sign signZ =
+		 * manager.getSign(MainSignGetter.GetterType.SignZ); signZ.setSize(3, 7); Sign
+		 * signT = manager.getSign(MainSignGetter.GetterType.SignT); signT.setSize(7,
+		 * 3); // //
+		 */
 
 		/*
 		 * create component
@@ -206,19 +206,34 @@ public class SignEditor extends JFrame {
 		JPanel panel_lbar_center = new JPanel();
 		panel_lbar_center.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		panel_c1_west.add(panel_lbar_center);
+		panel_lbar_center.setLayout(new BoxLayout(panel_lbar_center, BoxLayout.Y_AXIS));
+
+		JPanel panel_list_signtype = new JPanel();
+		panel_lbar_center.add(panel_list_signtype);
 
 		list_signtype = new JList();
+		panel_list_signtype.add(list_signtype);
 		list_signtype.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		list_signtype.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
-				return SignManager.getManager((SignType) list_signilk.getSelectedValue())
-						.getSign((GetterType) list_signtype.getSelectedValue());
+				return getCurrentSign();
 			}
 		});
 
 		list_signtype.setFont(new Font("新細明體", Font.PLAIN, 18));
-		panel_lbar_center.add(list_signtype);
+
+		JPanel panel_list_signtype_index = new JPanel();
+		panel_lbar_center.add(panel_list_signtype_index);
+		panel_list_signtype_index.setLayout(new BoxLayout(panel_list_signtype_index, BoxLayout.X_AXIS));
+
+		JButton btnNewButton = new JButton("◄");
+		btnNewButton.setBackground(SystemColor.controlHighlight);
+		panel_list_signtype_index.add(btnNewButton);
+
+		JButton btnNewButton_1 = new JButton("►");
+		btnNewButton_1.setBackground(SystemColor.controlHighlight);
+		panel_list_signtype_index.add(btnNewButton_1);
 
 		JPanel panel_lbar_bottom = new JPanel();
 		panel_lbar_bottom.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
@@ -241,8 +256,11 @@ public class SignEditor extends JFrame {
 		btnNewButton_col_subtract.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
-				Sign sign = SignManager.getManager((SignType) list_signilk.getSelectedValue())
-						.getSign((GetterType) list_signtype.getSelectedValue());
+				Sign sign = null;
+				if ((sign = getCurrentSign()) == null) {
+					return null;
+				}
+				
 				sign.setSize(sign.getWidth() - 1, sign.getHeight());
 				return sign;
 			}
@@ -255,8 +273,11 @@ public class SignEditor extends JFrame {
 		btnNewButton_col_add.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
-				Sign sign = SignManager.getManager((SignType) list_signilk.getSelectedValue())
-						.getSign((GetterType) list_signtype.getSelectedValue());
+				Sign sign = null;
+				if ((sign = getCurrentSign()) == null) {
+					return null;
+				}
+				
 				sign.setSize(sign.getWidth() + 1, sign.getHeight());
 				return sign;
 			}
@@ -276,8 +297,11 @@ public class SignEditor extends JFrame {
 		btnNewButton_row_subtract.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
-				Sign sign = SignManager.getManager((SignType) list_signilk.getSelectedValue())
-						.getSign((GetterType) list_signtype.getSelectedValue());
+				Sign sign = null;
+				if ((sign = getCurrentSign()) == null) {
+					return null;
+				}
+				
 				sign.setSize(sign.getWidth(), sign.getHeight() - 1);
 				return sign;
 			}
@@ -290,8 +314,11 @@ public class SignEditor extends JFrame {
 		btnNewButton_row_add.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
-				Sign sign = SignManager.getManager((SignType) list_signilk.getSelectedValue())
-						.getSign((GetterType) list_signtype.getSelectedValue());
+				Sign sign = null;
+				if ((sign = getCurrentSign()) == null) {
+					return null;
+				}
+				
 				sign.setSize(sign.getWidth(), sign.getHeight() + 1);
 				return sign;
 			}
@@ -313,6 +340,15 @@ public class SignEditor extends JFrame {
 			session = new Session();
 		}
 		return session;
+	}
+
+	public Sign getCurrentSign() {
+		return SignManager.getManager((SignType) list_signilk.getSelectedValue())
+				.getSign((GetterType) list_signtype.getSelectedValue());
+	}
+
+	public JFrame getThisFrame() {
+		return this;
 	}
 
 }

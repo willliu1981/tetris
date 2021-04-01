@@ -34,6 +34,9 @@ public class ListSelectSignTypeBehavior extends Behavior {
 		BorderFixer<?> center_grid_fixer = (BorderFixer<?>) session.getAttribute("center_grid_fixer");
 		
 		Sign sign = (Sign) this.getParameter("sign");
+		if(sign==null) {
+			return;
+		}
 		
 		GridLayout layout = (GridLayout) (panel_grid_main.getLayout());
 		layout.setColumns(sign.getWidth());
