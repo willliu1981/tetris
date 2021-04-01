@@ -1,9 +1,10 @@
-package com.control.manager.keyvalue;
+package com.control.manager.getter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.model.Sign;
+import com.tool.Cycle;
 
 /*
  * for get Sign

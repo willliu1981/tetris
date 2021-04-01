@@ -23,8 +23,8 @@ import com.control.manager.BehaviorController;
 import com.control.manager.Session;
 import com.control.manager.SignManager;
 import com.control.manager.SignManager.SignType;
-import com.control.manager.keyvalue.MainSignGetter;
-import com.control.manager.keyvalue.MainSignGetter.GetterType;
+import com.control.manager.getter.MainSignGetter;
+import com.control.manager.getter.MainSignGetter.GetterType;
 import com.editor.sign.control.listselect.ListSelectSignIlkBehavior;
 import com.editor.sign.control.listselect.ListSelectSignTypeBehavior;
 import com.model.Sign;
@@ -92,19 +92,20 @@ public class SignEditor extends JFrame {
 		JPanel panel_top = new JPanel();
 		contentPane.add(panel_top, BorderLayout.NORTH);
 
-		// test init
-		/*
-		 * SignManager manager = SignManager.getManager(SignManager.SignType.MainSign);
-		 * manager.addSign(MainSignGetter.GetterType.SignS, 2, 2);
-		 * manager.addSign(MainSignGetter.GetterType.SignZ, 3, 5);
-		 * manager.addSign(MainSignGetter.GetterType.SignT, 5, 2);
-		 * 
-		 * Sign signS = manager.getSign(MainSignGetter.GetterType.SignS);
-		 * signS.setSize(4, 4); Sign signZ =
-		 * manager.getSign(MainSignGetter.GetterType.SignZ); signZ.setSize(3, 7); Sign
-		 * signT = manager.getSign(MainSignGetter.GetterType.SignT); signT.setSize(7,
-		 * 3); //
-		 */
+		// * test init
+
+		SignManager manager = SignManager.getManager(SignManager.SignType.MainSign);
+		manager.addSign(MainSignGetter.GetterType.SignS, 2, 2);
+		manager.addSign(MainSignGetter.GetterType.SignZ, 3, 5);
+		manager.addSign(MainSignGetter.GetterType.SignT, 5, 2);
+
+		Sign signS = manager.getSign(MainSignGetter.GetterType.SignS);
+		signS.setSize(4, 4);
+		Sign signZ = manager.getSign(MainSignGetter.GetterType.SignZ);
+		signZ.setSize(3, 7);
+		Sign signT = manager.getSign(MainSignGetter.GetterType.SignT);
+		signT.setSize(7, 3); //
+		// */
 
 		/*
 		 * create component
@@ -240,9 +241,9 @@ public class SignEditor extends JFrame {
 		btnNewButton_col_subtract.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
-				Sign sign=SignManager.getManager((SignType) list_signilk.getSelectedValue())
+				Sign sign = SignManager.getManager((SignType) list_signilk.getSelectedValue())
 						.getSign((GetterType) list_signtype.getSelectedValue());
-				sign.setSize(sign.getWidth()-1, sign.getHeight());
+				sign.setSize(sign.getWidth() - 1, sign.getHeight());
 				return sign;
 			}
 		});
@@ -254,9 +255,9 @@ public class SignEditor extends JFrame {
 		btnNewButton_col_add.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
-				Sign sign=SignManager.getManager((SignType) list_signilk.getSelectedValue())
+				Sign sign = SignManager.getManager((SignType) list_signilk.getSelectedValue())
 						.getSign((GetterType) list_signtype.getSelectedValue());
-				sign.setSize(sign.getWidth()+1, sign.getHeight());
+				sign.setSize(sign.getWidth() + 1, sign.getHeight());
 				return sign;
 			}
 		});
@@ -275,9 +276,9 @@ public class SignEditor extends JFrame {
 		btnNewButton_row_subtract.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
-				Sign sign=SignManager.getManager((SignType) list_signilk.getSelectedValue())
+				Sign sign = SignManager.getManager((SignType) list_signilk.getSelectedValue())
 						.getSign((GetterType) list_signtype.getSelectedValue());
-				sign.setSize(sign.getWidth(), sign.getHeight()-1);
+				sign.setSize(sign.getWidth(), sign.getHeight() - 1);
 				return sign;
 			}
 		});
@@ -289,9 +290,9 @@ public class SignEditor extends JFrame {
 		btnNewButton_row_add.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
-				Sign sign=SignManager.getManager((SignType) list_signilk.getSelectedValue())
+				Sign sign = SignManager.getManager((SignType) list_signilk.getSelectedValue())
 						.getSign((GetterType) list_signtype.getSelectedValue());
-				sign.setSize(sign.getWidth(), sign.getHeight()+1);
+				sign.setSize(sign.getWidth(), sign.getHeight() + 1);
 				return sign;
 			}
 		});
@@ -316,7 +317,7 @@ public class SignEditor extends JFrame {
 
 }
 
-abstract class SelectSignTypeMouseAdapter extends MouseAdapter implements SignSupplier{
+abstract class SelectSignTypeMouseAdapter extends MouseAdapter implements SignSupplier {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -328,5 +329,5 @@ abstract class SelectSignTypeMouseAdapter extends MouseAdapter implements SignSu
 }
 
 interface SignSupplier {
-	public  Sign getSign();
+	public Sign getSign();
 }

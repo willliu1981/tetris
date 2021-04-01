@@ -12,7 +12,7 @@ import java.util.Map;
 
 import com.control.manager.SignManager;
 import com.control.manager.SignManager.SignType;
-import com.control.manager.keyvalue.SignGetter;
+import com.control.manager.getter.SignGetter;
 import com.model.Sign;
 
 public class FileManager {
@@ -23,7 +23,7 @@ public class FileManager {
 		String fname = Basepath + File.separator + MainSignFileName;
 		File f = new File(fname);
 		if (!f.exists()) {
-			System.out.format( "file:%s is not exist",fname);
+			System.out.format( "file:%s is not exist\n",fname);
 			return;
 		}
 		Map<SignType, SignGetter<? extends Sign>> map = new HashMap<>();

@@ -3,8 +3,8 @@ package com.control.manager;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.control.manager.keyvalue.MainSignGetter;
-import com.control.manager.keyvalue.SignGetter;
+import com.control.manager.getter.MainSignGetter;
+import com.control.manager.getter.SignGetter;
 import com.model.Sign;
 import com.tool.Direction;
 

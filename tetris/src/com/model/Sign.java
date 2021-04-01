@@ -1,10 +1,8 @@
 package com.model;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import com.control.exception.TNullException;
-import com.sun.glass.ui.Size;
+import com.tool.Cycle;
 import com.tool.Direction;
 
 public abstract class Sign implements java.io.Serializable {
@@ -88,7 +86,7 @@ public abstract class Sign implements java.io.Serializable {
 		protected Integer id;
 	}
 
-	protected Map<Direction, Cube> mapCube = new HashMap<>();
+	protected Cycle<Map<Direction, Cube>> cycle = new Cycle<>();
 	protected String name;
 	protected Direction direction;
 	protected Picture picture;
@@ -112,7 +110,7 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	public boolean containCube(int x, int y) {
-		return this.mapCube.containsKey(new Direction(x, y));
+		return this.cycle.get() .containsKey(new Direction(x, y));
 	}
 
 	public boolean isPivot(int x, int y) {
@@ -120,11 +118,13 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	public void addCube(int x, int y) {
-		this.mapCube.put(new Direction(x, y), new Cube());
+		
+		
+		//this.mapCube.put(new Direction(x, y), new Cube());
 	}
 
 	public void removeCube(int x, int y) {
-		this.mapCube.remove(new Direction(x, y));
+		this.cycle.remove(new Direction(x, y));
 	}
 	/*
 	 * get and set
@@ -162,14 +162,14 @@ public abstract class Sign implements java.io.Serializable {
 
 	public void setSize(int w, int h) {
 		Direction d;
-		d = this.mapCube.keySet().stream().max((d1, d2) -> d1.getX() - d2.getX()).orElseGet(Direction::new);
-		System.out.println(d);
+		d = this.cycle.get() .keySet().stream().max((d1, d2) -> d1.getX() - d2.getX()).orElseGet(Direction::new);
+		
 		if (w <= d.getX()) {
 			w=d.getX()+1;
 		}
 		
 
-		d = this.mapCube.keySet().stream().max((d1, d2) -> d1.getY() - d2.getY()).orElseGet(Direction::new);
+		d = this.cycle.get() .keySet().stream().max((d1, d2) -> d1.getY() - d2.getY()).orElseGet(Direction::new);
 		if (h <= d.getY()) {
 			h=d.getY()+1;
 		}

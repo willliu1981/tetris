@@ -3,8 +3,8 @@ package com.test;
 import java.util.Optional;
 
 import com.control.manager.SignManager;
-import com.control.manager.keyvalue.MainSignGetter;
-import com.control.manager.keyvalue.MainSignGetter.GetterType;
+import com.control.manager.getter.MainSignGetter;
+import com.control.manager.getter.MainSignGetter.GetterType;
 import com.model.MainSign;
 import com.model.Sign;
 import com.sun.glass.ui.Size;
@@ -20,8 +20,8 @@ public class TestTPoint {
 		System.out.println(s2);
 		Sign s3=new MainSign(2,3);
 		s3.setPivot(5, 6);
-		s3.addCube( 7, 9);
-		s3.addCube( 7, 9);
+		//s3.addCube( 7, 9);
+		//s3.addCube( 7, 9);
 		System.out.println(s3);
 		//System.out.println(s3.getCubeMap());
 		

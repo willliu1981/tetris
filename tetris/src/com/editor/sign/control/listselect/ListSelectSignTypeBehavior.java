@@ -12,7 +12,7 @@ import com.control.manager.BehaviorController;
 import com.control.manager.Session;
 import com.control.manager.SignManager;
 import com.control.manager.SignManager.SignType;
-import com.control.manager.keyvalue.MainSignGetter.GetterType;
+import com.control.manager.getter.MainSignGetter.GetterType;
 import com.editor.sign.control.editorsign.EditorSignShowBehavior;
 import com.editor.sign.view.SignEditor;
 import com.model.Sign;

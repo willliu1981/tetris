@@ -1,4 +1,4 @@
-package com.control.manager.keyvalue;
+package com.control.manager.getter;
 
 import com.model.MainSign;
 
@@ -19,7 +19,7 @@ public class MainSignGetter extends SignGetter<MainSign> {
 
 	@Override
 	public void addSign(Enum<?> type, int x, int y) {
-		this.mapSign.put((GetterType) type, new MainSign(x, y));
+		this.mapSign .put((GetterType) type, new MainSign(x, y));
 	}
 
 
