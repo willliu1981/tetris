@@ -87,7 +87,7 @@ public abstract class Sign implements java.io.Serializable {
 		protected Integer id;
 	}
 
-	protected Cycle<Map<Direction, Cube>> cycle = new Cycle<>();
+	protected Cycle<Map<Direction, Cube>> cycleCubeMap = new Cycle<>();
 	protected String name;
 	protected Direction direction;
 	protected Picture picture;
@@ -118,16 +118,34 @@ public abstract class Sign implements java.io.Serializable {
 		return this.direction.getPivotX() == x && this.direction.getPivotY() == y;
 	}
 
+	public void rotateForward() {
+		this.cycleCubeMap.rotateForward();
+	}
+
+	public void rotateBackward() {
+		this.cycleCubeMap.rotateBack();
+	}
+
+	/*
+	 * get and set
+	 */
+
 	public void addCube(int x, int y) {
 		this.getCubeMap().put(new Direction(x, y), new Cube());
 	}
 
 	public void removeCube(int x, int y) {
-		this.cycle.remove(new Direction(x, y));
+		this.getCubeMap().remove(new Direction(x, y));
 	}
-	/*
-	 * get and set
-	 */
+	
+	public void insertSignMapAtTheBack() {
+		//this.rotateBackward();
+		this.cycleCubeMap.offerFirst(new HashMap<>());
+	}
+	
+	public void removeCurrentSignMap() {
+		this.cycleCubeMap.pollFirst();
+	}
 
 	public String getName() {
 		if (this.name == null) {
@@ -160,10 +178,10 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	protected Map<Direction, Cube> getCubeMap() {
-		if (this.cycle.get() == null) {
-			this.cycle.add(new HashMap<>());
+		if (this.cycleCubeMap.get() == null) {
+			this.cycleCubeMap.add(new HashMap<>());
 		}
-		return this.cycle.get();
+		return this.cycleCubeMap.get();
 	}
 
 	public void setSize(int w, int h) {

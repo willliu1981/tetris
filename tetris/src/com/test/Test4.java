@@ -17,10 +17,11 @@ public class Test4 {
 	}
 
 	static Car run() {
-		if (!getCar().isPresent()) {
+		Optional<Car> op;
+		if (!(op=getCar()).isPresent()) {
 			return null;
 		}
-		Car car=getCar().get();
+		Car car = op.get();
 		car.setAge(10);
 
 		return car;
