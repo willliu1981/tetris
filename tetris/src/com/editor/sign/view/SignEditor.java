@@ -458,15 +458,14 @@ public class SignEditor extends JFrame {
 		JPanel panel_rbar_top = new JPanel();
 		panel_c1_east.add(panel_rbar_top);
 
-		lblNewLabel_pointer = new JLabel("index");
+		lblNewLabel_pointer = new JLabel("0 / 0");
 		panel_rbar_top.add(lblNewLabel_pointer);
 
 		JPanel panel_rbar_center = new JPanel();
-		panel_rbar_center.setPreferredSize(new Dimension(10, 5));
 		panel_c1_east.add(panel_rbar_center);
 		panel_rbar_center.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnNewButton_reset_pointer = new JButton("reset");
+		JButton btnNewButton_reset_pointer = new JButton("Reset ID");
 		btnNewButton_reset_pointer.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {

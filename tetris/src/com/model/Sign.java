@@ -120,12 +120,31 @@ public abstract class Sign implements java.io.Serializable {
 
 	public void rotateLeft() {
 		this.cycleCubeMap.rotateLeft();
+		resize();
 	}
 
 	public void rotateRight() {
 		this.cycleCubeMap.rotateRight();
+		resize();
 	}
-	
+
+	public void resize() {
+		int w = this.getWidth();
+		int h = this.getHeight();
+		int x, y;
+		if ((x = this.getCubeMap().keySet().stream().max((x1, x2) -> x1.getX() - x2.getX()).orElse(new Direction(0, 0))
+				.getX()+1) > this.getWidth()) {
+			w = x;
+		}
+		if ((y = this.getCubeMap().keySet().stream().max((y1, y2) -> y1.getY() - y2.getY()).orElse(new Direction(0, 0))
+				.getY()+1) > this.getHeight()) {
+			h = y;
+		}
+		System.out.println(String.format("%d , %d", x,this.getWidth()));
+
+		this.setSize(w, h);
+	}
+
 	public void resetPointerToCurrentCycleElement() {
 		this.cycleCubeMap.resetPointerToCurrentElement();
 	}
@@ -173,6 +192,14 @@ public abstract class Sign implements java.io.Serializable {
 		this.getDirection().setPivot(x, y);
 	}
 
+	public int getX() {
+		return this.getDirection().getX();
+	}
+
+	public int getY() {
+		return this.getDirection().getY();
+	}
+
 	public int getWidth() {
 		if (this.getDirection().getWidth() <= 0) {
 			this.getDirection().setSize(1, 1);
@@ -216,11 +243,11 @@ public abstract class Sign implements java.io.Serializable {
 		}
 		this.getDirection().setSize(w, h);
 	}
-	
+
 	public int getCycleCurrentPointer() {
 		return this.cycleCubeMap.getCurrentPointer();
 	}
-	
+
 	public int getCycleSize() {
 		return this.cycleCubeMap.size();
 	}
