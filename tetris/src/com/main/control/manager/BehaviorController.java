@@ -1,4 +1,4 @@
-package com.control.manager;
+package com.main.control.manager;
 
 public class BehaviorController {
 	

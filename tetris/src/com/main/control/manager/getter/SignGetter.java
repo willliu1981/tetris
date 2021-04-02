@@ -1,4 +1,4 @@
-package com.control.manager.getter;
+package com.main.control.manager.getter;
 
 import java.util.HashMap;
 import java.util.Map;

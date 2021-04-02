@@ -1,4 +1,4 @@
-package com.view;
+package com.main.view;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -10,13 +10,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.SoftBevelBorder;
 
-import com.control.exception.TNullException;
-import com.control.manager.Behavior;
-import com.control.manager.BehaviorController;
-import com.control.manager.Session;
 import com.editor.sign.control.editorsign.EditorSignShowBehavior;
 import com.editor.sign.control.listselect.ListSelectSignTypeBehavior;
 import com.editor.sign.view.SignEditor;
+import com.main.control.exception.TNullException;
+import com.main.control.manager.Behavior;
+import com.main.control.manager.BehaviorController;
+import com.main.control.manager.Session;
 import com.model.Sign;
 import com.tool.BorderFixer;
 import com.tool.Direction;

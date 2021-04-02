@@ -1,4 +1,4 @@
-package com.control.exception;
+package com.main.control.exception;
 
 public class FileErrorException extends RuntimeException {
 	private static String defaultMsg = "File error";

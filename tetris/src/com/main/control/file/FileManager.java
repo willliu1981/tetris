@@ -1,4 +1,4 @@
-package com.control.file;
+package com.main.control.file;
 
 import java.io.EOFException;
 import java.io.File;
@@ -10,10 +10,10 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.control.exception.FileErrorException;
-import com.control.manager.SignManager;
-import com.control.manager.SignManager.SignType;
-import com.control.manager.getter.SignGetter;
+import com.main.control.exception.FileErrorException;
+import com.main.control.manager.SignManager;
+import com.main.control.manager.SignManager.SignType;
+import com.main.control.manager.getter.SignGetter;
 import com.model.Sign;
 
 public class FileManager {

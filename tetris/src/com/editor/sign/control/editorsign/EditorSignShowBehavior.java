@@ -2,11 +2,11 @@ package com.editor.sign.control.editorsign;
 
 import java.awt.Color;
 
-import com.control.manager.Behavior;
+import com.main.control.manager.Behavior;
+import com.main.view.EditorSign;
 import com.model.Sign;
 import com.tool.Direction;
 import com.tool.TColor;
-import com.view.EditorSign;
 
 public class EditorSignShowBehavior extends Behavior {
 

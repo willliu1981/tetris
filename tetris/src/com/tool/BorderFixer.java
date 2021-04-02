@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import com.control.exception.TNullException;
+import com.main.control.exception.TNullException;
 
 public class BorderFixer<T extends Component> {
 	public static final String Top = "top";

@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
-import com.control.exception.TNullException;
+import com.main.control.exception.TNullException;
 
 /*
  * stock Cube in this project

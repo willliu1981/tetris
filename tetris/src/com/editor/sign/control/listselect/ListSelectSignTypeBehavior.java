@@ -8,14 +8,15 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
-import com.control.manager.Behavior;
-import com.control.manager.BehaviorController;
-import com.control.manager.Session;
-import com.control.manager.SignManager;
-import com.control.manager.SignManager.SignType;
-import com.control.manager.getter.MainSignGetter.GetterType;
 import com.editor.sign.control.editorsign.EditorSignShowBehavior;
 import com.editor.sign.view.SignEditor;
+import com.main.control.manager.Behavior;
+import com.main.control.manager.BehaviorController;
+import com.main.control.manager.Session;
+import com.main.control.manager.SignManager;
+import com.main.control.manager.SignManager.SignType;
+import com.main.control.manager.getter.MainSignGetter.GetterType;
+import com.main.view.EditorSign;
 import com.model.Sign;
 import com.sun.glass.ui.Size;
 import com.sun.javafx.scene.control.skin.BehaviorSkinBase;
@@ -23,7 +24,6 @@ import com.tool.BorderFixer;
 import com.tool.Direction;
 import com.tool.TColor;
 import com.tool.BorderFixers;
-import com.view.EditorSign;
 
 public class ListSelectSignTypeBehavior extends Behavior {
 

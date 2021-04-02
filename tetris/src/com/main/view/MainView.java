@@ -1,4 +1,4 @@
-package com.view;
+package com.main.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
