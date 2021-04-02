@@ -1,6 +1,7 @@
 package com.tool;
 
 import java.util.ArrayDeque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
@@ -45,7 +46,7 @@ public class Cycle<E> extends ArrayDeque<E> implements java.io.Serializable {
 	}
 
 	public E get(int index) {
-		Cycle<E> c= this.stream().collect(Collectors.toCollection(Cycle::new));
+		Cycle<E> c = this.stream().collect(Collectors.toCollection(Cycle::new));
 		c.rotateTo(index);
 		return c.get();
 	}
@@ -71,11 +72,15 @@ public class Cycle<E> extends ArrayDeque<E> implements java.io.Serializable {
 	public E get() {
 		return this.peek();
 	}
-	
+
 	public int getCurrentPointer() {
 		return this.currentPointer;
 	}
-	
-	
+
+	public void insertAtTheBack(E e) {
+		this.offerLast(this.pollFirst());
+		this.offerFirst(e);
+		runCyclePointer(+1);
+	}
 
 }

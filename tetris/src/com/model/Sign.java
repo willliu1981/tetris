@@ -140,7 +140,6 @@ public abstract class Sign implements java.io.Serializable {
 				.getY()+1) > this.getHeight()) {
 			h = y;
 		}
-		System.out.println(String.format("%d , %d", x,this.getWidth()));
 
 		this.setSize(w, h);
 	}
@@ -162,8 +161,7 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	public void insertSignMapAtTheBack() {
-		this.cycleCubeMap.rotateRight();
-		this.cycleCubeMap.offerFirst(new HashMap<>());
+		this.cycleCubeMap.insertAtTheBack(new HashMap<>());
 	}
 
 	public void removeCurrentSignMap() {
