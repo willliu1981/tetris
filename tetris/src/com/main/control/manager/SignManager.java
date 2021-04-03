@@ -11,7 +11,8 @@ import com.tool.Direction;
 public class SignManager {
 
 	public enum SignType {
-		MainSign, DigitSign
+		MainSign, DigitSign;
+
 	}
 
 	private SignType type;

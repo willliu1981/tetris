@@ -13,6 +13,8 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,6 +23,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
@@ -54,18 +57,48 @@ public class FileManager {
 			}
 
 			Gson g = new GsonBuilder()
-					.registerTypeAdapter(SignGetter.class, new JsonDeserializer<SignGetter<? extends Sign>>() {
+					.registerTypeAdapter(Map.class, new JsonDeserializer<Map<SignType, SignGetter<? extends Sign>>>() {
 						@Override
-						public SignGetter<? extends Sign> deserialize(JsonElement json, Type type,
+						public Map<SignType, SignGetter<? extends Sign>> deserialize(JsonElement jElement, Type jType,
 								JsonDeserializationContext context) throws JsonParseException {
-							String myType = json.getAsJsonObject().get("type").getAsString();
-							JsonObject data = json.getAsJsonObject().get("data").getAsJsonObject();
-							switch (myType) {
-							case "MainSignGetter":
-								return context.deserialize(data, MainSignGetter.class);
-							default:
-								throw new IllegalArgumentException("Gson:class no match");
+							Set<Entry<String, JsonElement>> jObjSet = jElement.getAsJsonObject().entrySet();
+							Map<SignType, SignGetter<? extends Sign>> map = new HashMap<>();
+							;
+							for (Entry entry : jObjSet) {
+								JsonObject value = (JsonObject) entry.getValue();
+								SignGetter<? extends Sign> getter = null;
+								SignType type = SignType.valueOf((String) entry.getKey());
+								System.out.println(type);
+								System.out.println(value);
+								switch (type) {
+								case MainSign:
+									Gson g = new GsonBuilder().registerTypeAdapter(MainSignGetter.class,
+											new JsonDeserializer<MainSignGetter>() {
+												@Override
+												public MainSignGetter deserialize(JsonElement jEle, Type Jtype,
+														JsonDeserializationContext context) throws JsonParseException {
+													System.out.println("getter "+jEle);
+													Type type = new TypeToken<Map<Enum<?>, ?>>() {
+													}.getType();
+													MainSignGetter getter = new Gson().fromJson(jElement, type);
+													return getter;
+												}
+											}).create();
+									getter = g.fromJson(value, MainSignGetter.class);
+									map.put(type, getter);
+								default:
+									throw new IllegalArgumentException("Gson:class no match");
+								}
 							}
+							return map;
+
+							/*
+							 * String myType = jElement.getAsJsonObject().get("type").getAsString();
+							 * JsonObject data = jElement.getAsJsonObject().get("data").getAsJsonObject();
+							 * switch (myType) { case "MainSignGetter": return context.deserialize(data,
+							 * MainSignGetter.class); default: throw new
+							 * IllegalArgumentException("Gson:class no match"); }
+							 */
 						}
 					}).create();
 			Type type = new TypeToken<Map<SignType, SignGetter<? extends Sign>>>() {
@@ -87,44 +120,57 @@ public class FileManager {
 	public static void writeSignDate() {
 		Map<SignType, SignGetter<? extends Sign>> map = SignManager.getSignGetterMap();
 		try (FileWriter writer = new FileWriter(fname);) {
-			JsonSerializer<SignGetter<? extends Sign>> jsonSerializer = new JsonSerializer<SignGetter<? extends Sign>>() {
+			JsonSerializer<Map<SignType, SignGetter<? extends Sign>>> jsonSerializer = new JsonSerializer<Map<SignType, SignGetter<? extends Sign>>>() {
 				@Override
-				public JsonElement serialize(SignGetter<? extends Sign> signGetter, Type type,
+				public JsonElement serialize(Map<SignType, SignGetter<? extends Sign>> jElement, Type type,
 						JsonSerializationContext context) {
-					final JsonObject wrapper = new JsonObject();
-					wrapper.addProperty("type", signGetter.getClass().getSimpleName());
-					wrapper.add("data", new Gson().toJsonTree(signGetter));
+					JsonObject wrapper = new JsonObject();
+					wrapper.addProperty("type", jElement.getClass().getSimpleName());
+					wrapper.add("data", context.serialize(jElement));
 					return wrapper;
 				}
 			};
 
-			Gson g = new GsonBuilder().registerTypeAdapter(MainSignGetter.class, jsonSerializer).create();
+			Gson g = new GsonBuilder().registerTypeAdapter(Map.class, jsonSerializer).create();
 
-			writer.write(g.toJson(map));
+			writer.write(new Gson().toJson(map));
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 
 	}
-	
-	class JsonAdapter implements JsonSerializer<Object>,JsonDeserializer<Object>{
-		private static final String Classname="classname";
-		private static final String Data="data";
-		
-		
+
+	class JsonAdapter implements JsonSerializer<Object>, JsonDeserializer<Object> {
+		private static final String Classname = "classname";
+		private static final String Data = "data";
+
 		@Override
-		public Object deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2)
+		public Object deserialize(JsonElement jElement, Type type, JsonDeserializationContext jContext)
 				throws JsonParseException {
-			
-			
-			return null;
+			JsonObject jObj = jElement.getAsJsonObject();
+			JsonPrimitive prim = (JsonPrimitive) jObj.get(Classname);
+			String className = prim.getAsString();
+			Class Klass = getObjectClass(className);
+
+			return jContext.deserialize(jObj.get(Data), Klass);
 		}
 
 		@Override
-		public JsonElement serialize(Object arg0, Type arg1, JsonSerializationContext arg2) {
-			return null;
+		public JsonElement serialize(Object jElement, Type type, JsonSerializationContext jContext) {
+			JsonObject jObj = new JsonObject();
+			jObj.addProperty(Classname, jElement.getClass().getName());
+			jObj.add(Data, jContext.serialize(jElement));
+			return jObj;
 		}
-		
+
+		public Class getObjectClass(String className) {
+			try {
+				return Class.forName(className);
+			} catch (ClassNotFoundException ex) {
+				throw new JsonParseException(ex.getMessage());
+			}
+		}
+
 	}
 
 }
