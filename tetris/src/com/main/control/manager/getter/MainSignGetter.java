@@ -13,9 +13,7 @@ public class MainSignGetter extends SignGetter<MainSign> {
 		SignS, SignZ, SignT, SignL, SignJ, SignO, SignI
 	}
 
-	public MainSignGetter() {
 
-	}
 
 	@Override
 	public void addSign(Enum<?> type, int x, int y) {

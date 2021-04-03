@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.SoftBevelBorder;
 
-import com.editor.sign.control.editorsign.EditorSignShowBehavior;
-import com.editor.sign.control.listselect.ListSelectSignTypeBehavior;
+import com.editor.sign.control.behavior.editorsign.EditorSignShowBehavior;
+import com.editor.sign.control.behavior.listselect.ListSelectSignTypeBehavior;
 import com.editor.sign.view.SignEditor;
 import com.main.control.exception.TNullException;
 import com.main.control.manager.Behavior;

@@ -1,4 +1,4 @@
-package com.editor.sign.control.editorsign;
+package com.editor.sign.control.behavior.editorsign;
 
 import java.awt.Color;
 

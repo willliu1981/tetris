@@ -1,4 +1,4 @@
-package com.editor.sign.control.listselect;
+package com.editor.sign.control.behavior.listselect;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
-import com.editor.sign.control.editorsign.EditorSignShowBehavior;
+import com.editor.sign.control.behavior.editorsign.EditorSignShowBehavior;
 import com.editor.sign.view.SignEditor;
 import com.main.control.manager.Behavior;
 import com.main.control.manager.BehaviorController;

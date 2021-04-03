@@ -21,8 +21,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.editor.sign.control.listselect.ListSelectSignIlkBehavior;
-import com.editor.sign.control.listselect.ListSelectSignTypeBehavior;
+import com.editor.sign.control.behavior.listselect.ListSelectSignIlkBehavior;
+import com.editor.sign.control.behavior.listselect.ListSelectSignTypeBehavior;
 import com.main.control.exception.FileErrorException;
 import com.main.control.file.FileManager;
 import com.main.control.manager.Behavior;
