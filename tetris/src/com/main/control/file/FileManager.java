@@ -16,6 +16,13 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
@@ -25,6 +32,7 @@ import com.google.gson.stream.JsonWriter;
 import com.main.control.exception.FileErrorException;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.SignManager.SignType;
+import com.main.control.manager.getter.MainSignGetter;
 import com.main.control.manager.getter.SignGetter;
 import com.model.Sign;
 
@@ -32,7 +40,6 @@ public class FileManager {
 	private static final String Basepath = "data";
 	private static final String MainSignFileName = "mainsign.txt";
 	private static String fname = Basepath + File.separator + MainSignFileName;
-	private static Gson g = new Gson();
 
 	public static void loadSignDate() {
 		File f = new File(fname);
@@ -45,16 +52,27 @@ public class FileManager {
 			while (br.ready()) {
 				sb.append(br.readLine());
 			}
+
+			Gson g = new GsonBuilder()
+					.registerTypeAdapter(SignGetter.class, new JsonDeserializer<SignGetter<? extends Sign>>() {
+						@Override
+						public SignGetter<? extends Sign> deserialize(JsonElement json, Type type,
+								JsonDeserializationContext context) throws JsonParseException {
+							String myType = json.getAsJsonObject().get("type").getAsString();
+							JsonObject data = json.getAsJsonObject().get("data").getAsJsonObject();
+							switch (myType) {
+							case "MainSignGetter":
+								return context.deserialize(data, MainSignGetter.class);
+							default:
+								throw new IllegalArgumentException("Gson:class no match");
+							}
+						}
+					}).create();
 			Type type = new TypeToken<Map<SignType, SignGetter<? extends Sign>>>() {
 			}.getType();
-			// Gson gb=new GsonBuilder().registerTypeAdapter(type, new HashMap<SignType,
-			// SignGetter<? extends Sign>>().getClass()).create();
 
 			map = g.fromJson(sb.toString(), type);
 
-			System.out.println("-------------------");
-			System.out.println(map);
-			System.out.println(map.get(SignType.MainSign));
 		} catch (JsonSyntaxException e) {
 			System.out.println(e.getMessage());
 		} catch (EOFException e) {
@@ -69,37 +87,44 @@ public class FileManager {
 	public static void writeSignDate() {
 		Map<SignType, SignGetter<? extends Sign>> map = SignManager.getSignGetterMap();
 		try (FileWriter writer = new FileWriter(fname);) {
-			System.out.println(map);
-			writer.write( g.toJson(map));
+			JsonSerializer<SignGetter<? extends Sign>> jsonSerializer = new JsonSerializer<SignGetter<? extends Sign>>() {
+				@Override
+				public JsonElement serialize(SignGetter<? extends Sign> signGetter, Type type,
+						JsonSerializationContext context) {
+					final JsonObject wrapper = new JsonObject();
+					wrapper.addProperty("type", signGetter.getClass().getSimpleName());
+					wrapper.add("data", new Gson().toJsonTree(signGetter));
+					return wrapper;
+				}
+			};
+
+			Gson g = new GsonBuilder().registerTypeAdapter(MainSignGetter.class, jsonSerializer).create();
+
+			writer.write(g.toJson(map));
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 
 	}
-
-	static class MyEnumAdapterFactory implements TypeAdapterFactory {
-
+	
+	class JsonAdapter implements JsonSerializer<Object>,JsonDeserializer<Object>{
+		private static final String Classname="classname";
+		private static final String Data="data";
+		
+		
 		@Override
-		public <T> TypeAdapter<T> create(Gson arg0, TypeToken<T> arg1) {
-
+		public Object deserialize(JsonElement arg0, Type arg1, JsonDeserializationContext arg2)
+				throws JsonParseException {
+			
+			
 			return null;
 		}
 
-		public class MyEnumTypeAdapter<T> extends TypeAdapter<T> {
-
-			@Override
-			public T read(JsonReader arg0) throws IOException {
-
-				return null;
-			}
-
-			@Override
-			public void write(JsonWriter arg0, T arg1) throws IOException {
-
-			}
-
+		@Override
+		public JsonElement serialize(Object arg0, Type arg1, JsonSerializationContext arg2) {
+			return null;
 		}
-
+		
 	}
 
 }
