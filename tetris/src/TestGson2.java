@@ -13,7 +13,6 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 
-
 abstract class Birds {
 	public final static String NameInfoType_Master = "master";
 	public final static String NameInfoType_Self = "self";
@@ -22,7 +21,7 @@ abstract class Birds {
 		Master, Self
 	}
 
-	private Map<NameInfoType, String> mapNameInfo = new HashMap<>();// <type,name>
+	private Map<Enum<NameInfoType>, String> mapNameInfo = new HashMap<>();// <type,name>
 
 	public void setNameInfo(String name, NameInfoType type) {
 		this.mapNameInfo.put(type, name);
@@ -119,26 +118,31 @@ public class TestGson2 {
 	}
 
 	static Map<String, Birds> fromJson(String json) {
-		Map<String, Birds> mapPet = new HashMap<>();
 		Type type = new TypeToken<Map<String, Birds>>() {
 		}.getType();
 
-		return mapPet = new GsonBuilder().registerTypeAdapter(Birds.class, new JsonDeserializer<Birds>() {
+		return new GsonBuilder().registerTypeAdapter(Birds.class, new JsonDeserializer<Birds>() {
 			@Override
 			public Birds deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context)
 					throws JsonParseException {
 				String type = elem.getAsJsonObject().get("type").getAsString();
 				JsonObject data = elem.getAsJsonObject().get("data").getAsJsonObject();
-				Type nType=new TypeToken<Birds.NameInfoType>() {}.getType();
+
+				Gson gsonBirds = new GsonBuilder().registerTypeAdapter(Enum.class, new JsonDeserializer<Enum<?>>() {
+					@Override
+					public Enum<?> deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context)
+							throws JsonParseException {
+						return new Gson().fromJson(elem, Birds.NameInfoType.class);
+					}
+				}).create();
 				switch (type) {
 				case "Eagle":
-					return context.deserialize(data, Eagle.class);
+					return gsonBirds.fromJson(data, Eagle.class);
 				case "Penguin":
-					return context.deserialize(data, Penguin.class);
+					return gsonBirds.fromJson(data, Penguin.class);
 				default:
 					throw new IllegalArgumentException("No match class");
 				}
-
 			}
 		}).create().fromJson(json, type);
 	}
