@@ -1,1 +1,1 @@
-{"C1":{"type":"BatCar","data":{"name":"bbb"}},"C2":{"type":"SuperCar","data":{"name":"sss"}}}
+{"C1":{"type":"BatCar","data":{"name":"bbb","level":{"A":20,"B":40}}},"C2":{"type":"SuperCar","data":{"age":10,"name":"sss","level":{"A":30}}}}

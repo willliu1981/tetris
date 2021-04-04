@@ -28,10 +28,15 @@ public class TestGson {
 	public static void main(String[] args) {
 		String fname = "data/testC.txt";
 		Car c1 = new BatCar("bbb");
+		c1.level.put("A", 20);
+		c1.level.put("B", 40);
 		Car c2 = new SuperCar("sss");
+		c2.level.put("A", 30);
+		SuperCar s2 = (SuperCar) c2;
+		s2.age = 10;
 		map.put(CType.C1, c1);
-		map.put(CType.C2, c2);
-		// write(fname);
+		map.put(CType.C2, s2);
+		write(fname);
 		read(fname);
 
 		System.out.println(newMap.get(CType.C1));
@@ -100,8 +105,10 @@ public class TestGson {
 		}
 	}
 
-	static abstract class Car {
-		String name;
+	static   class Car {
+		private String name;
+
+		Map<String, Integer> level = new HashMap<>();
 
 		public Car() {
 		}
@@ -110,8 +117,24 @@ public class TestGson {
 			this.name = name;
 		}
 
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public Map<String, Integer> getLevel() {
+			return level;
+		}
+
+		public void setLevel(Map<String, Integer> level) {
+			this.level = level;
+		}
+
 		public String toString() {
-			return this.name;
+			return this.name + " levle: " + level;
 		}
 	}
 
@@ -124,15 +147,32 @@ public class TestGson {
 	}
 
 	static class SuperCar extends Car {
+		int age;
 
 		public SuperCar(String name) {
 			super(name);
+		}
+
+		public int getAge() {
+			return age;
+		}
+
+		public void setAge(int age) {
+			this.age = age;
+		}
+
+		public String toString() {
+			return super.toString() + " age=" + this.age;
 		}
 
 	}
 
 	static enum CType {
 		C1, C2
+	}
+
+	interface Fire {
+		void fire();
 	}
 
 }

@@ -84,7 +84,7 @@ public class FileManager {
 													return getter;
 												}
 											}).create();
-									getter = g.fromJson(value, MainSignGetter.class);
+									getter = new Gson().fromJson(value, MainSignGetter.class);
 									map.put(type, getter);
 								default:
 									throw new IllegalArgumentException("Gson:class no match");
