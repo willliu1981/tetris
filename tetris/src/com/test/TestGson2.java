@@ -1,3 +1,4 @@
+package com.test;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +33,7 @@ abstract class Birds {
 	}
 
 	public String toString() {
-		return String.format("%s::infoMap->%s", this.getClass().getTypeName(), this.mapNameInfo);
+		return String.format("%s::infoMap->%s", this.getClass().getClass().getSimpleName() , this.mapNameInfo);
 	}
 
 }
@@ -107,7 +108,7 @@ public class TestGson2 {
 			@Override
 			public JsonElement serialize(Birds birds, Type typeOfOri, JsonSerializationContext context) {
 				JsonObject jsonObj = new JsonObject();
-				jsonObj.addProperty("type", typeOfOri.getTypeName());
+				jsonObj.addProperty("type", birds.getClass().getSimpleName());
 				jsonObj.add("data", new Gson().toJsonTree(birds));
 				return jsonObj;
 			}
