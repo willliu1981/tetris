@@ -155,74 +155,55 @@ public class TestGson2 {
 	}
 
 	static String toJson(Map<String, Birds> mapPet) {
-		JsonSerializer<Birds> birdsSerializer = new JsonSerializer<Birds>() {
-			@Override
-			public JsonElement serialize(Birds birds, Type typeOfOri, JsonSerializationContext context) {
-				JsonSerializer<Name> nameSerializer = new JsonSerializer<Name>() {
-					@Override
-					public JsonElement serialize(Name name, Type typeOfOri, JsonSerializationContext context) {
-						JsonObject jsonObj = new JsonObject();
-						jsonObj.addProperty("type", name.getClass().getSimpleName());
-						jsonObj.add("data", new Gson().toJsonTree(name));
-						return jsonObj;
-					}
-				};
-				JsonObject jsonObj = new JsonObject();
-				jsonObj.addProperty("type", birds.getClass().getSimpleName());
-				jsonObj.add("data", new GsonBuilder().registerTypeAdapter(Name.class, nameSerializer).create() .toJsonTree(birds));
-				return jsonObj;
-			}
+		JsonSerializer<Birds> birdsSerializer = (birds, bt, bc) -> {
+			JsonObject birdsJObj = new JsonObject();
+			birdsJObj.addProperty("type", birds.getClass().getSimpleName());
+			birdsJObj.add("data",
+					new GsonBuilder().registerTypeAdapter(Name.class, (JsonSerializer<Name>) (name, nt2, nc2) -> {
+						JsonObject nameJObj = new JsonObject();
+						nameJObj.addProperty("type", name.getClass().getSimpleName());
+						nameJObj.add("data", new Gson().toJsonTree(name));
+						return nameJObj;
+					}).create().toJsonTree(birds));
+			return birdsJObj;
 		};
 
-		String strJson = new GsonBuilder() .registerTypeAdapter(Eagle.class, birdsSerializer)
-				.registerTypeAdapter(Penguin.class, birdsSerializer)
-				.create().toJson(mapPet);
+		String strJson = new GsonBuilder().registerTypeAdapter(Eagle.class, birdsSerializer)
+				.registerTypeAdapter(Penguin.class, birdsSerializer).create().toJson(mapPet);
 		return strJson;
 	}
 
 	static Map<String, Birds> fromJson(String json) {
-		Type type = new TypeToken<Map<String, Birds>>() {
-		}.getType();
+		return new GsonBuilder().registerTypeAdapter(Birds.class, (JsonDeserializer<Birds>) (birds, bt, bc) -> {
+			String bType = birds.getAsJsonObject().get("type").getAsString();
+			JsonObject bData = birds.getAsJsonObject().get("data").getAsJsonObject();
 
-		return new GsonBuilder().registerTypeAdapter(Birds.class, new JsonDeserializer<Birds>() {
-			@Override
-			public Birds deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context)
-					throws JsonParseException {
-				String type = elem.getAsJsonObject().get("type").getAsString();
-				JsonObject data = elem.getAsJsonObject().get("data").getAsJsonObject();
-
-				Gson gsonBirds = new GsonBuilder().registerTypeAdapter(Enum.class, new JsonDeserializer<Enum<?>>() {
-					@Override
-					public Enum<?> deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context)
-							throws JsonParseException {
-						return new Gson().fromJson(elem, Birds.NameInfoType.class);
-					}
-				}).registerTypeAdapter(Name.class, new JsonDeserializer<Name>() {
-					@Override
-					public Name deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context)
-							throws JsonParseException {
-						String type = elem.getAsJsonObject().get("type").getAsString();
-						JsonObject data = elem.getAsJsonObject().get("data").getAsJsonObject();
-						switch (type) {
+			Gson gsonBirds = new GsonBuilder()
+					.registerTypeAdapter(Enum.class,
+							(JsonDeserializer<Enum<?>>) (inum, et, ec) -> new Gson().fromJson(inum,
+									Birds.NameInfoType.class))
+					.registerTypeAdapter(Name.class, (JsonDeserializer<Name>) (name, et, ec) -> {
+						String nType = name.getAsJsonObject().get("type").getAsString();
+						JsonObject nData = name.getAsJsonObject().get("data").getAsJsonObject();
+						switch (nType) {
 						case "Name":
-							return new Gson().fromJson(data, Name.class);
+							return new Gson().fromJson(nData, Name.class);
 						case "FullName":
-							return new Gson().fromJson(data, FullName.class);
+							return new Gson().fromJson(nData, FullName.class);
 						default:
 							throw new IllegalArgumentException("No match class");
 						}
-					}
-				}).create();
-				switch (type) {
-				case "Eagle":
-					return gsonBirds.fromJson(data, Eagle.class);
-				case "Penguin":
-					return gsonBirds.fromJson(data, Penguin.class);
-				default:
-					throw new IllegalArgumentException("No match class");
-				}
+					}).create();
+			switch (bType) {
+			case "Eagle":
+				return gsonBirds.fromJson(bData, Eagle.class);
+			case "Penguin":
+				return gsonBirds.fromJson(bData, Penguin.class);
+			default:
+				throw new IllegalArgumentException("No match class");
 			}
-		}).create().fromJson(json, type);
+		}).create().fromJson(json, new TypeToken<Map<String, Birds>>() {
+		}.getType());
 	}
 
 }
