@@ -125,6 +125,14 @@ class Penguin extends Birds {
 	}
 }
 
+class BirdList {
+	protected Map<String, Birds> mapBirds = new HashMap<>();
+
+	public String toString() {
+		return this.mapBirds.toString();
+	}
+}
+
 public class TestGson2 {
 
 	public static void main(String[] args) {
@@ -149,13 +157,19 @@ public class TestGson2 {
 		mapBirds.put("Peter", eagle);
 		mapBirds.put("Mary", penguin);
 
-		String json = toJson(mapBirds);
+		BirdList birdList = new BirdList();
+		birdList.mapBirds = mapBirds;
+
+		String json = toJson(birdList);
 
 		System.out.println("toJson" + json);
 		System.out.println("fromJsonPetMap->" + fromJson(json));
 	}
 
-	static String toJson(Map<String, Birds> mapPet) {
+	static String toJson(BirdList birdList) {
+
+		
+		
 		JsonSerializer<Birds> birdsSerializer = (birds, bt, bc) -> {
 			JsonObject birdsJObj = new JsonObject();
 			birdsJObj.addProperty("type", birds.getClass().getSimpleName());
@@ -169,15 +183,18 @@ public class TestGson2 {
 			return birdsJObj;
 		};
 
-		String strJson = new GsonBuilder().registerTypeAdapter(Birds.class, birdsSerializer)
-				.registerTypeAdapter(Eagle.class, birdsSerializer).registerTypeAdapter(Penguin.class, birdsSerializer)
-				.create().toJson(mapPet);
-//		String strJson = new GsonBuilder().registerTypeAdapter(Birds.class, birdsSerializer).create().toJsonTree(mapPet)
-//				.getAsString();
+//		String strJson = new GsonBuilder().registerTypeAdapter(Birds.class, birdsSerializer)
+//				.registerTypeAdapter(Eagle.class, birdsSerializer).registerTypeAdapter(Penguin.class, birdsSerializer)
+//				.create().toJson(mapPet);
+		//String strJson = new GsonBuilder().registerTypeAdapter(Birds.class, birdsSerializer).create().toJsonTree(mapPet);
+		
+		String strJson=new GsonBuilder().registerTypeAdapter(Birds.class,birdsSerializer).create().toJson(birdList);
+		
+		
 		return strJson;
 	}
 
-	static Map<String, Birds> fromJson(String json) {
+	static BirdList fromJson(String json) {
 		return new GsonBuilder().registerTypeAdapter(Birds.class, (JsonDeserializer<Birds>) (birds, bt, bc) -> {
 			String bType = birds.getAsJsonObject().get("type").getAsString();
 			JsonObject bData = birds.getAsJsonObject().get("data").getAsJsonObject();
@@ -191,8 +208,7 @@ public class TestGson2 {
 			default:
 				throw new IllegalArgumentException("No match class");
 			}
-		}).create().fromJson(json, new TypeToken<Map<String, Birds>>() {
-		}.getType());
+		}).create().fromJson(json,BirdList.class);
 	}
 
 }
