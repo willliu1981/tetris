@@ -30,7 +30,7 @@ public class BirdsDeserializer extends Deserializer<Birds> {
 	}
 
 	@Override
-	public GsonBuilder registerSubClassTypeAdapter(GsonBuilder builder) {
+	public GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder) {
 		return builder.registerTypeAdapter(Name.class, new NameDeserializer()).registerTypeAdapter(Enum.class,
 				new EnumDeserializer());
 	}

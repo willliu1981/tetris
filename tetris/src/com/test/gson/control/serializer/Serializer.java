@@ -23,13 +23,13 @@ public abstract class Serializer<T> implements JsonSerializer<T> {
 			JsonObject jsonObj);
 
 	protected Gson getGson() {
-		GsonBuilder builder = this.registerSubClassTypeAdapter(new GsonBuilder());
+		GsonBuilder builder = this.registerChildrenNodeTypeAdapter(new GsonBuilder());
 		if (builder == null) {
 			return new Gson();
 		}
 		return builder.create();
 	}
 
-	public abstract GsonBuilder registerSubClassTypeAdapter(GsonBuilder builder);
+	public abstract GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder);
 
 }

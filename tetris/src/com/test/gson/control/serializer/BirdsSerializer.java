@@ -22,7 +22,7 @@ public class BirdsSerializer extends Serializer<Birds> {
 	}
 
 	@Override
-	public GsonBuilder registerSubClassTypeAdapter(GsonBuilder builder) {
+	public GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder) {
 		return builder.registerTypeAdapter(Name.class, new NameSerializer());
 	}
 

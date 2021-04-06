@@ -27,7 +27,7 @@ public class NameDeserializer extends Deserializer<Birds.Name> {
 	}
 
 	@Override
-	public GsonBuilder registerSubClassTypeAdapter(GsonBuilder builder) {
+	public GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder) {
 		return null;
 	}
 

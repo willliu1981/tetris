@@ -18,7 +18,7 @@ public class EnumDeserializer extends Deserializer<Enum<?>> {
 	}
 
 	@Override
-	public GsonBuilder registerSubClassTypeAdapter(GsonBuilder builder) {
+	public GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder) {
 		return null;
 	}
 

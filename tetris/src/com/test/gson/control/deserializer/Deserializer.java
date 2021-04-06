@@ -20,13 +20,13 @@ public abstract class Deserializer<T> implements JsonDeserializer<T> {
 	public abstract T deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context, Gson gson);
 
 	protected Gson getGson() {
-		GsonBuilder builder = this.registerSubClassTypeAdapter(new GsonBuilder());
+		GsonBuilder builder = this.registerChildrenNodeTypeAdapter(new GsonBuilder());
 		if (builder == null) {
 			return new Gson();
 		}
 		return builder.create();
 	}
 
-	public abstract GsonBuilder registerSubClassTypeAdapter(GsonBuilder builder);
+	public abstract GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder);
 
 }

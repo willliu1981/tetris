@@ -20,7 +20,7 @@ public class NameSerializer extends Serializer<Name> {
 	}
 
 	@Override
-	public GsonBuilder registerSubClassTypeAdapter(GsonBuilder builder) {
+	public GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder) {
 		return null;
 	}
 

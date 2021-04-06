@@ -21,7 +21,7 @@ public class BirdsMapDeserializer extends Deserializer<Map<String, Birds>> {
 	}
 
 	@Override
-	public GsonBuilder registerSubClassTypeAdapter(GsonBuilder builder) {
+	public GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder) {
 		return builder.registerTypeAdapter(Birds.class, new BirdsDeserializer());
 	}
 
