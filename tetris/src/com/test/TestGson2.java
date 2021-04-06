@@ -1,17 +1,12 @@
 package com.test;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 import com.test.Birds.FullName;
@@ -19,7 +14,7 @@ import com.test.Birds.Name;
 
 abstract class Birds {
 
-	protected static class Name {
+	public static class Name {
 		private String name;
 
 		public Name(String name) {
@@ -39,7 +34,7 @@ abstract class Birds {
 		}
 	}
 
-	protected static class FullName extends Name {
+	public static class FullName extends Name {
 		private String lastName;
 
 		public FullName(String firstName, String lastName) {
@@ -69,7 +64,7 @@ abstract class Birds {
 
 	}
 
-	protected enum NameInfoType {
+	public enum NameInfoType {
 		Master, Self
 	}
 
@@ -133,6 +128,11 @@ class Penguin extends Birds {
 public class TestGson2 {
 
 	public static void main(String[] args) {
+		Birds bird = new Birds() {
+		};
+		bird.setNameInfo(new Name("LiLi"), Birds.NameInfoType.Self);
+		bird.setNameInfo(new FullName("Paul", "Brown"), Birds.NameInfoType.Master);
+
 		Eagle eagle = new Eagle();
 		eagle.setNameInfo(new Name("Alice"), Birds.NameInfoType.Self);
 		eagle.setNameInfo(new FullName("Peter", "Wu"), Birds.NameInfoType.Master);
@@ -144,11 +144,12 @@ public class TestGson2 {
 		penguin.setNameInfo(new FullName("Mary", "Li"), Birds.NameInfoType.Master);
 		penguin.setSwimmingSpeed(20);
 
-		Map<String, Birds> toJsonPetMap = new HashMap<>();// <master,pet>
-		toJsonPetMap.put("Peter", eagle);
-		toJsonPetMap.put("Mary", penguin);
+		Map<String, Birds> mapBirds = new HashMap<>();// <master,pet>
+		mapBirds.put("Paul", bird);
+		mapBirds.put("Peter", eagle);
+		mapBirds.put("Mary", penguin);
 
-		String json = toJson(toJsonPetMap);
+		String json = toJson(mapBirds);
 
 		System.out.println("toJson" + json);
 		System.out.println("fromJsonPetMap->" + fromJson(json));
@@ -168,8 +169,11 @@ public class TestGson2 {
 			return birdsJObj;
 		};
 
-		String strJson = new GsonBuilder().registerTypeAdapter(Eagle.class, birdsSerializer)
-				.registerTypeAdapter(Penguin.class, birdsSerializer).create().toJson(mapPet);
+		String strJson = new GsonBuilder().registerTypeAdapter(Birds.class, birdsSerializer)
+				.registerTypeAdapter(Eagle.class, birdsSerializer).registerTypeAdapter(Penguin.class, birdsSerializer)
+				.create().toJson(mapPet);
+//		String strJson = new GsonBuilder().registerTypeAdapter(Birds.class, birdsSerializer).create().toJsonTree(mapPet)
+//				.getAsString();
 		return strJson;
 	}
 
@@ -178,22 +182,7 @@ public class TestGson2 {
 			String bType = birds.getAsJsonObject().get("type").getAsString();
 			JsonObject bData = birds.getAsJsonObject().get("data").getAsJsonObject();
 
-			Gson gsonBirds = new GsonBuilder()
-					.registerTypeAdapter(Enum.class,
-							(JsonDeserializer<Enum<?>>) (inum, et, ec) -> new Gson().fromJson(inum,
-									Birds.NameInfoType.class))
-					.registerTypeAdapter(Name.class, (JsonDeserializer<Name>) (name, et, ec) -> {
-						String nType = name.getAsJsonObject().get("type").getAsString();
-						JsonObject nData = name.getAsJsonObject().get("data").getAsJsonObject();
-						switch (nType) {
-						case "Name":
-							return new Gson().fromJson(nData, Name.class);
-						case "FullName":
-							return new Gson().fromJson(nData, FullName.class);
-						default:
-							throw new IllegalArgumentException("No match class");
-						}
-					}).create();
+			Gson gsonBirds = DeserializerFactory.getGson(DeserializerFactory.Birds);
 			switch (bType) {
 			case "Eagle":
 				return gsonBirds.fromJson(bData, Eagle.class);
@@ -206,4 +195,51 @@ public class TestGson2 {
 		}.getType());
 	}
 
+}
+
+class DeserializerFactory {
+	public final static String Birds = "Birds";
+	public final static String Map_String_Birds = "Map<String,Birds>";
+
+	private static Map<String, Gson> mapGson;
+
+	private static JsonDeserializer<Enum<?>> EnumDeserializer = (inum, et, ec) -> new Gson().fromJson(inum,
+			Birds.NameInfoType.class);
+
+	private static JsonDeserializer<Name> NameDeserializer = (name, nt, nc) -> {
+		String nType = name.getAsJsonObject().get("type").getAsString();
+		JsonObject nData = name.getAsJsonObject().get("data").getAsJsonObject();
+		switch (nType) {
+		case "Name":
+			return new Gson().fromJson(nData, Name.class);
+		case "FullName":
+			return new Gson().fromJson(nData, FullName.class);
+		default:
+			throw new IllegalArgumentException("No match class");
+		}
+	};
+
+	public static void initializeGson() {
+		mapGson = new HashMap<>();
+		mapGson.put(DeserializerFactory.Birds,
+				new GsonBuilder().registerTypeAdapter(Enum.class, DeserializerFactory.getEnumDeserializer())
+						.registerTypeAdapter(Name.class, DeserializerFactory.getNameDeserializer()).create());
+
+		mapGson.put(DeserializerFactory.Map_String_Birds, null);
+	}
+
+	public static Gson getGson(String name) {
+		if (mapGson == null) {
+			initializeGson();
+		}
+		return mapGson.get(name);
+	}
+
+	public static JsonDeserializer<Enum<?>> getEnumDeserializer() {
+		return EnumDeserializer;
+	}
+
+	public static JsonDeserializer<Name> getNameDeserializer() {
+		return NameDeserializer;
+	}
 }
