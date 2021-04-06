@@ -10,6 +10,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.test.gson.model.Birds;
 
+/*
+ * 這個類,可能可以利用於 TestGson 的第46行, 取得Gson (尚未實測)
+ */
 public class BirdsMapDeserializer extends Deserializer<Map<String, Birds>> {
 
 	@Override

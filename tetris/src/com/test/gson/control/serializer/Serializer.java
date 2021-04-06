@@ -16,7 +16,7 @@ public abstract class Serializer<T> implements JsonSerializer<T> {
 
 	@Override
 	public JsonElement serialize(T elem, Type typeOfOri, JsonSerializationContext context) {
-		return this.serialize(elem, typeOfOri, context, new Gson(), new JsonObject());
+		return this.serialize(elem, typeOfOri, context,  getGson(), new JsonObject());
 	}
 
 	public abstract JsonElement serialize(T elem, Type typeOfOri, JsonSerializationContext context, Gson gson,

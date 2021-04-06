@@ -15,7 +15,6 @@ import com.test.gson.model.Penguin;
 public class TestGson {
 
 	public static void main(String[] args) {
-		Map<String, Birds> mapPet = new HashMap<>();
 		Eagle eagle = new Eagle();
 		eagle.setNameInfo(new Birds.Name("Alice"), Birds.NameInfoType.Self);
 		eagle.setNameInfo(new Birds.FullName("Peter", "Wu"), Birds.NameInfoType.Master);
@@ -27,19 +26,25 @@ public class TestGson {
 		penguin.setNameInfo(new Birds.FullName("Mary", "Li"), Birds.NameInfoType.Master);
 		penguin.setSwimmingSpeed(20);
 
-		Map<String, Birds> toJsonPetMap = new HashMap<>();// <master,pet>
-		toJsonPetMap.put("Peter", eagle);
-		toJsonPetMap.put("Mary", penguin);
+		Map<String, Birds> mapBirds = new HashMap<>();// <master,pet>
+		mapBirds.put("Peter", eagle);
+		mapBirds.put("Mary", penguin);
 
-		String json = toJson(toJsonPetMap);
+		String jsonStr = toJson(mapBirds);
 
-		System.out.println("toJson" + json);
-		System.out.println("fromJsonPetMap->" + fromJson(json));
+		System.out.println("toJson" + jsonStr);
+		System.out.println("fromJsonPetMap->" + fromJson(jsonStr));
 
 	}
 
 	static String toJson(Map<String, Birds> mapPet) {
-		Gson gson = new GsonBuilder().registerTypeAdapter(Map.class, new BirdsSerializer()).create();
+		/*
+		 * 這裡比較奇怪,序列map 時,需要將每個可能的子類別type 註冊上去,
+		 * 若該map 是屬於一個類別下的組件,註冊其父類別(map 的 element 的父類別)就可以,
+		 * 例如:BirdSerializer 註冊 Name
+		 */
+		Gson gson = new GsonBuilder().registerTypeAdapter(Eagle.class, new BirdsSerializer())
+				.registerTypeAdapter(Penguin.class, new BirdsSerializer()).create();
 
 		return gson.toJson(mapPet);
 	}
