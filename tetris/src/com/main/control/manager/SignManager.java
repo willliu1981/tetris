@@ -3,9 +3,9 @@ package com.main.control.manager;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.main.control.manager.getter.MainSignGetter;
-import com.main.control.manager.getter.SignGetter;
+import com.main.model.MainSignGetter;
 import com.main.model.Sign;
+import com.main.model.SignGetter;
 import com.tool.Direction;
 
 public class SignManager {

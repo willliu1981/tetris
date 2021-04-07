@@ -12,8 +12,8 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.reflect.TypeToken;
 import com.main.control.file.gson.serializer.SignGetterSerializer;
 import com.main.control.manager.SignManager.SignType;
-import com.main.control.manager.getter.SignGetter;
 import com.main.model.Sign;
+import com.main.model.SignGetter;
 import com.tool.gson.GsonWrapper;
 
 public class SignGetterMapWrapper extends GsonWrapper<Map<SignType, SignGetter<? extends Sign>>> {

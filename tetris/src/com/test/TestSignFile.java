@@ -2,7 +2,7 @@ package com.test;
 
 import com.main.control.file.FileManager;
 import com.main.control.manager.SignManager;
-import com.main.control.manager.getter.MainSignGetter;
+import com.main.model.MainSignGetter;
 import com.main.model.Sign;
 
 public class TestSignFile {

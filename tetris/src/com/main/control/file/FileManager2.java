@@ -35,9 +35,9 @@ import com.google.gson.stream.JsonWriter;
 import com.main.control.exception.FileErrorException;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.SignManager.SignType;
-import com.main.control.manager.getter.MainSignGetter;
-import com.main.control.manager.getter.SignGetter;
+import com.main.model.MainSignGetter;
 import com.main.model.Sign;
+import com.main.model.SignGetter;
 
 public class FileManager2 {
 	private static final String Basepath = "data";
