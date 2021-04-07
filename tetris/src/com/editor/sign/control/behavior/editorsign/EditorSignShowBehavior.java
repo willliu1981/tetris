@@ -2,9 +2,9 @@ package com.editor.sign.control.behavior.editorsign;
 
 import java.awt.Color;
 
+import com.editor.sign.view.EditorSignPanel;
 import com.main.control.manager.Behavior;
-import com.main.view.EditorSign;
-import com.model.Sign;
+import com.main.model.Sign;
 import com.tool.Direction;
 import com.tool.TColor;
 
@@ -12,7 +12,7 @@ public class EditorSignShowBehavior extends Behavior {
 
 	@Override
 	public void run() {
-		EditorSign editorsign = (EditorSign) this.getParameter("editorsign");
+		EditorSignPanel editorsign = (EditorSignPanel) this.getParameter("editorsign");
 		Sign sign = (Sign) this.getParameter("sign");
 		Direction d = editorsign.getDirection();
 		if (sign.containCube(d.getX(), d.getY())) {

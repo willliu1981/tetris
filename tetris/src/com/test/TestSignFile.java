@@ -3,7 +3,7 @@ package com.test;
 import com.main.control.file.FileManager;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.getter.MainSignGetter;
-import com.model.Sign;
+import com.main.model.Sign;
 
 public class TestSignFile {
 	public static void main(String s[]) {

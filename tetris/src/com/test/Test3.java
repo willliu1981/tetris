@@ -9,8 +9,8 @@ import java.util.Map;
 
 import javax.swing.Timer;
 
-import com.model.MainSign;
-import com.model.Sign;
+import com.main.model.MainSign;
+import com.main.model.Sign;
 
 public class Test3 {
 

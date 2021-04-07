@@ -1,6 +1,6 @@
 package com.main.control.manager.getter;
 
-import com.model.MainSign;
+import com.main.model.MainSign;
 
 public class MainSignGetter extends SignGetter<MainSign> {
 

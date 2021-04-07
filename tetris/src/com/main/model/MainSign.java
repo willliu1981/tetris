@@ -1,4 +1,4 @@
-package com.model;
+package com.main.model;
 
 /*
  * 由小方塊組成的形狀

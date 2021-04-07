@@ -9,6 +9,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 
 import com.editor.sign.control.behavior.editorsign.EditorSignShowBehavior;
+import com.editor.sign.view.EditorSignPanel;
 import com.editor.sign.view.SignEditor;
 import com.main.control.manager.Behavior;
 import com.main.control.manager.BehaviorController;
@@ -16,8 +17,7 @@ import com.main.control.manager.Session;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.SignManager.SignType;
 import com.main.control.manager.getter.MainSignGetter.GetterType;
-import com.main.view.EditorSign;
-import com.model.Sign;
+import com.main.model.Sign;
 import com.sun.glass.ui.Size;
 import com.sun.javafx.scene.control.skin.BehaviorSkinBase;
 import com.tool.BorderFixer;
@@ -50,7 +50,7 @@ public class ListSelectSignTypeBehavior extends Behavior {
 		int h = sign.getHeight();
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {
-				EditorSign editorsign = new EditorSign(sign);
+				EditorSignPanel editorsign = new EditorSignPanel(sign);
 				editorsign.setDirection(x, y);
 
 				Behavior behavior = new EditorSignShowBehavior();

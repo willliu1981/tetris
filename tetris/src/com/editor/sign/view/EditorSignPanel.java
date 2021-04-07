@@ -1,4 +1,4 @@
-package com.main.view;
+package com.editor.sign.view;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -12,12 +12,11 @@ import javax.swing.border.SoftBevelBorder;
 
 import com.editor.sign.control.behavior.editorsign.EditorSignShowBehavior;
 import com.editor.sign.control.behavior.listselect.ListSelectSignTypeBehavior;
-import com.editor.sign.view.SignEditor;
 import com.main.control.exception.TNullException;
 import com.main.control.manager.Behavior;
 import com.main.control.manager.BehaviorController;
 import com.main.control.manager.Session;
-import com.model.Sign;
+import com.main.model.Sign;
 import com.tool.BorderFixer;
 import com.tool.Direction;
 
@@ -26,7 +25,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class EditorSign extends JPanel {
+public class EditorSignPanel extends JPanel {
 	private JPanel panel;
 	private Optional<Sign> sign = Optional.empty();
 	private Optional<Direction> direction = Optional.empty();
@@ -35,12 +34,12 @@ public class EditorSign extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public EditorSign(Sign sign) {
+	public EditorSignPanel(Sign sign) {
 		this();
 		this.sign = Optional.of(sign);
 	}
 
-	private EditorSign() {
+	private EditorSignPanel() {
 		setLayout(new BorderLayout(0, 0));
 		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 
@@ -117,7 +116,7 @@ public class EditorSign extends JPanel {
 		return this.panel;
 	}
 
-	public EditorSign getThis() {
+	public EditorSignPanel getThis() {
 		return this;
 	}
 

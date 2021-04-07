@@ -6,12 +6,12 @@ import javax.swing.AbstractListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
+import com.editor.sign.view.EditorSignPanel;
 import com.main.control.manager.Behavior;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.SignManager.SignType;
 import com.main.control.manager.getter.MainSignGetter.GetterType;
-import com.main.view.EditorSign;
-import com.model.Sign;
+import com.main.model.Sign;
 import com.sun.glass.ui.Size;
 
 public class ListSelectSignIlkBehavior extends Behavior {

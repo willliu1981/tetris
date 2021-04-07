@@ -5,8 +5,8 @@ import java.util.Optional;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.getter.MainSignGetter;
 import com.main.control.manager.getter.MainSignGetter.GetterType;
-import com.model.MainSign;
-import com.model.Sign;
+import com.main.model.MainSign;
+import com.main.model.Sign;
 import com.sun.glass.ui.Size;
 
 

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.main.control.manager.getter.MainSignGetter;
 import com.main.control.manager.getter.SignGetter;
-import com.model.Sign;
+import com.main.model.Sign;
 import com.tool.Direction;
 
 public class SignManager {
