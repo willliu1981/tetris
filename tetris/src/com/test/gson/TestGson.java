@@ -35,7 +35,7 @@ public class TestGson {
 		Map<String, Birds> mapBirds = new HashMap<>();// <master,pet>
 		mapBirds.put("Peter", eagle);
 		mapBirds.put("Mary", penguin);
-		// mapBirds.put("John", sparrow);//BirdDeserializer -> match type 的問題
+		mapBirds.put("John", sparrow);
 
 		String jsonStr = toJson(mapBirds);
 
@@ -54,14 +54,13 @@ public class TestGson {
 		 * 
 		 * return gson.toJson(mapPet);
 		 */
-		
+
 		/*
 		 * 解決後的程式片段,參考 Phip Giboli 大大的留言回覆
 		 */
-		Gson gson = new GsonBuilder().registerTypeAdapter(Birds.class, new BirdsSerializer())
-			.create();
+		Gson gson = new GsonBuilder().registerTypeAdapter(Birds.class, new BirdsSerializer()).create();
 
-		return gson.toJson(mapPet,new TypeToken<Map<String, Birds>>() {
+		return gson.toJson(mapPet, new TypeToken<Map<String, Birds>>() {
 		}.getType());
 	}
 

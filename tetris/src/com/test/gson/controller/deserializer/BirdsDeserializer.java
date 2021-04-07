@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.test.gson.controller.factory.ClassTypeFactory;
 import com.test.gson.model.Birds;
 import com.test.gson.model.Eagle;
 import com.test.gson.model.Penguin;
@@ -19,14 +20,12 @@ public class BirdsDeserializer extends Deserializer<Birds> {
 		String bType = birds.getAsJsonObject().get("type").getAsString();
 		JsonObject bData = birds.getAsJsonObject().get("data").getAsJsonObject();
 
-		switch (bType) {
-		case "Eagle":
-			return gson.fromJson(bData, Eagle.class);
-		case "Penguin":
-			return gson.fromJson(bData, Penguin.class);
-		default:
-			throw new IllegalArgumentException("No match class");
+		Class clazz= ClassTypeFactory.getClassType(bType);
+		if(clazz==null) {
+			new IllegalArgumentException("No match class");
 		}
+		return (Birds) gson.fromJson(bData, clazz);
+
 	}
 
 	@Override
