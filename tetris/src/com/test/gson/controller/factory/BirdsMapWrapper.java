@@ -15,6 +15,10 @@ import com.test.gson.controller.serializer.BirdsSerializer;
 import com.test.gson.model.Birds;
 
 public class BirdsMapWrapper extends GsonWrapper<Map<String, Birds>> {
+	
+	public BirdsMapWrapper() {
+		
+	}
 
 	public BirdsMapWrapper(Map<String, Birds> mapBirds) {
 		super(mapBirds);

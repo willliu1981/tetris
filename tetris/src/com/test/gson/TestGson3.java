@@ -3,9 +3,7 @@ package com.test.gson;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gson.Gson;
 import com.test.gson.controller.factory.BirdsMapWrapper;
-import com.test.gson.controller.factory.GsonWrapper;
 import com.test.gson.model.Birds;
 import com.test.gson.model.Eagle;
 import com.test.gson.model.Penguin;
@@ -28,18 +26,16 @@ public class TestGson3 {
 		mapBirds.put("Peter", eagle);
 		mapBirds.put("Mary", penguin);
 
-		GsonWrapper<?> wraper = new BirdsMapWrapper(mapBirds);
-
-		Gson gson = wraper.getGson();
 		/*
 		 * toJson
 		 */
-		String jsonStr = gson.toJson(wraper);
-		System.out.println("toJson" + jsonStr);
+		String jsonStr = new BirdsMapWrapper(mapBirds).toJson();
+		System.out.println("toJson->" + jsonStr);
+		
 		/*
 		 * fromJson
 		 */
-		BirdsMapWrapper newWraper = gson.fromJson(jsonStr, BirdsMapWrapper.class);
+		BirdsMapWrapper newWraper = (BirdsMapWrapper) new BirdsMapWrapper().fromJson(jsonStr);
 		System.out.println("fromJsonPetMap->");
 		newWraper.get().forEach((x, y) -> System.out.format("%s , %s\n", x, y));
 

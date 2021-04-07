@@ -14,6 +14,19 @@ public abstract class GsonWrapper<T> implements CustSerializer<T>,CustDeserializ
 	public GsonWrapper(T t) {
 		this.t = t;
 	}
+	
+	public String toJson() {
+		return this.getGson().toJson(this);
+	}
+	
+	public T fromJson(String jsonStr) {
+		return (T) this.getGson().fromJson(jsonStr, this.getClass());
+	}
+	
+	
+	/*
+	 * get and set
+	 */
 
 	public void set(T t) {
 		this.t = t;
