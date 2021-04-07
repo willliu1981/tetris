@@ -6,11 +6,12 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.test.gson.control.deserializer.BirdsDeserializer;
-import com.test.gson.control.serializer.BirdsSerializer;
+import com.test.gson.controller.deserializer.BirdsDeserializer;
+import com.test.gson.controller.serializer.BirdsSerializer;
 import com.test.gson.model.Birds;
 import com.test.gson.model.Eagle;
 import com.test.gson.model.Penguin;
+import com.test.gson.model.Sparrow;
 
 public class TestGson {
 
@@ -26,9 +27,15 @@ public class TestGson {
 		penguin.setNameInfo(new Birds.FullName("Mary", "Li"), Birds.NameInfoType.Master);
 		penguin.setSwimmingSpeed(20);
 
+		Sparrow sparrow = new Sparrow();
+		sparrow.setNameInfo(new Birds.Name("Cherry"), Birds.NameInfoType.Self);
+		sparrow.setNameInfo(new Birds.FullName("John", "Wood"), Birds.NameInfoType.Master);
+		sparrow.setNoise(25);
+
 		Map<String, Birds> mapBirds = new HashMap<>();// <master,pet>
 		mapBirds.put("Peter", eagle);
 		mapBirds.put("Mary", penguin);
+		// mapBirds.put("John", sparrow);//BirdDeserializer -> match type 的問題
 
 		String jsonStr = toJson(mapBirds);
 
@@ -39,14 +46,23 @@ public class TestGson {
 
 	static String toJson(Map<String, Birds> mapPet) {
 		/*
-		 * 這裡比較奇怪,序列map 時,需要將每個可能的子類別type 註冊上去,
-		 * 若該map 是屬於一個類別下的組件,註冊其父類別(map 的 element 的父類別)就可以,
-		 * 例如:BirdSerializer 註冊 Name
+		 * 原始問題
+		 *
+		 * Gson gson = new GsonBuilder().registerTypeAdapter(Eagle.class, new
+		 * BirdsSerializer()) .registerTypeAdapter(Penguin.class, new
+		 * BirdsSerializer()).create();
+		 * 
+		 * return gson.toJson(mapPet);
 		 */
-		Gson gson = new GsonBuilder().registerTypeAdapter(Eagle.class, new BirdsSerializer())
-				.registerTypeAdapter(Penguin.class, new BirdsSerializer()).create();
+		
+		/*
+		 * 解決後的程式片段,參考 Phip Giboli 大大的留言回覆
+		 */
+		Gson gson = new GsonBuilder().registerTypeAdapter(Birds.class, new BirdsSerializer())
+			.create();
 
-		return gson.toJson(mapPet);
+		return gson.toJson(mapPet,new TypeToken<Map<String, Birds>>() {
+		}.getType());
 	}
 
 	static Map<String, Birds> fromJson(String jsonStr) {

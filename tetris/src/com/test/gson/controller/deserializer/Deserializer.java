@@ -1,4 +1,4 @@
-package com.test.gson.control.serializer;
+package com.test.gson.controller.deserializer;
 
 import java.lang.reflect.Type;
 
@@ -7,20 +7,17 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 
-public abstract class Serializer<T> implements JsonSerializer<T> {
+public abstract class Deserializer<T> implements JsonDeserializer<T> {
 
 	@Override
-	public JsonElement serialize(T elem, Type typeOfOri, JsonSerializationContext context) {
-		return this.serialize(elem, typeOfOri, context,  getGson(), new JsonObject());
+	public T deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context)
+			throws JsonParseException {
+		return deserialize(elem, typeOfOri, context, this.getGson());
 	}
 
-	public abstract JsonElement serialize(T elem, Type typeOfOri, JsonSerializationContext context, Gson gson,
-			JsonObject jsonObj);
+	public abstract T deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context, Gson gson);
 
 	protected Gson getGson() {
 		GsonBuilder builder = this.registerChildrenNodeTypeAdapter(new GsonBuilder());

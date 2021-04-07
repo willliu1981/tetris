@@ -1,4 +1,4 @@
-package com.test.gson.control.serializer;
+package com.test.gson.controller.serializer;
 
 import java.lang.reflect.Type;
 

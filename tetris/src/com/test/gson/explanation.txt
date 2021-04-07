@@ -1,0 +1,26 @@
+.	這個問題的所有程式碼皆在 com.test.gson 底下
+.	main 類別是 TestGson 和 TestGson2
+
+.	model 有Birds 是 Eagle和Penguin、Sparrow的父類,
+	Cage 是 Birds的容器類別
+
+.	controller 有serializer 和 deserializer package
+	分別放 序列和反序列程序,以下舉serializer說明:
+	Serializer 主要覆寫Gson 的 JsonSerialier
+	目的是管理override JsonSerialer的子類別,
+	定義了 registerChildrenNodeTypeAdapter方法,
+	並且回傳給 getGson(),
+	於serialize 方法中,直接取得 gson 參數使用
+	以上看起來有點繞口,不過就是定義明確的用法而已,
+	和直接extends JsonSerializer 的功能一樣	
+	
+	之後的JsonSerializer 子類 就繼承此抽象類別
+	(介面,抽象用法還不純熟,有需要改進的地方,煩請不吝賜教orz)
+
+	直得一提的是,BirdsDeserialzier 的 match type 的用法,
+	這裡可能不太恰當,當Birds 新增子類別時,
+	這裡就得打開來新增case 子句,
+	或許改用工廠模式(?)會比較好
+	
+.	TestGson2 和 TestGson 用於區別所發問的兩種情況,
+	不過目前已經解決了,參考原發問的版面回覆

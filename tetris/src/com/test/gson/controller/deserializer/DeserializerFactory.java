@@ -1,4 +1,4 @@
-package com.test.gson.control.deserializer;
+package com.test.gson.controller.deserializer;
 
 public class DeserializerFactory {
 	private static  DeserializerFactory deserializerFactory=new DeserializerFactory();
