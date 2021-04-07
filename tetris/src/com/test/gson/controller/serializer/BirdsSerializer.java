@@ -11,7 +11,7 @@ import com.test.gson.model.Birds;
 import com.test.gson.model.Birds.FullName;
 import com.test.gson.model.Birds.Name;
 
-public class BirdsSerializer extends Serializer<Birds> {
+public class BirdsSerializer implements CustSerializer<Birds> {
 
 	@Override
 	public JsonElement serialize(Birds birds, Type typeOfOri, JsonSerializationContext context, Gson gson,

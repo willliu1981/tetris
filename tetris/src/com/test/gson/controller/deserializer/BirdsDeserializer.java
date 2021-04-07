@@ -13,7 +13,7 @@ import com.test.gson.model.Eagle;
 import com.test.gson.model.Penguin;
 import com.test.gson.model.Birds.Name;
 
-public class BirdsDeserializer extends Deserializer<Birds> {
+public class BirdsDeserializer implements CustDeserializer<Birds> {
 
 	@Override
 	public Birds deserialize(JsonElement birds, Type typeOfOri, JsonDeserializationContext context, Gson gson) {

@@ -9,7 +9,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.test.gson.model.Birds.Name;
 
-public class NameSerializer extends Serializer<Name> {
+public class NameSerializer implements CustSerializer<Name> {
 
 	@Override
 	public JsonElement serialize(Name name, Type typeOfOri, JsonSerializationContext context, Gson gson,

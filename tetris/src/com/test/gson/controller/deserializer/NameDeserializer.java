@@ -10,7 +10,7 @@ import com.google.gson.JsonObject;
 import com.test.gson.model.Birds;
 import com.test.gson.model.Birds.Name;
 
-public class NameDeserializer extends Deserializer<Birds.Name> {
+public class NameDeserializer implements CustDeserializer<Birds.Name> {
 
 	@Override
 	public Name deserialize(JsonElement name, Type typeOfOri, JsonDeserializationContext context, Gson gson) {

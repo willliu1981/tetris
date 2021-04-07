@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 import com.test.gson.model.Birds;
 
 
-public class EnumDeserializer extends Deserializer<Enum<?>> {
+public class EnumDeserializer implements CustDeserializer<Enum<?>> {
 
 	@Override
 	public Enum<?> deserialize(JsonElement inum, Type typeOfOri, JsonDeserializationContext context, Gson gson) {

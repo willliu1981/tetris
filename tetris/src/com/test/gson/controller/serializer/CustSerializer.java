@@ -11,25 +11,18 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.test.gson.controller.Register;
 
-public abstract class Serializer<T> implements JsonSerializer<T> {
+public  interface CustSerializer<T> extends JsonSerializer<T> , Register {
 
 	@Override
-	public JsonElement serialize(T elem, Type typeOfOri, JsonSerializationContext context) {
+	public default JsonElement serialize(T elem, Type typeOfOri, JsonSerializationContext context) {
 		return this.serialize(elem, typeOfOri, context,  getGson(), new JsonObject());
 	}
 
 	public abstract JsonElement serialize(T elem, Type typeOfOri, JsonSerializationContext context, Gson gson,
 			JsonObject jsonObj);
 
-	protected Gson getGson() {
-		GsonBuilder builder = this.registerChildrenNodeTypeAdapter(new GsonBuilder());
-		if (builder == null) {
-			return new Gson();
-		}
-		return builder.create();
-	}
 
-	public abstract GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder);
 
 }
