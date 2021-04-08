@@ -19,9 +19,9 @@ public class PersonDeserializer implements CustDeserializer<Person> {
 	}
 
 	@Override
-	public Person deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context, Gson gson) {
-		String js = elem.getAsString();
-		JsonObject jo = JsonParser.parseString(js).getAsJsonObject();
+	public Person deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context, Gson gson,JsonObject jo) {
+		System.out.println("test "+elem.toString());
+		 jo = JsonParser.parseString(elem.getAsString()).getAsJsonObject();
 		String type = jo.get("type").getAsString();
 		Person p = (Person) new Gson().fromJson(jo.get("data"), ClassTypeFactory.getClassType(type));
 		return p;

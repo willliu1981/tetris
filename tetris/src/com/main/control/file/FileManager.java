@@ -50,14 +50,14 @@ public class FileManager {
 		if (!f.exists()) {
 			throw new FileErrorException("can't find file " + fname);
 		}
-		SignGetterMapWrapper wrapper = new SignGetterMapWrapper();
+		SignGetterMapWrapper wrapper = null;
 		try (FileReader reader = new FileReader(f); BufferedReader br = new BufferedReader(reader)) {
 			StringBuilder sb = new StringBuilder();
 			while (br.ready()) {
 				sb.append(br.readLine());
 			}
 
-			
+			wrapper = (SignGetterMapWrapper) new SignGetterMapWrapper().fromJson(sb.toString());
 		} catch (JsonSyntaxException e) {
 			System.out.println(e.getMessage());
 		} catch (EOFException e) {
@@ -72,7 +72,7 @@ public class FileManager {
 	public static void writeSignDate() {
 		SignGetterMapWrapper wrapper = new SignGetterMapWrapper(SignManager.getSignGetterMap());
 		try (FileWriter writer = new FileWriter(fname);) {
-			
+
 			writer.write(wrapper.toJson());
 		} catch (IOException ex) {
 			ex.printStackTrace();

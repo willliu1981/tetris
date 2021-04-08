@@ -31,15 +31,14 @@ public class PersonBirdsMapWrapper extends GsonWrapper<Map<Person, Birds>> {
 	@Override
 	public JsonElement serialize(Map<Person, Birds> elem, Type typeOfOri, JsonSerializationContext context, Gson gson,
 			JsonObject jsonObj) {
-		return gson.toJsonTree(elem);
+		return null;
 	}
 
 	@Override
 	public Map<Person, Birds> deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context,
-			Gson gson) {
+			Gson gson,JsonObject jo) {
 
-		return gson.fromJson(elem, new TypeToken<Map<Person, Birds>>() {
-		}.getType());
+		return null;
 	}
 
 	@Override
@@ -49,5 +48,9 @@ public class PersonBirdsMapWrapper extends GsonWrapper<Map<Person, Birds>> {
 				.registerTypeAdapter(Birds.class, new BirdsDeserializer())
 				.registerTypeAdapter(Person.class, new PersonDeserializer());
 	}
+
+
+	
+	
 
 }

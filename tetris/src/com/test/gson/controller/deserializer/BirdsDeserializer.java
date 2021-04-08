@@ -16,7 +16,7 @@ import com.test.gson.model.Birds.Name;
 public class BirdsDeserializer implements CustDeserializer<Birds> {
 
 	@Override
-	public Birds deserialize(JsonElement birds, Type typeOfOri, JsonDeserializationContext context, Gson gson) {
+	public Birds deserialize(JsonElement birds, Type typeOfOri, JsonDeserializationContext context, Gson gson,JsonObject jo) {
 		String bType = birds.getAsJsonObject().get("type").getAsString();
 		JsonObject bData = birds.getAsJsonObject().get("data").getAsJsonObject();
 

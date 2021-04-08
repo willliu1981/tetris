@@ -19,11 +19,9 @@ public abstract class GsonWrapper<T> implements CustSerializer<T>,CustDeserializ
 		return this.getGson().toJson(this);
 	}
 	
-	/*
-	 * 與get 不同的是,它經由 jsonString 建立新的物件
-	 */
-	public T getFromJson(String jsonStr) {
-		return (T) this.getGson().fromJson(jsonStr, this.getClass());
+
+	public GsonWrapper<?> fromJson(String jsonStr) {
+		return  this.getGson().fromJson(jsonStr, this.getClass());
 	}
 	
 	

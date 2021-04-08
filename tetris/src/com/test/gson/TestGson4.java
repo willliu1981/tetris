@@ -36,7 +36,7 @@ public class TestGson4 {
 
 		System.out.println("toJson->" + jsonStr);
 		
-		PersonBirdsMapWrapper newWrapper=(PersonBirdsMapWrapper) wrapper.getFromJson(jsonStr);
+		PersonBirdsMapWrapper  newWrapper= (PersonBirdsMapWrapper) wrapper.fromJson(jsonStr);
 		
 		System.out.println("fromJson->");
 		newWrapper.get() .forEach((x, y) -> System.out.format("%s , %s\n", x, y));

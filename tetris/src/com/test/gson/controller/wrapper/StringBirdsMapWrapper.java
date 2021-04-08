@@ -15,9 +15,9 @@ import com.test.gson.controller.serializer.BirdsSerializer;
 import com.test.gson.model.Birds;
 
 public class StringBirdsMapWrapper extends GsonWrapper<Map<String, Birds>> {
-	
+
 	public StringBirdsMapWrapper() {
-		
+
 	}
 
 	public StringBirdsMapWrapper(Map<String, Birds> mapBirds) {
@@ -32,7 +32,7 @@ public class StringBirdsMapWrapper extends GsonWrapper<Map<String, Birds>> {
 
 	@Override
 	public Map<String, Birds> deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context,
-			Gson gson) {
+			Gson gson, JsonObject jo) {
 		return gson.fromJson(elem, new TypeToken<Map<String, Birds>>() {
 		}.getType());
 	}

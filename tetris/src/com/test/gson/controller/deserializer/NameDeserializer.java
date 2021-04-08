@@ -13,7 +13,7 @@ import com.test.gson.model.Birds.Name;
 public class NameDeserializer implements CustDeserializer<Birds.Name> {
 
 	@Override
-	public Name deserialize(JsonElement name, Type typeOfOri, JsonDeserializationContext context, Gson gson) {
+	public Name deserialize(JsonElement name, Type typeOfOri, JsonDeserializationContext context, Gson gson,JsonObject jo) {
 		String nType = name.getAsJsonObject().get("type").getAsString();
 		JsonObject nData = name.getAsJsonObject().get("data").getAsJsonObject();
 		switch (nType) {
