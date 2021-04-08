@@ -7,6 +7,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.main.control.file.TClassTypeFactory;
 import com.tool.gson.CustDeserializer;
 
 public class EnumDeserializer implements CustDeserializer<Enum<?>> {
@@ -18,9 +20,9 @@ public class EnumDeserializer implements CustDeserializer<Enum<?>> {
 
 	@Override
 	public Enum<?> deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context, Gson gson,JsonObject jo) {
-		System.out.println("(enum ds) "+elem.getAsString());
-		
-		return null;
+		jo = JsonParser.parseString(elem.getAsString()).getAsJsonObject();
+		String type = jo.get("type").getAsString();
+		return (Enum<?>) gson.fromJson(jo.get("data"), TClassTypeFactory.getType(type));
 	}
 
 }

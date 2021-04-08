@@ -1,15 +1,8 @@
 package com.main.control.file.gson.wrapper;
 
-import java.lang.reflect.Type;
 import java.util.Map;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.reflect.TypeToken;
 import com.main.control.file.gson.deserializer.EnumDeserializer;
 import com.main.control.file.gson.deserializer.SignGetterDeserializer;
 import com.main.control.file.gson.serializer.SignGetterSerializer;
@@ -28,24 +21,10 @@ public class SignGetterMapWrapper extends GsonWrapper<Map<SignType, SignGetter<?
 	}
 
 	@Override
-	public JsonElement serialize(Map<SignType, SignGetter<? extends Sign>> elem, Type typeOfOri,
-			JsonSerializationContext context, Gson gson, JsonObject jsonObj) {
-		return null;
-	}
-
-	@Override
-	public Map<SignType, SignGetter<? extends Sign>> deserialize(JsonElement elem, Type typeOfOri,
-			JsonDeserializationContext context, Gson gson,JsonObject jsonObj) {
-		return null;
-	}
-
-	@Override
 	public GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder) {
 		return builder.registerTypeAdapter(SignGetter.class, new SignGetterSerializer())
 				.registerTypeAdapter(SignType.class, new EnumDeserializer())
-				.registerTypeAdapter(SignGetter.class, new SignGetterDeserializer());
+				.registerTypeAdapter(SignGetter.class , new SignGetterDeserializer());
 	}
-
-
 
 }

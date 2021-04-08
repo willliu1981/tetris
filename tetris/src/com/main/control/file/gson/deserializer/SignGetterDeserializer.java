@@ -7,7 +7,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+import com.main.control.file.TClassTypeFactory;
 import com.main.model.Sign;
 import com.main.model.SignGetter;
 import com.tool.gson.CustDeserializer;
@@ -16,22 +17,17 @@ public class SignGetterDeserializer implements CustDeserializer<SignGetter<? ext
 
 	@Override
 	public GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder) {
-	
-		return null;
+		return builder.registerTypeAdapter(Sign.class, new SignDeserializer())
+				.registerTypeAdapter(new TypeToken<Enum<?>>() {
+				}.getType(), new EnumDeserializer());
 	}
 
 	@Override
 	public SignGetter<? extends Sign> deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context,
-			Gson gson,JsonObject jo) {
-		
-		System.out.println("(signgetter ds) " +elem.toString());
-		String js=elem.toString();
-		JsonObject je=JsonParser.parseString(js).getAsJsonObject();
-		jo=elem.getAsJsonObject();
-		String type=elem.getAsJsonObject().get("type").getAsString();
-		System.out.println("(signgetter ds) " +type);
-		
-		return null;
+			Gson gson, JsonObject jo) {
+		jo = elem.getAsJsonObject();
+		String type = elem.getAsJsonObject().get("type").getAsString();
+		return (SignGetter<? extends Sign>) gson.fromJson(jo.get("data"), TClassTypeFactory.getType(type));
 	}
 
 }

@@ -1,11 +1,7 @@
 package com.tool.gson;
 
-import com.google.gson.Gson;
-import com.test.gson.controller.deserializer.CustDeserializer;
-import com.test.gson.controller.serializer.CustSerializer;
+public abstract class GsonWrapper<T> implements Register {
 
-public abstract class GsonWrapper<T> implements CustSerializer<T>,CustDeserializer<T> {
-															   
 	protected T t;
 
 	public GsonWrapper() {
@@ -14,16 +10,15 @@ public abstract class GsonWrapper<T> implements CustSerializer<T>,CustDeserializ
 	public GsonWrapper(T t) {
 		this.t = t;
 	}
-	
+
 	public String toJson() {
 		return this.getGson().toJson(this);
 	}
-	
+
 	public GsonWrapper<?> fromJson(String jsonStr) {
-		return  this.getGson().fromJson(jsonStr, this.getClass());
+		return this.getGson().fromJson(jsonStr, this.getClass());
 	}
-	
-	
+
 	/*
 	 * get and set
 	 */
@@ -36,8 +31,4 @@ public abstract class GsonWrapper<T> implements CustSerializer<T>,CustDeserializ
 		return this.t;
 	}
 
-	@Override
-	public Gson getGson() {
-		return CustSerializer.super.getGson();
-	}
 }

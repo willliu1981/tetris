@@ -15,20 +15,21 @@ public abstract class ClassTypeFactory {
 	 * get and set
 	 */
 
-	public ClassTypeFactory getFactory() {
-		return new ClassTypeFactory() {};
-	}
 
-	public void setClassType(String name, Class<?> clazz) {
+
+	protected void setClassType(String name, Class<?> clazz) {
 		mapClass.put(name, clazz);
 	}
 
-	public Class<?> getClassType(String name) {
+	protected Class<?> getClassType(String name) {
 		Class<?> clazz = mapClass.get(name);
 		if (clazz == null) {
 			throw new RuntimeException("ClassTypeFactory : not match with " + name);
 		}
 		return clazz;
 	}
+
+	protected abstract void init();
+
 
 }
