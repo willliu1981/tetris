@@ -1,4 +1,4 @@
-package com.test.gson.controller.factory;
+package com.test.gson.controller.wrapper;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -14,13 +14,13 @@ import com.test.gson.controller.deserializer.BirdsDeserializer;
 import com.test.gson.controller.serializer.BirdsSerializer;
 import com.test.gson.model.Birds;
 
-public class BirdsMapWrapper extends GsonWrapper<Map<String, Birds>> {
+public class StringBirdsMapWrapper extends GsonWrapper<Map<String, Birds>> {
 	
-	public BirdsMapWrapper() {
+	public StringBirdsMapWrapper() {
 		
 	}
 
-	public BirdsMapWrapper(Map<String, Birds> mapBirds) {
+	public StringBirdsMapWrapper(Map<String, Birds> mapBirds) {
 		super(mapBirds);
 	}
 

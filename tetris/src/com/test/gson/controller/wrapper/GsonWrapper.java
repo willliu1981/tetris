@@ -1,4 +1,4 @@
-package com.test.gson.controller.factory;
+package com.test.gson.controller.wrapper;
 
 import com.google.gson.Gson;
 import com.test.gson.controller.deserializer.CustDeserializer;

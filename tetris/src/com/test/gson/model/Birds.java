@@ -3,8 +3,6 @@ package com.test.gson.model;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
 public abstract class Birds {
 
 	public static class Name {
@@ -13,10 +11,41 @@ public abstract class Birds {
 		public Name(String name) {
 			this.name = name;
 		}
-		
+
 		/*
 		 * get and set
 		 */
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj == null) {
+				return false;
+			}
+
+			if (!(obj instanceof Name)) {
+				return false;
+			}
+
+			Name n = (Name) obj;
+			if (this.name == null && n.name == null) {
+				return true;
+			}
+
+			if (n.name != null && this.name != null && this.name.equals(n.name)) {
+				return true;
+			}
+
+			return false;
+		}
+
+		@Override
+		public int hashCode() {
+			if (this.name == null) {
+				return 0;
+			} else {
+				return this.name.hashCode();
+			}
+		}
 
 		public String getName() {
 			return name;
@@ -38,10 +67,45 @@ public abstract class Birds {
 			super(firstName);
 			this.lastName = lastName;
 		}
-		
+
 		/*
 		 * get and set
 		 */
+
+		@Override
+		public boolean equals(Object obj) {
+			boolean r = super.equals(obj);
+
+			if (r == false) {
+				return false;
+			}
+
+			FullName n = (FullName) obj;
+
+			if (this.lastName == null && n.lastName == null) {
+				return true;
+			}
+
+			if (this.lastName == null || n.lastName == null) {
+				return false;
+			}
+
+			if (this.lastName.equals(n.lastName)) {
+				return true;
+			}
+
+			return false;
+		}
+
+		@Override
+		public int hashCode() {
+			if (this.lastName == null) {
+				return super.hashCode();
+			} else {
+				return super.hashCode() * 3 + this.lastName.hashCode() * 7;
+			}
+
+		}
 
 		public String getLastName() {
 			return lastName;

@@ -3,13 +3,16 @@ package com.test.gson;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.test.gson.controller.factory.BirdsMapWrapper;
+import com.test.gson.controller.wrapper.StringBirdsMapWrapper;
 import com.test.gson.model.Birds;
 import com.test.gson.model.Eagle;
 import com.test.gson.model.Penguin;
 
 public class TestGson3 {
 
+	/*
+	 * 使用 GsonWrapper 將 map 包在裡面
+	 */
 	public static void main(String[] args) {
 		Eagle eagle = new Eagle();
 		eagle.setNameInfo(new Birds.Name("Alice"), Birds.NameInfoType.Self);
@@ -29,13 +32,13 @@ public class TestGson3 {
 		/*
 		 * toJson
 		 */
-		String jsonStr = new BirdsMapWrapper(mapBirds).toJson();
+		String jsonStr = new StringBirdsMapWrapper(mapBirds).toJson();
 		System.out.println("toJson->" + jsonStr);
 		
 		/*
 		 * fromJson
 		 */
-		BirdsMapWrapper newWraper = (BirdsMapWrapper) new BirdsMapWrapper().fromJson(jsonStr);
+		StringBirdsMapWrapper newWraper = (StringBirdsMapWrapper) new StringBirdsMapWrapper().fromJson(jsonStr);
 		System.out.println("fromJsonPetMap->");
 		newWraper.get().forEach((x, y) -> System.out.format("%s , %s\n", x, y));
 
