@@ -7,7 +7,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import com.main.control.file.TClassTypeFactory;
 import com.main.model.Sign;
 import com.main.model.SignGetter;
@@ -18,8 +17,7 @@ public class SignGetterDeserializer implements CustDeserializer<SignGetter<? ext
 	@Override
 	public GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder) {
 		return builder.registerTypeAdapter(Sign.class, new SignDeserializer())
-				.registerTypeAdapter(new TypeToken<Enum<?>>() {
-				}.getType(), new EnumDeserializer());
+				.registerTypeAdapter(Enum.class, new EnumDeserializer());
 	}
 
 	@Override

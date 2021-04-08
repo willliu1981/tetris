@@ -16,7 +16,7 @@ public abstract class Sign implements java.io.Serializable {
 	/*
 	 * 最小單位方塊
 	 */
-	protected static class Cube implements java.io.Serializable {
+	public static class Cube implements java.io.Serializable {
 		/**
 		 * 
 		 */

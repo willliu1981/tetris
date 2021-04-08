@@ -21,7 +21,8 @@ public class SignSerializer implements  CustSerializer<Sign>{
 	public JsonElement serialize(Sign elem, Type typeOfOri, JsonSerializationContext context, Gson gson,
 			JsonObject jsonObj) {
 		jsonObj.addProperty("type", elem.getClass().getSimpleName());
-		jsonObj.add("data", this.getGson().toJsonTree(elem));
+		jsonObj.add("data", this.getGson().toJsonTree(elem,Sign.class));
+		System.out.println("sign s "+jsonObj);
 		return jsonObj;
 	}
 

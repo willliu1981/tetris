@@ -22,6 +22,7 @@ public class SignDeserializer implements CustDeserializer<Sign> {
 	@Override
 	public Sign deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context, Gson gson,
 			JsonObject jo) {
+		System.out.println("enum ds ");
 		jo = JsonParser.parseString(elem.getAsString()).getAsJsonObject();
 		String type = jo.get("type").getAsString();
 		return (Sign) gson.fromJson(jo.get("data"), TClassTypeFactory.getType(type));
