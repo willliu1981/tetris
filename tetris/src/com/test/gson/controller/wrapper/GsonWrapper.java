@@ -1,10 +1,8 @@
 package com.test.gson.controller.wrapper;
 
-import com.google.gson.Gson;
-import com.test.gson.controller.deserializer.CustDeserializer;
-import com.test.gson.controller.serializer.CustSerializer;
+import com.test.gson.controller.Register;
 
-public abstract class GsonWrapper<T> implements CustSerializer<T>,CustDeserializer<T> {
+public abstract class GsonWrapper<T> implements Register {
 															   
 	protected T t;
 
@@ -37,8 +35,5 @@ public abstract class GsonWrapper<T> implements CustSerializer<T>,CustDeserializ
 		return this.t;
 	}
 
-	@Override
-	public Gson getGson() {
-		return CustSerializer.super.getGson();
-	}
+
 }
