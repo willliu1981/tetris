@@ -32,12 +32,11 @@ public class TestGson4 {
 		
 		PersonBirdsMapWrapper wrapper=new PersonBirdsMapWrapper(mapBirds);
 
-		//String jsonStr = new Gson().toJson(mapBirds, new TypeToken<Map<Person, Birds>>() {}.getType());
 		String jsonStr = wrapper.toJson();
 
 		System.out.println("toJson->" + jsonStr);
 		
-		PersonBirdsMapWrapper newWrapper=(PersonBirdsMapWrapper) wrapper.fromJson(jsonStr);
+		PersonBirdsMapWrapper newWrapper=(PersonBirdsMapWrapper) wrapper.getFromJson(jsonStr);
 		
 		System.out.println("fromJson->");
 		newWrapper.get() .forEach((x, y) -> System.out.format("%s , %s\n", x, y));

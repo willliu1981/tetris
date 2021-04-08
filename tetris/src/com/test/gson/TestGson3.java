@@ -38,7 +38,7 @@ public class TestGson3 {
 		/*
 		 * fromJson
 		 */
-		StringBirdsMapWrapper newWraper = (StringBirdsMapWrapper) new StringBirdsMapWrapper().fromJson(jsonStr);
+		StringBirdsMapWrapper newWraper = (StringBirdsMapWrapper) new StringBirdsMapWrapper().getFromJson(jsonStr);
 		System.out.println("fromJsonPetMap->");
 		newWraper.get().forEach((x, y) -> System.out.format("%s , %s\n", x, y));
 

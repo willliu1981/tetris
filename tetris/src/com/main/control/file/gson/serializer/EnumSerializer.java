@@ -20,7 +20,6 @@ public class EnumSerializer implements CustSerializer<Enum<?>> {
 	@Override
 	public JsonElement serialize(Enum<?> elem, Type typeOfOri, JsonSerializationContext context, Gson gson,
 			JsonObject jsonObj) {
-		System.out.println("xxx");
 		jsonObj.addProperty("type", elem.getClass().getSimpleName());
 		jsonObj.add("data", this.getGson().toJsonTree(elem));
 		return jsonObj;

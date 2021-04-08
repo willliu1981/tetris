@@ -33,7 +33,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.main.control.exception.FileErrorException;
-import com.main.control.file.gson.SignGetterMapWrapper;
+import com.main.control.file.gson.wrapper.SignGetterMapWrapper;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.SignManager.SignType;
 import com.main.model.MainSignGetter;
@@ -50,7 +50,7 @@ public class FileManager {
 		if (!f.exists()) {
 			throw new FileErrorException("can't find file " + fname);
 		}
-		Map<SignType, SignGetter<? extends Sign>> map = new HashMap<>();
+		SignGetterMapWrapper wrapper = new SignGetterMapWrapper();
 		try (FileReader reader = new FileReader(f); BufferedReader br = new BufferedReader(reader)) {
 			StringBuilder sb = new StringBuilder();
 			while (br.ready()) {
@@ -58,8 +58,6 @@ public class FileManager {
 			}
 
 			
-
-
 		} catch (JsonSyntaxException e) {
 			System.out.println(e.getMessage());
 		} catch (EOFException e) {
@@ -68,21 +66,18 @@ public class FileManager {
 			ex.printStackTrace();
 		}
 
-		SignManager.setSignGetterMap(map);
+		SignManager.setSignGetterMap(wrapper.get());
 	}
 
 	public static void writeSignDate() {
-		Map<SignType, SignGetter<? extends Sign>> map = SignManager.getSignGetterMap();
+		SignGetterMapWrapper wrapper = new SignGetterMapWrapper(SignManager.getSignGetterMap());
 		try (FileWriter writer = new FileWriter(fname);) {
-			String jsonStr=new SignGetterMapWrapper(map).toJson();
-
-			writer.write(jsonStr);
+			
+			writer.write(wrapper.toJson());
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 
 	}
-
-	
 
 }

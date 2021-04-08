@@ -7,31 +7,28 @@ import com.test.gson.model.Eagle;
 import com.test.gson.model.Penguin;
 import com.test.gson.model.Sparrow;
 
-public class ClassTypeFactory {
-	
-	private static Map<String,Class> mapClass=new HashMap<>();
-	
-	/*
-	 * init
-	 */
-	static {
-		setClassType("Eagle",Eagle.class);
-		setClassType("Penguin",Penguin.class);
-		setClassType("Sparrow",Sparrow.class);
-	}
-	
-	
+public abstract class ClassTypeFactory {
+
+	private Map<String, Class<?>> mapClass = new HashMap<>();
+
 	/*
 	 * get and set
 	 */
-	
-	public static void setClassType(String name,Class clazz) {
+
+	public ClassTypeFactory getFactory() {
+		return new ClassTypeFactory() {};
+	}
+
+	public void setClassType(String name, Class<?> clazz) {
 		mapClass.put(name, clazz);
 	}
-	
-	public static Class getClassType(String name) {
-		return mapClass.get(name);
+
+	public Class<?> getClassType(String name) {
+		Class<?> clazz = mapClass.get(name);
+		if (clazz == null) {
+			throw new RuntimeException("ClassTypeFactory : not match with " + name);
+		}
+		return clazz;
 	}
-	
-	
+
 }

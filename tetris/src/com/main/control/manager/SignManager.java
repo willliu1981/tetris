@@ -3,6 +3,8 @@ package com.main.control.manager;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gson.GsonBuilder;
+import com.main.control.file.gson.serializer.EnumSerializer;
 import com.main.model.MainSignGetter;
 import com.main.model.Sign;
 import com.main.model.SignGetter;
@@ -12,7 +14,9 @@ public class SignManager {
 
 	public enum SignType {
 		MainSign, DigitSign;
-
+		public String toString() {
+			return new GsonBuilder().registerTypeAdapter(this.getClass(), new EnumSerializer()).create().toJson(this);
+		}
 	}
 
 	private SignType type;

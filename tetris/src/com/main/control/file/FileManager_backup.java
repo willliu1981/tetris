@@ -39,7 +39,7 @@ import com.main.model.MainSignGetter;
 import com.main.model.Sign;
 import com.main.model.SignGetter;
 
-public class FileManager2 {
+public class FileManager_backup {
 	private static final String Basepath = "data";
 	private static final String MainSignFileName = "mainsign.txt";
 	private static String fname = Basepath + File.separator + MainSignFileName;
