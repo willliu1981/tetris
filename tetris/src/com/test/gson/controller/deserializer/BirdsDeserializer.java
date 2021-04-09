@@ -17,10 +17,11 @@ public class BirdsDeserializer implements CustDeserializer<Birds> {
 
 	@Override
 	public Birds deserialize(JsonElement birds, Type typeOfOri, JsonDeserializationContext context, Gson gson,JsonObject jo) {
+		System.out.println("bird ds * bbbbbbbbb");
 		String bType = birds.getAsJsonObject().get("type").getAsString();
 		JsonObject bData = birds.getAsJsonObject().get("data").getAsJsonObject();
 
-		Class clazz= ClassTypeFactory.getClassType(bType);
+		Class<?> clazz= ClassTypeFactory.getClassType(bType);
 		if(clazz==null) {
 			new IllegalArgumentException("No match class");
 		}

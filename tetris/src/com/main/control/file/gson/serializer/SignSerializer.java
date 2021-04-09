@@ -22,7 +22,7 @@ public class SignSerializer implements  CustSerializer<Sign>{
 			JsonObject jsonObj) {
 		jsonObj.addProperty("type", elem.getClass().getSimpleName());
 		jsonObj.add("data", this.getGson().toJsonTree(elem,Sign.class));
-		System.out.println("sign s "+jsonObj);
+		System.out.println("sign seri * "+jsonObj);
 		return jsonObj;
 	}
 

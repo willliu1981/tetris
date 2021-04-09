@@ -16,15 +16,17 @@ public class SignGetterDeserializer implements CustDeserializer<SignGetter<? ext
 
 	@Override
 	public GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder) {
-		return builder.registerTypeAdapter(Sign.class, new SignDeserializer())
-				.registerTypeAdapter(Enum.class, new EnumDeserializer());
+		return builder.registerTypeAdapter(Sign.class, new SignDeserializer()).registerTypeAdapter(Enum.class,
+				new EnumDeserializer());
 	}
 
 	@Override
 	public SignGetter<? extends Sign> deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context,
 			Gson gson, JsonObject jo) {
 		jo = elem.getAsJsonObject();
-		String type = elem.getAsJsonObject().get("type").getAsString();
+		String type = jo.get("type").getAsString();
+		System.out.println("signgetter ds * " + type + " , " + jo.get("data"));
+
 		return (SignGetter<? extends Sign>) gson.fromJson(jo.get("data"), TClassTypeFactory.getType(type));
 	}
 

@@ -19,10 +19,11 @@ public class EnumDeserializer implements CustDeserializer<Enum<?>> {
 	}
 
 	@Override
-	public Enum<?> deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context, Gson gson,JsonObject jo) {
+	public Enum<?> deserialize(JsonElement elem, Type typeOfOri, JsonDeserializationContext context, Gson gson,
+			JsonObject jo) {
 		jo = JsonParser.parseString(elem.getAsString()).getAsJsonObject();
 		String type = jo.get("type").getAsString();
-		System.out.println("enum ds "+type);
+		System.out.println("enum ds * " + type + " , " + jo.get("data"));
 		return (Enum<?>) gson.fromJson(jo.get("data"), TClassTypeFactory.getType(type));
 	}
 

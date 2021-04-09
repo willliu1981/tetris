@@ -14,6 +14,7 @@ public class NameDeserializer implements CustDeserializer<Birds.Name> {
 
 	@Override
 	public Name deserialize(JsonElement name, Type typeOfOri, JsonDeserializationContext context, Gson gson,JsonObject jo) {
+		System.out.println("name ds * xxxxxxxxxx");
 		String nType = name.getAsJsonObject().get("type").getAsString();
 		JsonObject nData = name.getAsJsonObject().get("data").getAsJsonObject();
 		switch (nType) {
