@@ -8,8 +8,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.main.model.Sign;
-import com.test.gson.controller.serializer.CycleSerializer;
-import com.tool.Cycle;
 import com.tool.gson.CustSerializer;
 
 public class SignSerializer implements  CustSerializer<Sign>{
@@ -24,7 +22,6 @@ public class SignSerializer implements  CustSerializer<Sign>{
 			JsonObject jsonObj) {
 		jsonObj.addProperty("type", elem.getClass().getSimpleName());
 		jsonObj.add("data", this.getGson().toJsonTree(elem,Sign.class));
-		System.out.println("sign seri * "+jsonObj);
 		return jsonObj;
 	}
 
