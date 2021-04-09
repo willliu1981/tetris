@@ -10,11 +10,14 @@ import com.tool.Cycle;
  */
 public abstract class SignGetter< V extends Sign> implements java.io.Serializable{
 
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected Map<Enum<?>, V> mapSign=new HashMap<>();
+	protected Map<Enum<?>, Sign> mapSign=new HashMap<>();
+	
+	
 
 	
 	public Sign getSign(Enum<?> type) {
@@ -24,7 +27,7 @@ public abstract class SignGetter< V extends Sign> implements java.io.Serializabl
 	abstract public void addSign(Enum<?> type, int x,int y);
 	
 	
-	public Map<Enum<?>, V> getSignMap(){
+	public Map<Enum<?>, Sign> getSignMap(){
 		return this.mapSign;
 	}
 }

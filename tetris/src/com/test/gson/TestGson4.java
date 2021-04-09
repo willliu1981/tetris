@@ -26,7 +26,7 @@ public class TestGson4 {
 		penguin.setNameInfo(new Birds.FullName("Mary", "Li"), Birds.NameInfoType.Master);
 		penguin.setSwimmingSpeed(20);
 
-		Map<Person, Birds> mapBirds = new HashMap<>();// <master,pet>
+		Map<Person, Birds<? >> mapBirds = new HashMap<>();// <master,pet>
 		mapBirds.put(new Person("Peter"), eagle);
 		mapBirds.put(new Person("Mary"), penguin);
 		

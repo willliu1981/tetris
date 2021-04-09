@@ -13,7 +13,7 @@ import com.tool.Direction;
 public class SignManager {
 
 	public enum SignType {
-		MainSign, DigitSign;
+		MAINSIGN, DIGITSIGN;
 		public String toString() {
 			return new GsonBuilder().registerTypeAdapter(this.getClass(), new EnumSerializer()).create().toJson(this);
 		}
@@ -36,18 +36,18 @@ public class SignManager {
 	 */
 	static {
 		mapSignGetter = new HashMap<>();
-		mapSignGetter.put(SignType.MainSign, new MainSignGetter());
+		mapSignGetter.put(SignType.MAINSIGN, new MainSignGetter());
 	}
 
 	public static void initialize() {
-		SignManager manager = SignManager.getManager(SignManager.SignType.MainSign);
-		manager.addSign(MainSignGetter.GetterType.SignS);
-		manager.addSign(MainSignGetter.GetterType.SignZ);
-		manager.addSign(MainSignGetter.GetterType.SignT);
-		manager.addSign(MainSignGetter.GetterType.SignL);
-		manager.addSign(MainSignGetter.GetterType.SignJ);
-		manager.addSign(MainSignGetter.GetterType.SignO);
-		manager.addSign(MainSignGetter.GetterType.SignI);
+		SignManager manager = SignManager.getManager(SignManager.SignType.MAINSIGN);
+		manager.addSign(MainSignGetter.GetterType.SIGNS);
+		manager.addSign(MainSignGetter.GetterType.SIGNZ);
+		manager.addSign(MainSignGetter.GetterType.SIGNT);
+		manager.addSign(MainSignGetter.GetterType.SIGNL);
+		manager.addSign(MainSignGetter.GetterType.SIGNJ);
+		manager.addSign(MainSignGetter.GetterType.SIGNO);
+		manager.addSign(MainSignGetter.GetterType.SIGNI);
 
 		/*
 		Sign signS = manager.getSign(MainSignGetter.GetterType.SignS);

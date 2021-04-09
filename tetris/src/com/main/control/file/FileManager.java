@@ -66,6 +66,15 @@ public class FileManager {
 			ex.printStackTrace();
 		}
 
+		/*
+		System.out.println(wrapper);
+		wrapper.get().forEach((x, y) -> { System.out.format("%s , %s\n", x, y);
+		y.getSignMap().forEach((x1, y1) -> {
+		System.out.println(y1.getCubeMap().size()); System.out.format("%s , %s\n",
+		x1, y1); y1.getCubeMap().forEach((x2, y2) -> { System.out.format("%s , %s\n",
+		x2, y2); }); }); });
+		*/
+
 		SignManager.setSignGetterMap(wrapper.get());
 	}
 

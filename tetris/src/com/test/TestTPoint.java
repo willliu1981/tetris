@@ -33,10 +33,10 @@ public class TestTPoint {
 		System.out.println(ss);
 		
 		System.out.println("manager...");
-		SignManager manager= SignManager.getManager(SignManager.SignType.MainSign);
-		manager.addSign(GetterType.SignS, 1, 2);
-		manager.addSign(GetterType.SignZ, 3, 5);
-		Sign sign=manager.getSign(MainSignGetter.GetterType.SignL);
+		SignManager manager= SignManager.getManager(SignManager.SignType.MAINSIGN);
+		manager.addSign(GetterType.SIGNS, 1, 2);
+		manager.addSign(GetterType.SIGNZ, 3, 5);
+		Sign sign=manager.getSign(MainSignGetter.GetterType.SIGNL);
 		System.out.println(sign);
 	}
 	

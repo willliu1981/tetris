@@ -71,7 +71,7 @@ public class FileManager_backup {
 								System.out.println(type);
 								System.out.println(value);
 								switch (type) {
-								case MainSign:
+								case MAINSIGN:
 									Gson g = new GsonBuilder().registerTypeAdapter(MainSignGetter.class,
 											new JsonDeserializer<MainSignGetter>() {
 												@Override

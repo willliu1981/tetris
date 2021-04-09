@@ -4,6 +4,7 @@ import com.main.control.manager.SignManager.SignType;
 import com.main.model.MainSign;
 import com.main.model.MainSignGetter;
 import com.main.model.MainSignGetter.GetterType;
+import com.tool.Direction;
 import com.tool.gson.ClassTypeFactory;
 
 public class TClassTypeFactory extends ClassTypeFactory {
@@ -19,6 +20,7 @@ public class TClassTypeFactory extends ClassTypeFactory {
 		this.setClassType("GetterType",GetterType.class);
 		this.setClassType("SignType",SignType.class);
 		this.setClassType("MainSign",MainSign.class);
+		this.setClassType("Direction",Direction.class);
 	}
 	
 	protected static TClassTypeFactory getFactory() {

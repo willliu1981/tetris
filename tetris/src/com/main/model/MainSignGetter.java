@@ -11,12 +11,14 @@ public class MainSignGetter extends SignGetter<MainSign> {
 	private static final long serialVersionUID = 1L;
 
 	static public enum GetterType {
-		SignS, SignZ, SignT, SignL, SignJ, SignO, SignI;
+		SIGNS, SIGNZ, SIGNT, SIGNL, SIGNJ, SIGNO, SIGNI;
 
 		public String toString() {
 			return new GsonBuilder().registerTypeAdapter(this.getClass(), new EnumSerializer()).create().toJson(this);
 		}
 	}
+	
+
 
 	@Override
 	public void addSign(Enum<?> type, int x, int y) {

@@ -3,7 +3,7 @@ package com.test.gson.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Birds {
+public abstract class Birds <T extends  Birds.Name>{
 
 	public static class Name {
 		private String name;
@@ -133,12 +133,15 @@ public abstract class Birds {
 		Master, Self
 	}
 
+	/*
+	 * Map<Enum<NameInfoType>, T> , 這裡的T 似乎要明確它的類型為 Name ,它才能被反序列 
+	 */
 	private Map<Enum<NameInfoType>, Name> mapNameInfo = new HashMap<>();// <type,name>
 
 	/*
 	 * get and set
 	 */
-	public void setNameInfo(Name name, NameInfoType type) {
+	public void setNameInfo(T name, NameInfoType type) {
 		this.mapNameInfo.put(type, name);
 	}
 

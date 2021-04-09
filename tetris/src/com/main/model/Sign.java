@@ -212,7 +212,7 @@ public abstract class Sign implements java.io.Serializable {
 		return this.getDirection().getHeight();
 	}
 
-	protected Map<Direction, Cube> getCubeMap() {
+	public Map<Direction, Cube> getCubeMap() {
 		if (this.cycleCubeMap.get() == null) {
 			this.cycleCubeMap.add(new HashMap<>());
 		}

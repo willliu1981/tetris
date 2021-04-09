@@ -9,13 +9,13 @@ import com.test.gson.controller.serializer.BirdsSerializer;
 import com.test.gson.model.Birds;
 import com.test.gson.model.Person;
 
-public class PersonBirdsMapWrapper extends GsonWrapper<Map<Person, Birds>> {
+public class PersonBirdsMapWrapper extends GsonWrapper<Map<Person, Birds<?>>> {
 
 	public PersonBirdsMapWrapper() {
 
 	}
 
-	public PersonBirdsMapWrapper(Map<Person, Birds> mapBirds) {
+	public PersonBirdsMapWrapper(Map<Person, Birds<?>> mapBirds) {
 		super(mapBirds);
 	}
 

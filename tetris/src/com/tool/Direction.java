@@ -2,6 +2,9 @@ package com.tool;
 
 import java.awt.Point;
 
+import com.google.gson.GsonBuilder;
+import com.main.control.file.gson.serializer.DirectionSerializer;
+import com.main.control.file.gson.serializer.EnumSerializer;
 import com.sun.glass.ui.Size;
 
 /*
@@ -142,7 +145,6 @@ public class Direction implements java.io.Serializable {
 	}
 
 	public String toString() {
-		return String.format("[p_x=%d,p_y=%d,pi_x=%d,pi_y=%d,w=%d,h=%d]", this.getX(), this.getY(), this.getPivotX(),
-				this.getPivotY(), this.getWidth(), this.getHeight());
+		return new GsonBuilder().registerTypeAdapter(this.getClass(), new DirectionSerializer()).create().toJson(this);
 	}
 }

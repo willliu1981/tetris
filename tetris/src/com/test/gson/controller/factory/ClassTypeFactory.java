@@ -3,6 +3,7 @@ package com.test.gson.controller.factory;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.test.gson.model.Birds;
 import com.test.gson.model.Eagle;
 import com.test.gson.model.Penguin;
 import com.test.gson.model.Person;
@@ -20,6 +21,8 @@ public class ClassTypeFactory {
 		setClassType("Penguin", Penguin.class);
 		setClassType("Sparrow", Sparrow.class);
 		setClassType("Person",Person.class);
+		setClassType("FullName",Birds.FullName.class);
+		setClassType("Name",Birds.Name.class);
 	}
 
 	/*

@@ -25,7 +25,7 @@ public class SignGetterDeserializer implements CustDeserializer<SignGetter<? ext
 			Gson gson, JsonObject jo) {
 		jo = elem.getAsJsonObject();
 		String type = jo.get("type").getAsString();
-		System.out.println("signgetter ds * " + type + " , " + jo.get("data"));
+		System.out.println("signgetter ds ** " + type + " , " + jo.get("data"));
 
 		return (SignGetter<? extends Sign>) gson.fromJson(jo.get("data"), TClassTypeFactory.getType(type));
 	}

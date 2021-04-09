@@ -13,10 +13,10 @@ import com.test.gson.model.Eagle;
 import com.test.gson.model.Penguin;
 import com.test.gson.model.Birds.Name;
 
-public class BirdsDeserializer implements CustDeserializer<Birds> {
+public class BirdsDeserializer implements CustDeserializer<Birds<? extends Birds.Name>> {
 
 	@Override
-	public Birds deserialize(JsonElement birds, Type typeOfOri, JsonDeserializationContext context, Gson gson,JsonObject jo) {
+	public Birds<? extends Birds.Name> deserialize(JsonElement birds, Type typeOfOri, JsonDeserializationContext context, Gson gson,JsonObject jo) {
 		System.out.println("bird ds * bbbbbbbbb");
 		String bType = birds.getAsJsonObject().get("type").getAsString();
 		JsonObject bData = birds.getAsJsonObject().get("data").getAsJsonObject();
@@ -25,7 +25,7 @@ public class BirdsDeserializer implements CustDeserializer<Birds> {
 		if(clazz==null) {
 			new IllegalArgumentException("No match class");
 		}
-		return (Birds) gson.fromJson(bData, clazz);
+		return (Birds<? extends Birds.Name>) gson.fromJson(bData, clazz);
 
 	}
 
