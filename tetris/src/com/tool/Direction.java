@@ -4,8 +4,6 @@ import java.awt.Point;
 
 import com.google.gson.GsonBuilder;
 import com.main.control.file.gson.serializer.DirectionSerializer;
-import com.main.control.file.gson.serializer.EnumSerializer;
-import com.sun.glass.ui.Size;
 
 /*
  * tetris 專用 座標

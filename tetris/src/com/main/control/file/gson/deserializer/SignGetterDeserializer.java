@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.main.control.file.TClassTypeFactory;
 import com.main.model.Sign;
 import com.main.model.SignGetter;
+import com.sun.javafx.scene.traversal.Direction;
 import com.tool.gson.CustDeserializer;
 
 public class SignGetterDeserializer implements CustDeserializer<SignGetter<? extends Sign>> {

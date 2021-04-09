@@ -7,6 +7,9 @@ import com.main.model.MainSignGetter.GetterType;
 import com.tool.Direction;
 import com.tool.gson.ClassTypeFactory;
 
+/*
+ * teteris 專用 ClassTypeFactory
+ */
 public class TClassTypeFactory extends ClassTypeFactory {
 	private static  TClassTypeFactory factory;
 	

@@ -8,13 +8,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.main.model.Sign;
+import com.tool.Direction;
 import com.tool.gson.CustSerializer;
 
 public class SignSerializer implements  CustSerializer<Sign>{
 
 	@Override
 	public GsonBuilder registerChildrenNodeTypeAdapter(GsonBuilder builder) {
-		return null;
+		return builder.registerTypeAdapter(Direction.class, new DirectionSerializer());
 	}
 
 	@Override

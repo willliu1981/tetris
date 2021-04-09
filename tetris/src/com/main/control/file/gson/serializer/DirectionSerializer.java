@@ -21,7 +21,7 @@ public class DirectionSerializer implements CustSerializer<Direction> {
 	public JsonElement serialize(Direction elem, Type typeOfOri, JsonSerializationContext context, Gson gson,
 			JsonObject jsonObj) {
 		jsonObj.addProperty("type", elem.getClass().getSimpleName());
-		jsonObj.add("data", this.getGson().toJsonTree(elem));
+		jsonObj.add("data", gson.toJsonTree(elem));
 		return jsonObj;
 	}
 
