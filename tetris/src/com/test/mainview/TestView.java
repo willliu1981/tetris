@@ -2,6 +2,8 @@ package com.test.mainview;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -32,7 +34,7 @@ public class TestView extends JFrame {
 				try {
 					TestView frame = new TestView();
 					frame.setVisible(true);
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,6 +56,12 @@ public class TestView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		this.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				BehaviorController.sendBehavior(new InitViewBehavior());
+			}
+		});
 
 		FileManager.loadSignDate();
 
@@ -66,8 +74,7 @@ public class TestView extends JFrame {
 		session.addAttribute("canvas_box_panel", panel);
 		session.addAttribute("canvas_main_panel", testPanel);
 		session.addAttribute("center_canvas_fixer", center_canvas_fixer);
-		
-		
+
 	}
 
 	private void createComponent() {
@@ -77,27 +84,25 @@ public class TestView extends JFrame {
 
 		testPanel = new TestPanel();
 		panel.add(testPanel, BorderLayout.CENTER);
-		
+
 		JPanel panel_n = new JPanel();
 		panel.add(panel_n, BorderLayout.NORTH);
 		center_canvas_fixer.add(BorderFixer.NORTH, panel_n);
-		
+
 		JPanel panel_s = new JPanel();
 		panel.add(panel_s, BorderLayout.SOUTH);
 		center_canvas_fixer.add(BorderFixer.SOUTH, panel_s);
-		
+
 		JPanel panel_w = new JPanel();
 		panel.add(panel_w, BorderLayout.WEST);
 		center_canvas_fixer.add(BorderFixer.WEST, panel_w);
-		
+
 		JPanel panel_e = new JPanel();
 		panel.add(panel_e, BorderLayout.EAST);
 		center_canvas_fixer.add(BorderFixer.EAST, panel_e);
 
 	}
-	
-	
-	
+
 	/*
 	 * get and set
 	 */

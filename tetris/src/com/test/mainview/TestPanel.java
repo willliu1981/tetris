@@ -40,7 +40,8 @@ public class TestPanel extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		BehaviorController.sendBehavior( new InitViewBehavior());
+		
+		
 		
 		Insets inset = this.getInsets();
 
