@@ -140,19 +140,19 @@ public class SignEditor extends JFrame {
 
 		JPanel panel_grid_fix_left = new JPanel();
 		panel_c1_main.add(panel_grid_fix_left, BorderLayout.WEST);
-		center_grid_fixer.add(BorderFixer.Left, panel_grid_fix_left);
+		center_grid_fixer.add(BorderFixer.WEST, panel_grid_fix_left);
 
 		JPanel panel_grid_fix_right = new JPanel();
 		panel_c1_main.add(panel_grid_fix_right, BorderLayout.EAST);
-		center_grid_fixer.add(BorderFixer.Right, panel_grid_fix_right);
+		center_grid_fixer.add(BorderFixer.EAST, panel_grid_fix_right);
 
 		JPanel panel_grid_fix_top = new JPanel();
 		panel_c1_main.add(panel_grid_fix_top, BorderLayout.NORTH);
-		center_grid_fixer.add(BorderFixer.Top, panel_grid_fix_top);
+		center_grid_fixer.add(BorderFixer.NORTH, panel_grid_fix_top);
 
 		JPanel panel_grid_fix_bottom = new JPanel();
 		panel_c1_main.add(panel_grid_fix_bottom, BorderLayout.SOUTH);
-		center_grid_fixer.add(BorderFixer.Bottom, panel_grid_fix_bottom);
+		center_grid_fixer.add(BorderFixer.SOUTH, panel_grid_fix_bottom);
 
 		JPanel panel_c1_west = new JPanel();
 		panel_c1_west.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));

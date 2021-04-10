@@ -63,16 +63,16 @@ public class ListSelectSignTypeBehavior extends Behavior {
 			}
 		}
 
-		
-		Direction d = BorderFixers.calcCenterSize(panel_c1_main.getWidth(), panel_c1_main.getHeight(), center_grid_fixer);
+		Direction d = BorderFixers.calcCenterSize(center_grid_fixer, panel_c1_main.getWidth(),
+				panel_c1_main.getHeight());
 		Direction fixSize = BorderFixers.getFixedAdvice(w, h, d.getWidth(), d.getHeight());
-		BorderFixers.fixAsCenter(fixSize,center_grid_fixer);
-	
+		BorderFixers.fixAsCenter(center_grid_fixer, fixSize);
 
-		panel_grid_main.revalidate();
+		panel_c1_main.revalidate();
 
 		if (lblNewLabel_pointer != null) {
-			lblNewLabel_pointer.setText(String.format("%d / %d", sign.getCycleCurrentPointer()+1, sign.getCycleSize()));
+			lblNewLabel_pointer
+					.setText(String.format("%d / %d", sign.getCycleCurrentPointer() + 1, sign.getCycleSize()));
 		}
 	}
 

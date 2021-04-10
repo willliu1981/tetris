@@ -9,12 +9,11 @@ import java.util.Optional;
 import com.main.control.exception.TNullException;
 import com.tool.direction.Direction;
 
-
 public class BorderFixer<T extends Component> {
-	public static final String Top = "top";
-	public static final String Bottom = "bottom";
-	public static final String Left = "left";
-	public static final String Right = "right";
+	public static final String NORTH = "north";
+	public static final String SOUTH = "south";
+	public static final String WEST = "west";
+	public static final String EAST = "east";
 
 	private Map<String, Optional<T>> mapBorder = new HashMap<>();
 
@@ -32,25 +31,6 @@ public class BorderFixer<T extends Component> {
 	}
 
 	/*
-	 * 將center元件置中調整
-	 */
-	public void fixAsCenter(Direction fixSize) {
-		this.setLeftSize(fixSize.getWidth() / 2 + this.getLeftSize());
-		this.setRightSize(fixSize.getWidth() / 2 + this.getRightSize());
-		this.setTopSize(fixSize.getHeight() / 2 + this.getTopSize());
-		this.setBottomSize(fixSize.getHeight() / 2 + this.getBottomSize());
-	}
-
-	/*
-	 * 計算後取得中間元件的大小
-	 */
-	public Direction calcCenterSize(int parentW, int parentH) {
-		int w = parentW - (this.getLeftSize() + this.getRightSize());
-		int h = parentH - (this.getTopSize() + this.getBottomSize());
-		return new Direction(0, 0, w, h);
-	}
-
-	/*
 	 * get and set
 	 */
 
@@ -62,40 +42,40 @@ public class BorderFixer<T extends Component> {
 		return this.mapBorder.get(name).orElseThrow(() -> new TNullException(name));
 	}
 
-	public void setTopSize(int size) {
-		Dimension ori = this.get(BorderFixer.Top).getPreferredSize();
-		this.get(BorderFixer.Top).setPreferredSize(new Dimension((int) ori.getWidth(), size));
+	public void setNorthSize(int size) {
+		Dimension ori = this.get(BorderFixer.NORTH).getPreferredSize();
+		this.get(BorderFixer.NORTH).setPreferredSize(new Dimension((int) ori.getWidth(), size));
 	}
 
-	public void setBottomSize(int size) {
-		Dimension ori = this.get(BorderFixer.Bottom).getPreferredSize();
-		this.get(BorderFixer.Bottom).setPreferredSize(new Dimension((int) ori.getWidth(), size));
+	public void setSouthSize(int size) {
+		Dimension ori = this.get(BorderFixer.SOUTH).getPreferredSize();
+		this.get(BorderFixer.SOUTH).setPreferredSize(new Dimension((int) ori.getWidth(), size));
 	}
 
-	public void setLeftSize(int size) {
-		Dimension ori = this.get(BorderFixer.Left).getPreferredSize();
-		this.get(BorderFixer.Left).setPreferredSize(new Dimension(size, (int) ori.getHeight()));
+	public void setWestSize(int size) {
+		Dimension ori = this.get(BorderFixer.WEST).getPreferredSize();
+		this.get(BorderFixer.WEST).setPreferredSize(new Dimension(size, (int) ori.getHeight()));
 	}
 
-	public void setRightSize(int size) {
-		Dimension ori = this.get(BorderFixer.Right).getPreferredSize();
-		this.get(BorderFixer.Right).setPreferredSize(new Dimension(size, (int) ori.getHeight()));
+	public void setEastSize(int size) {
+		Dimension ori = this.get(BorderFixer.EAST).getPreferredSize();
+		this.get(BorderFixer.EAST).setPreferredSize(new Dimension(size, (int) ori.getHeight()));
 	}
 
-	public int getTopSize() {
-		return this.get(BorderFixer.Top).getPreferredSize().height;
+	public int getNorthSize() {
+		return this.get(BorderFixer.NORTH).getPreferredSize().height;
 	}
 
-	public int getBottomSize() {
-		return this.get(BorderFixer.Bottom).getPreferredSize().height;
+	public int getSouthSize() {
+		return this.get(BorderFixer.SOUTH).getPreferredSize().height;
 	}
 
-	public int getLeftSize() {
-		return this.get(BorderFixer.Left).getPreferredSize().width;
+	public int getWestSize() {
+		return this.get(BorderFixer.WEST).getPreferredSize().width;
 	}
 
-	public int getRightSize() {
-		return this.get(BorderFixer.Right).getPreferredSize().width;
+	public int getEastSize() {
+		return this.get(BorderFixer.EAST).getPreferredSize().width;
 	}
 
 }
