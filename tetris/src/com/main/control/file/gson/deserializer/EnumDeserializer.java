@@ -8,7 +8,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.main.control.file.TClassTypeFactory;
+import com.main.control.file.gson.TClassTypeFactory;
 import com.tool.gson.CustDeserializer;
 
 public class EnumDeserializer implements CustDeserializer<Enum<?>> {

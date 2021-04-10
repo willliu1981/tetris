@@ -198,6 +198,13 @@ public abstract class Sign implements java.io.Serializable {
 		return this.getDirection().getY();
 	}
 
+	public int getLTX() {
+		return this.getX()-this.getDirection().getPivotX();
+	}
+	public int getLTY() {
+		return this.getY()-this.getDirection().getPivotY();
+	}
+	
 	public int getWidth() {
 		if (this.getDirection().getWidth() <= 0) {
 			this.getDirection().setSize(1, 1);

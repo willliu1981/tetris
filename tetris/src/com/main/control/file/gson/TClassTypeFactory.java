@@ -1,4 +1,4 @@
-package com.main.control.file;
+package com.main.control.file.gson;
 
 import com.main.control.manager.SignManager.SignType;
 import com.main.model.MainSign;
