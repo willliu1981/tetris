@@ -57,8 +57,8 @@ import java.awt.event.ActionEvent;
 public class SignEditor extends JFrame {
 
 	private JPanel contentPane;
-	private JList<?> list_signtype;//放置Sign Cube 的 BorderLayout的父元件
-	private JPanel panel_grid_main;//放置Sign Cube 的 BorderLayout中間的元件
+	private JList<?> list_signtype;// 放置Sign Cube 的 BorderLayout的父元件
+	private JPanel panel_grid_main;// 放置Sign Cube 的 BorderLayout中間的元件
 	private BorderFixer<JPanel> center_grid_fixer = BorderFixer.<JPanel>getFixer();
 	private volatile JPanel panel_c1_main;
 	private JList<?> list_signilk;
@@ -105,11 +105,7 @@ public class SignEditor extends JFrame {
 			SignManager.initialize();
 		}
 
-		JPanel panel_top = new JPanel();
-		contentPane.add(panel_top, BorderLayout.NORTH);
-
-
-		createCenter();
+		createComponent();
 
 		/*
 		 * init: this init area after components created, e.g.,createCenter()
@@ -121,7 +117,10 @@ public class SignEditor extends JFrame {
 
 	}
 
-	private void createCenter() {
+	private void createComponent() {
+		JPanel panel_top = new JPanel();
+		contentPane.add(panel_top, BorderLayout.NORTH);
+
 		JPanel panel_center = new JPanel();
 		contentPane.add(panel_center, BorderLayout.CENTER);
 		panel_center.setLayout(new BorderLayout(0, 0));

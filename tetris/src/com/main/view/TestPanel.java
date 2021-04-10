@@ -38,7 +38,7 @@ public class TestPanel extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-
+		System.out.println("xxx");
 		Insets inset = this.getInsets();
 
 		int w = this.getWidth() - (inset.left + inset.right);
@@ -53,11 +53,13 @@ public class TestPanel extends JPanel {
 		int midh = arrh / 2;
 
 		Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN).getSign(MainSignGetter.GetterType.SIGNJ);
-
-		sign.setPoint(midw, midh);
-
-		for (Direction d : sign.getCubeMap().keySet()) {
-			g.fill3DRect((d.getX() + sign.getLTX()) * len, (d.getY() + sign.getLTY()) * len, len, len, true);
+		
+		if(sign!=null) {
+			sign.setPoint(midw, midh);
+			
+			for (Direction d : sign.getCubeMap().keySet()) {
+				g.fill3DRect((d.getX() + sign.getLTX()) * len, (d.getY() + sign.getLTY()) * len, len, len, true);
+			}
 		}
 
 	}

@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.main.control.file.FileManager;
 import com.tool.Session;
+import javax.swing.JButton;
 
 public class TestView extends JFrame {
 
@@ -38,16 +39,16 @@ public class TestView extends JFrame {
 		/*
 		 * main panel
 		 */
-		FileManager.loadSignDate();
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 854, 658);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
-		
+
+		FileManager.loadSignDate();
+
 		createComponent();
 
 		/*
@@ -64,13 +65,12 @@ public class TestView extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
-		
+
 		TestPanel testPanel = new TestPanel();
 		panel.add(testPanel, BorderLayout.CENTER);
-		testPanel.setLayout(new BorderLayout(0, 0));
+
 	}
-	
-	
+
 	public static Session getSession() {
 		if (session == null) {
 			session = new Session();
