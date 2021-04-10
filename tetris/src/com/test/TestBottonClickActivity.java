@@ -44,7 +44,7 @@ class Button extends View {
 
 	/*
 	 * 這個click 由 使用者按下Button 後,由程序自動呼叫;
-	 * 這個click 應該要命名 onCick,和ClickListener 的 onClick 才有一致性
+	 * 這個click 應該要命名 onClick,和ClickListener 的 onClick 才有一致性
 	 */
 	public void click() {
 		if (clickListener == null) {
@@ -84,7 +84,7 @@ class Button extends View {
 /*
  * 主類別
  */
-public class TestBottonClickActivity implements ClickListiner {
+public class TestBottonClickActivity implements View.ClickListiner {
 
 	public static void main(String[] s) {
 		/*
@@ -112,7 +112,7 @@ public class TestBottonClickActivity implements ClickListiner {
 
 		// 取消以下註解,以匿名類別註冊Listener
 		/* (前面加一條反斜線即可取消註解)
-		button.setClickListener(new ClickListiner() {
+		button.setClickListener(new View.ClickListiner() {
 			@Override
 			public void onClick(View v) {
 				Button button = (Button) v;
