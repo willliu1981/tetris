@@ -13,12 +13,12 @@ import javax.swing.border.SoftBevelBorder;
 import com.editor.sign.control.behavior.editorsign.EditorSignShowBehavior;
 import com.editor.sign.control.behavior.listselect.ListSelectSignTypeBehavior;
 import com.main.control.exception.TNullException;
-import com.main.control.manager.Behavior;
-import com.main.control.manager.BehaviorController;
-import com.main.control.manager.Session;
 import com.main.model.Sign;
-import com.tool.BorderFixer;
-import com.tool.Direction;
+import com.tool.Session;
+import com.tool.behavior.Behavior;
+import com.tool.behavior.BehaviorController;
+import com.tool.behavior.BorderFixer;
+import com.tool.direction.Direction;
 
 import javax.swing.border.BevelBorder;
 import java.awt.Color;

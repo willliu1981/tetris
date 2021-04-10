@@ -3,10 +3,10 @@ package com.editor.sign.control.behavior.editorsign;
 import java.awt.Color;
 
 import com.editor.sign.view.EditorSignPanel;
-import com.main.control.manager.Behavior;
 import com.main.model.Sign;
-import com.tool.Direction;
 import com.tool.TColor;
+import com.tool.behavior.Behavior;
+import com.tool.direction.Direction;
 
 public class EditorSignShowBehavior extends Behavior {
 

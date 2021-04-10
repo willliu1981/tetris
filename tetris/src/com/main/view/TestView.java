@@ -8,10 +8,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.main.control.file.FileManager;
+import com.tool.Session;
 
 public class TestView extends JFrame {
 
 	private JPanel contentPane;
+	private static Session session;
 
 	/**
 	 * Launch the application.
@@ -45,6 +47,20 @@ public class TestView extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		
+		createComponent();
+
+		/*
+		 * init: this init area after components created, e.g.,createCenter()
+		 */
+		Session session = getSession();
+		session.addAttribute("panel_c1_main", null);
+		session.addAttribute("panel_grid_main", null);
+		session.addAttribute("center_grid_fixer", null);
+
+	}
+
+	private void createComponent() {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
@@ -52,16 +68,14 @@ public class TestView extends JFrame {
 		TestPanel testPanel = new TestPanel();
 		panel.add(testPanel, BorderLayout.CENTER);
 		testPanel.setLayout(new BorderLayout(0, 0));
-		
-		
-		createCenterPanel();
-	}
-	
-	private void createCenterPanel() {
-		
 	}
 	
 	
-	
+	public static Session getSession() {
+		if (session == null) {
+			session = new Session();
+		}
+		return session;
+	}
 
 }

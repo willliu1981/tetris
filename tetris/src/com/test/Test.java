@@ -2,7 +2,7 @@ package com.test;
 
 import java.util.Optional;
 
-import com.tool.Direction;
+import com.tool.direction.Direction;
 
 public class Test {
 

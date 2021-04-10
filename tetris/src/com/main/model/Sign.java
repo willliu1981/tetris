@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.tool.Cycle;
-import com.tool.Direction;
+import com.tool.direction.Direction;
 
 public abstract class Sign implements java.io.Serializable {
 

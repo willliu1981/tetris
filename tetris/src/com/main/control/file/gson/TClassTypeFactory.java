@@ -4,7 +4,7 @@ import com.main.control.manager.SignManager.SignType;
 import com.main.model.MainSign;
 import com.main.model.MainSignGetter;
 import com.main.model.MainSignGetter.GetterType;
-import com.tool.Direction;
+import com.tool.direction.Direction;
 import com.tool.gson.ClassTypeFactory;
 
 /*

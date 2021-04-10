@@ -8,7 +8,7 @@ import com.main.control.file.gson.serializer.EnumSerializer;
 import com.main.model.MainSignGetter;
 import com.main.model.Sign;
 import com.main.model.SignGetter;
-import com.tool.Direction;
+import com.tool.direction.Direction;
 
 public class SignManager {
 

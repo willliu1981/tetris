@@ -9,7 +9,7 @@ import javax.swing.border.EtchedBorder;
 import com.main.control.manager.SignManager;
 import com.main.model.MainSignGetter;
 import com.main.model.Sign;
-import com.tool.Direction;
+import com.tool.direction.Direction;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

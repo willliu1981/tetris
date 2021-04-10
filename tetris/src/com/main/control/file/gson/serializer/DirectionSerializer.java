@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import com.tool.Direction;
+import com.tool.direction.Direction;
 import com.tool.gson.CustSerializer;
 
 public class DirectionSerializer implements CustSerializer<Direction> {

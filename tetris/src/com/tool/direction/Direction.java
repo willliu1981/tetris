@@ -1,4 +1,4 @@
-package com.tool;
+package com.tool.direction;
 
 import java.awt.Point;
 

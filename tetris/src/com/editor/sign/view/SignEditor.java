@@ -25,18 +25,18 @@ import com.editor.sign.control.behavior.listselect.ListSelectSignIlkBehavior;
 import com.editor.sign.control.behavior.listselect.ListSelectSignTypeBehavior;
 import com.main.control.exception.FileErrorException;
 import com.main.control.file.FileManager;
-import com.main.control.manager.Behavior;
-import com.main.control.manager.BehaviorController;
-import com.main.control.manager.Session;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.SignManager.SignType;
 import com.main.model.MainSignGetter;
 import com.main.model.Sign;
 import com.main.model.MainSignGetter.GetterType;
 import com.sun.glass.ui.Size;
-import com.tool.BorderFixer;
-import com.tool.Direction;
-import com.tool.Directions;
+import com.tool.Session;
+import com.tool.behavior.Behavior;
+import com.tool.behavior.BehaviorController;
+import com.tool.behavior.BorderFixer;
+import com.tool.direction.Direction;
+import com.tool.direction.Directions;
 
 import java.awt.Dimension;
 import javax.swing.border.SoftBevelBorder;
@@ -51,12 +51,14 @@ import java.awt.SystemColor;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SignEditor extends JFrame {
 
 	private JPanel contentPane;
-	private JList<?> list_signtype;
-	private JPanel panel_grid_main;
+	private JList<?> list_signtype;//放置Sign Cube 的 BorderLayout的父元件
+	private JPanel panel_grid_main;//放置Sign Cube 的 BorderLayout中間的元件
 	private BorderFixer<JPanel> center_grid_fixer = BorderFixer.<JPanel>getFixer();
 	private volatile JPanel panel_c1_main;
 	private JList<?> list_signilk;
@@ -106,27 +108,11 @@ public class SignEditor extends JFrame {
 		JPanel panel_top = new JPanel();
 		contentPane.add(panel_top, BorderLayout.NORTH);
 
-		/*
-		 * test init SignManager manager =
-		 * SignManager.getManager(SignManager.SignType.MainSign);
-		 * manager.addSign(MainSignGetter.GetterType.SignS, 2, 2);
-		 * manager.addSign(MainSignGetter.GetterType.SignZ, 3, 5);
-		 * manager.addSign(MainSignGetter.GetterType.SignT, 5, 2);
-		 * 
-		 * Sign signS = manager.getSign(MainSignGetter.GetterType.SignS);
-		 * signS.setSize(4, 4); Sign signZ =
-		 * manager.getSign(MainSignGetter.GetterType.SignZ); signZ.setSize(3, 7); Sign
-		 * signT = manager.getSign(MainSignGetter.GetterType.SignT); signT.setSize(7,
-		 * 3);
-		 */
 
-		/*
-		 * create component
-		 */
 		createCenter();
 
 		/*
-		 * init after components created
+		 * init: this init area after components created, e.g.,createCenter()
 		 */
 		Session session = getSession();
 		session.addAttribute("panel_c1_main", panel_c1_main);
@@ -232,7 +218,7 @@ public class SignEditor extends JFrame {
 			public Sign getSign() {
 				return getCurrentSign();
 			}
-			
+
 			@Override
 			public Component getPointerComponent() {
 				return lblNewLabel_pointer;
@@ -251,7 +237,8 @@ public class SignEditor extends JFrame {
 		panel_lbar_center2.add(panel_list_signtype_index);
 
 		JButton btnNewButton_signtype_rotate_backword = new JButton("◄");
-		btnNewButton_signtype_rotate_backword.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		btnNewButton_signtype_rotate_backword
+				.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_signtype_rotate_backword.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
 			public Sign getSign() {
@@ -314,7 +301,7 @@ public class SignEditor extends JFrame {
 				sign.insertSignMapAtTheBack();
 				return sign;
 			}
-			
+
 			@Override
 			public Component getPointerComponent() {
 				return lblNewLabel_pointer;
@@ -336,7 +323,7 @@ public class SignEditor extends JFrame {
 				sign.removeCurrentSignMap();
 				return sign;
 			}
-			
+
 			@Override
 			public Component getPointerComponent() {
 				return lblNewLabel_pointer;
@@ -464,7 +451,7 @@ public class SignEditor extends JFrame {
 		JPanel panel_rbar_center = new JPanel();
 		panel_c1_east.add(panel_rbar_center);
 		panel_rbar_center.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+
 		JButton btnNewButton_reset_pointer = new JButton("Reset ID");
 		btnNewButton_reset_pointer.addMouseListener(new SelectSignTypeMouseAdapter() {
 			@Override
@@ -477,7 +464,7 @@ public class SignEditor extends JFrame {
 				sign.resetPointerToCurrentCycleElement();
 				return sign;
 			}
-			
+
 			@Override
 			public Component getPointerComponent() {
 				return lblNewLabel_pointer;

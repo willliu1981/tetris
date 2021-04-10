@@ -11,19 +11,19 @@ import javax.swing.JPanel;
 import com.editor.sign.control.behavior.editorsign.EditorSignShowBehavior;
 import com.editor.sign.view.EditorSignPanel;
 import com.editor.sign.view.SignEditor;
-import com.main.control.manager.Behavior;
-import com.main.control.manager.BehaviorController;
-import com.main.control.manager.Session;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.SignManager.SignType;
 import com.main.model.Sign;
 import com.main.model.MainSignGetter.GetterType;
 import com.sun.glass.ui.Size;
 import com.sun.javafx.scene.control.skin.BehaviorSkinBase;
-import com.tool.BorderFixer;
-import com.tool.Direction;
+import com.tool.Session;
 import com.tool.TColor;
-import com.tool.BorderFixers;
+import com.tool.behavior.Behavior;
+import com.tool.behavior.BehaviorController;
+import com.tool.behavior.BorderFixer;
+import com.tool.behavior.BorderFixers;
+import com.tool.direction.Direction;
 
 public class ListSelectSignTypeBehavior extends Behavior {
 
@@ -63,9 +63,11 @@ public class ListSelectSignTypeBehavior extends Behavior {
 			}
 		}
 
-		Direction d = center_grid_fixer.inferCenterSize(panel_c1_main.getWidth(), panel_c1_main.getHeight());
-		Direction fixSize = BorderFixers.getFixingAdvice(w, h, d.getWidth(), d.getHeight());
-		center_grid_fixer.fixAsCenter(fixSize);
+		
+		Direction d = BorderFixers.calcCenterSize(panel_c1_main.getWidth(), panel_c1_main.getHeight(), center_grid_fixer);
+		Direction fixSize = BorderFixers.getFixedAdvice(w, h, d.getWidth(), d.getHeight());
+		BorderFixers.fixAsCenter(fixSize,center_grid_fixer);
+	
 
 		panel_grid_main.revalidate();
 

@@ -1,4 +1,4 @@
-package com.tool;
+package com.tool.behavior;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.main.control.exception.TNullException;
+import com.tool.direction.Direction;
+
 
 public class BorderFixer<T extends Component> {
 	public static final String Top = "top";
@@ -28,13 +30,9 @@ public class BorderFixer<T extends Component> {
 		this.mapBorder.values().stream().forEach(x -> x.orElseThrow(() -> new TNullException("element is null"))
 				.setPreferredSize(new Dimension(10, 10)));
 	}
-	public void reset2() {
-		this.mapBorder.values().stream().forEach(x -> x.orElseThrow(() -> new TNullException("element is null"))
-				.setPreferredSize(new Dimension(50, 50)));
-	}
 
 	/*
-	 * 置中調整
+	 * 將center元件置中調整
 	 */
 	public void fixAsCenter(Direction fixSize) {
 		this.setLeftSize(fixSize.getWidth() / 2 + this.getLeftSize());
@@ -42,11 +40,14 @@ public class BorderFixer<T extends Component> {
 		this.setTopSize(fixSize.getHeight() / 2 + this.getTopSize());
 		this.setBottomSize(fixSize.getHeight() / 2 + this.getBottomSize());
 	}
-	
-	public Direction inferCenterSize(int parentW,int parentH) {
-		int w=parentW-(this.getLeftSize()+this.getRightSize());
-		int h=parentH-(this.getTopSize() +this.getBottomSize());
-		return new Direction(0,0,w,h); 
+
+	/*
+	 * 計算後取得中間元件的大小
+	 */
+	public Direction calcCenterSize(int parentW, int parentH) {
+		int w = parentW - (this.getLeftSize() + this.getRightSize());
+		int h = parentH - (this.getTopSize() + this.getBottomSize());
+		return new Direction(0, 0, w, h);
 	}
 
 	/*
@@ -96,7 +97,5 @@ public class BorderFixer<T extends Component> {
 	public int getRightSize() {
 		return this.get(BorderFixer.Right).getPreferredSize().width;
 	}
-
-
 
 }

@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.main.control.file.gson.TClassTypeFactory;
 import com.main.model.Sign;
-import com.tool.Direction;
+import com.tool.direction.Direction;
 import com.tool.gson.CustDeserializer;
 
 public class SignDeserializer implements CustDeserializer<Sign> {

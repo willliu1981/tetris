@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.main.control.file.gson.TClassTypeFactory;
-import com.tool.Direction;
+import com.tool.direction.Direction;
 import com.tool.gson.CustDeserializer;
 
 public class DirectionDeserializer implements CustDeserializer<Direction> {
