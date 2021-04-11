@@ -11,12 +11,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.main.control.InputControl;
 import com.main.control.file.FileManager;
 import com.main.control.manager.SignManager;
 import com.main.model.MainSignGetter;
 import com.main.model.Sign;
 import com.test.mainview.behavior.InitViewBehavior;
 import com.tool.Session;
+import com.tool.behavior.Behavior;
 import com.tool.behavior.BehaviorController;
 import com.tool.behavior.BorderFixer;
 import java.awt.Dimension;
@@ -75,29 +77,10 @@ public class MainView extends JFrame {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN)
-						.getSign(MainSignGetter.GetterType.SIGNJ);
+				Behavior input = new InputControl();
+				input.setParameter("event", e);
+				BehaviorController.sendBehavior(input);
 
-				switch (e.getKeyCode()) {
-				case 37:// left
-					sign.setPoint(sign.getX() - 1, sign.getY());
-					break;
-				case 38:// up
-					sign.rotateRight();
-					break;
-				case 39:// right
-					sign.setPoint(sign.getX() + 1, sign.getY());
-					break;
-				case 40:// down
-					sign.setPoint(sign.getX(), sign.getY() + 1);
-					break;
-
-				default:
-					break;
-				}
-				// System.out.println("keypress ** "+sign);
-
-				((JPanel) getSession().getAttribute("main_panel")).repaint();
 			}
 		});
 

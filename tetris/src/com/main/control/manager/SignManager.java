@@ -10,6 +10,9 @@ import com.main.model.Sign;
 import com.main.model.SignGetter;
 import com.tool.direction.Direction;
 
+/*
+ * 存取Sign相關資訊的管理器
+ */
 public class SignManager {
 
 	public enum SignType {
