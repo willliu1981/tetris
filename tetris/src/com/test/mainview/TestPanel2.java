@@ -16,13 +16,13 @@ import com.tool.direction.Direction;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class TestPanel extends JPanel {
-	private TestPanel thisPanel;
+public class TestPanel2 extends JPanel {
+	private TestPanel2 thisPanel;
 
 	/**
 	 * Create the panel.
 	 */
-	public TestPanel() {
+	public TestPanel2() {
 		this.thisPanel = this;
 		addMouseListener(new MouseAdapter() {
 			@Override
@@ -34,27 +34,29 @@ public class TestPanel extends JPanel {
 			}
 		});
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-
+		
 	}
 
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-
+		
 		Insets inset = this.getInsets();
 
+		//實際內容尺寸
 		int w = this.getWidth() - (inset.left + inset.right);
 		int h = this.getHeight() - (inset.top + inset.bottom);
 
-		int len = w / 15;
+		//cube 的寬度
+		int len = w / 12;
 
+		//cube 在 x、y 各方向的數量
 		int arrw = w / len;
 		int arrh = h / len;
 
+		//test:放置在中間位置
 		int midx = arrw / 2;
 		int midy = arrh / 2;
-
-		g.draw3DRect(10, 10, w - 20, h - 20, true);
 
 		Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN).getSign(MainSignGetter.GetterType.SIGNJ);
 

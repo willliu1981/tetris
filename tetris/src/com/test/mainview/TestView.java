@@ -16,7 +16,8 @@ import com.tool.behavior.BehaviorController;
 import com.tool.behavior.BorderFixer;
 
 public class TestView extends JFrame {
-
+	
+	private JFrame thisFrame;
 	private JPanel contentPane;
 	private static Session session;
 	private BorderFixer<JPanel> center_canvas_fixer = BorderFixer.<JPanel>getFixer();
@@ -32,6 +33,7 @@ public class TestView extends JFrame {
 				try {
 					TestView frame = new TestView();
 					frame.setVisible(true);
+					TestView.getSession().addAttribute("main_frame", frame);
 
 				} catch (Exception e) {
 					e.printStackTrace();

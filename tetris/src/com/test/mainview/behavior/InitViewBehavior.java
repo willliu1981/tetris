@@ -1,5 +1,6 @@
 package com.test.mainview.behavior;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.test.mainview.TestView;
@@ -14,6 +15,7 @@ public class InitViewBehavior extends Behavior {
 	@Override
 	public void run() {
 		Session session = TestView.getSession();
+		JFrame main_frame = (JFrame) session.getAttribute("main_frame");
 		JPanel canvas_box_panel = (JPanel) session.getAttribute("canvas_box_panel");
 		JPanel canvas_mainPanel = (JPanel) session.getAttribute("canvas_mainPanel");
 		BorderFixer<JPanel> center_canvas_fixer = (BorderFixer<JPanel>) session.getAttribute("center_canvas_fixer");
@@ -41,6 +43,9 @@ public class InitViewBehavior extends Behavior {
 		//Direction fixSize = BorderFixers.getFixedAdvice(12, 18, canvas_mainPanel.getWidth(),canvas_mainPanel.getHeight());
 		
 		BorderFixers.fixAsCenter(center_canvas_fixer, fixSize);
+		//canvas_mainPanel.setBounds(0, 0, d.getWidth(), d.getHeight());
+		
+		
 		
 		
 		/*

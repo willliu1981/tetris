@@ -1,6 +1,9 @@
 package com.test;
 
 import java.lang.reflect.Type;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -14,9 +17,8 @@ public class Test7 {
 		Map<String, String> map = new HashMap<>();
 		map.put("cc", "CCC");
 
-		
 	
-		System.out.println(map.get("ccc"));
+		System.out.println(Calendar.getInstance().getTime());
 	}
 	
 	static class AA<T>{
