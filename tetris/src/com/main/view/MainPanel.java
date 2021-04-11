@@ -1,4 +1,4 @@
-package com.test.mainview;
+package com.main.view;
 
 import java.awt.Graphics;
 import java.awt.Insets;
@@ -19,19 +19,19 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class TestPanel2 extends JPanel {
+public class MainPanel extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
-	public TestPanel2() {
+	public MainPanel() {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN)
 						.getSign(MainSignGetter.GetterType.SIGNJ);
 				sign.rotateRight();
-				TestPanel2.this.repaint();
+				MainPanel.this.repaint();
 
 			}
 		});

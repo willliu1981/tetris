@@ -1,0 +1,6 @@
+.	package:com.editor: 用於編輯Sign 即圖形的相關資訊
+
+.	package:com.main: 進行遊戲的主要程式
+
+.	package:com.tool: 日後可供其它專案使用的工具程式
+

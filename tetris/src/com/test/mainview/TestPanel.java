@@ -17,20 +17,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class TestPanel extends JPanel {
-	private TestPanel thisPanel;
 
 	/**
 	 * Create the panel.
 	 */
 	public TestPanel() {
-		this.thisPanel = this;
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN)
 						.getSign(MainSignGetter.GetterType.SIGNJ);
 				sign.rotateRight();
-				thisPanel.repaint();
+				TestPanel.this.repaint();
 			}
 		});
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));

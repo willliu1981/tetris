@@ -128,6 +128,9 @@ public abstract class Sign implements java.io.Serializable {
 		resize();
 	}
 
+	/*
+	 * 重新調整尺寸以附合顯示所有Cube的大小
+	 */
 	public void resize() {
 		int w = this.getWidth();
 		int h = this.getHeight();
