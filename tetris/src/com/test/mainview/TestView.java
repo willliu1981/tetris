@@ -15,15 +15,13 @@ import com.tool.Session;
 import com.tool.behavior.BehaviorController;
 import com.tool.behavior.BorderFixer;
 
-import javax.swing.JButton;
-
 public class TestView extends JFrame {
 
 	private JPanel contentPane;
 	private static Session session;
 	private BorderFixer<JPanel> center_canvas_fixer = BorderFixer.<JPanel>getFixer();
 	private JPanel panel;
-	private TestPanel testPanel;
+	private TestPanel mainPanel;
 
 	/**
 	 * Launch the application.
@@ -61,6 +59,7 @@ public class TestView extends JFrame {
 			public void componentResized(ComponentEvent e) {
 				BehaviorController.sendBehavior(new InitViewBehavior());
 			}
+			
 		});
 
 		FileManager.loadSignDate();
@@ -72,7 +71,7 @@ public class TestView extends JFrame {
 		 */
 		Session session = getSession();
 		session.addAttribute("canvas_box_panel", panel);
-		session.addAttribute("canvas_main_panel", testPanel);
+		session.addAttribute("canvas_mainPanel", mainPanel);
 		session.addAttribute("center_canvas_fixer", center_canvas_fixer);
 
 	}
@@ -82,8 +81,8 @@ public class TestView extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		testPanel = new TestPanel();
-		panel.add(testPanel, BorderLayout.CENTER);
+		mainPanel = new TestPanel();
+		panel.add(mainPanel, BorderLayout.CENTER);
 
 		JPanel panel_n = new JPanel();
 		panel.add(panel_n, BorderLayout.NORTH);

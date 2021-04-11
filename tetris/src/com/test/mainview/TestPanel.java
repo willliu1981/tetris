@@ -40,15 +40,13 @@ public class TestPanel extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		
-		
-		
+
 		Insets inset = this.getInsets();
 
 		int w = this.getWidth() - (inset.left + inset.right);
 		int h = this.getHeight() - (inset.top + inset.bottom);
 
-		int len = w/15;
+		int len = w / 15;
 
 		int arrw = w / len;
 		int arrh = h / len;

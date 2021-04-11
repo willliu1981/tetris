@@ -63,7 +63,7 @@ public class ListSelectSignTypeBehavior extends Behavior {
 			}
 		}
 
-		Direction d = BorderFixers.calcCenterSize(center_grid_fixer, panel_c1_main.getWidth(),
+		Direction d = BorderFixers.getCenterSize(center_grid_fixer, panel_c1_main.getWidth(),
 				panel_c1_main.getHeight());
 		Direction fixSize = BorderFixers.getFixedAdvice(w, h, d.getWidth(), d.getHeight());
 		BorderFixers.fixAsCenter(center_grid_fixer, fixSize);

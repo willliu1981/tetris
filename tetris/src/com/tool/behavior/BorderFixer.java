@@ -25,6 +25,9 @@ public class BorderFixer<T extends Component> {
 		return new BorderFixer<T>();
 	}
 
+	/*
+	 * 初始化BorderLayout內元件(除了center)的大小
+	 */
 	public void reset() {
 		this.mapBorder.values().stream().forEach(x -> x.orElseThrow(() -> new TNullException("element is null"))
 				.setPreferredSize(new Dimension(10, 10)));
