@@ -20,6 +20,9 @@ public class InitViewBehavior extends Behavior {
 
 		//初始化 BorderLayout 內 n、e、w、s四元件長度
 		center_canvas_fixer.reset();
+		
+		//canvas_box_panel.revalidate();此行不起作用...
+		
 		/*
 		 * 因為reset後 center 差不多等於其父元件的長度,
 		 * 所以先不做正確的計算,而且可能還不好計算...

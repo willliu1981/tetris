@@ -4,15 +4,15 @@
 	可以不用去管TestView,它只是繪製內容,有個參考關係而已
 
 .	主要問題關鍵為 主類別第57行附近的 ComponentListener 會執行的 InitViewBehavior
-	eclipse ctrl+左鍵 會自動導向到該類別, 或是到 com.test.mainview.behavior backage 下找到該類別
+	eclipse ctrl+左鍵 會自動導向到該類別, 或是到 com.test.mainview.behavior package 下找到該類別
 	這個Listener 是要做調整主視窗大小後,自動調節其子元件的BorderLayout 內的 center 元件大小
 
 .	在InitViewBehavior類別裡:
 	BorderFixer 是在主類別已經先註冊好n、e、w、s四元件的固定器(?),
 	可能命名的不夠好,反正就是可以做BorderLayout 的n、e、w、s、center調節用的類別
 	BorderFixers 是它的功能類別:
-		BorderFixers.getCenterSize: 取得center 元件的大小,傳入是它的父元件:canvas_box_panel
+		BorderFixers.getCenterSize: 取得center 元件的大小,傳入是它的父元件:canvas_box_panel的 width 和 height
 		BorderFixers.getFixedAdvice: 它會計算適合的大小,由於12(x可以堆放的方塊數量)、18(y可以堆放的方塊數量)在繪製後方塊是不會是正方形,
-			因此經過此方法後,會取得合適的建議尺寸,再交給BorderFixers.fixAsCenter 去做置中處理
+			因此經過此方法後,會取得使方塊為正方形的合適的建議尺寸,再交給BorderFixers.fixAsCenter 去做置中處理
 		BorderFixers.fixAsCenter: 調節BorderLayout的 n、e、w、s 大小,使center 達到置中效果
 	
