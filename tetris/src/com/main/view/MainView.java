@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import com.main.control.InputControl;
 import com.main.control.file.FileManager;
 import com.main.control.manager.AppManager;
+import com.main.control.manager.GameManager;
 import com.main.control.manager.MainSignGetter;
 import com.main.control.manager.SignManager;
 import com.main.model.Sign;
@@ -29,10 +30,10 @@ import javax.swing.JTextField;
 
 public class MainView extends JFrame {
 
-	private AppManager appManager = AppManager.getDefaultManager();
+	private static AppManager appManager = AppManager.getDefaultManager();
 	private JPanel contentPane;
 	private static Session session;
-	private static Dimension main_panel_size = new Dimension(400, 600);
+	private static Dimension main_panel_size = new Dimension(AppManager.getMainPanelSize());
 
 	/**
 	 * Launch the application.

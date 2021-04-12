@@ -1,11 +1,14 @@
 package com.main.control.manager;
 
+import java.awt.Dimension;
+
 import com.main.control.exception.FileErrorException;
 import com.main.control.file.FileManager;
+import com.tool.direction.Direction;
 
 public class AppManager {
 	private static AppManager appManager = new AppManager();
-	private static GameManager gameManage=GameManager.getManager();
+	private static GameManager gameManage = GameManager.getManager();
 
 	private AppManager() {
 		try {
@@ -32,4 +35,10 @@ public class AppManager {
 		SignManager managerObstacleSign = SignManager.getManager(SignManager.SignType.OBSTACLE);
 		managerObstacleSign.createNewSign(ObstacleSignGetter.GetterObstacleSignType.WALL);
 	}
+
+	public static Dimension getMainPanelSize() {
+		Direction d = GameManager.getBackgroundSize();
+		return new Dimension(d.getWidth(), d.getHeight());
+	}
+
 }

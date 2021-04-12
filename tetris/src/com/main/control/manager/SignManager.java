@@ -21,6 +21,9 @@ public class SignManager {
 		}
 	}
 
+	/*
+	 * 用於 get SignGetter 的 sign type
+	 */
 	private SignType type;
 
 	private SignManager(SignType type) {
@@ -69,9 +72,9 @@ public class SignManager {
 		this.getSignGetter().getSign(type).setPivot(x, y);
 	}
 
-	public Direction getDirection() {
-		return this.getSignGetter().getSign(type).getDirection();
-	}
+//	public Direction getDirection() {
+//		return this.getSignGetter().getSign(type).getDirection();
+//	}
 
 	public SignGetter<?> getSignGetter() {
 		return SignManager.mapSignGetter.get(this.type);
