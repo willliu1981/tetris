@@ -1,6 +1,14 @@
+包:
 .	package:com.editor: 用於編輯Sign 即圖形的相關資訊
 
 .	package:com.main: 進行遊戲的主要程式
 
 .	package:com.tool: 日後可供其它專案使用的工具程式
+
+類別:
+.	AppManager: 管理所有物,通常用於被管物的初始化 ,例如: SignManager 、 FileManager
+
+.	GameManager: 遊戲進行,包含遊戲自動執行本身指令,也收集 InputControl 運算後的結果
+
+.	InputControl: 使用者輸入按鍵指令的反應
 

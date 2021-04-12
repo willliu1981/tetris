@@ -36,8 +36,6 @@ public class MainPanel extends JPanel {
 			}
 		});
 
-	
-
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 
 	}
@@ -63,10 +61,9 @@ public class MainPanel extends JPanel {
 		int midx = arrw / 2;
 		int midy = arrh / 2;
 
-		Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN).getSign(MainSignGetter.GetterMainSginType.SIGNJ);
-
+		Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN)
+				.getSign(MainSignGetter.GetterMainSginType.SIGNJ);
 		if (sign != null) {
-			//sign.setPoint(midx, midy);
 
 			for (Direction d : sign.getCubeMap().keySet()) {
 
