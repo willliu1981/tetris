@@ -4,8 +4,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JPanel;
 
+import com.main.control.manager.MainSignGetter;
 import com.main.control.manager.SignManager;
-import com.main.model.MainSignGetter;
 import com.main.model.Sign;
 import com.main.view.MainView;
 import com.tool.behavior.Behavior;
@@ -16,7 +16,7 @@ import com.tool.behavior.Behavior;
 public class InputControl extends Behavior {
 	@Override
 	public void run() {
-		Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN).getSign(MainSignGetter.GetterType.SIGNJ);
+		Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN).getSign(MainSignGetter.GetterMainSginType.SIGNJ);
 		KeyEvent e = (KeyEvent) this.getParameter("event");
 
 		switch (e.getKeyCode()) {

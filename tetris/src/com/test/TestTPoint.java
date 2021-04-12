@@ -2,11 +2,11 @@ package com.test;
 
 import java.util.Optional;
 
+import com.main.control.manager.MainSignGetter;
 import com.main.control.manager.SignManager;
+import com.main.control.manager.MainSignGetter.GetterMainSginType;
 import com.main.model.MainSign;
-import com.main.model.MainSignGetter;
 import com.main.model.Sign;
-import com.main.model.MainSignGetter.GetterType;
 import com.sun.glass.ui.Size;
 
 
@@ -34,9 +34,9 @@ public class TestTPoint {
 		
 		System.out.println("manager...");
 		SignManager manager= SignManager.getManager(SignManager.SignType.MAINSIGN);
-		manager.addSign(GetterType.SIGNS, 1, 2);
-		manager.addSign(GetterType.SIGNZ, 3, 5);
-		Sign sign=manager.getSign(MainSignGetter.GetterType.SIGNL);
+		manager.addSign(GetterMainSginType.SIGNS, 1, 2);
+		manager.addSign(GetterMainSginType.SIGNZ, 3, 5);
+		Sign sign=manager.getSign(MainSignGetter.GetterMainSginType.SIGNL);
 		System.out.println(sign);
 	}
 	

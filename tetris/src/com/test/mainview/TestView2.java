@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.main.control.file.FileManager;
+import com.main.control.manager.MainSignGetter;
 import com.main.control.manager.SignManager;
-import com.main.model.MainSignGetter;
 import com.main.model.Sign;
 import com.test.mainview.behavior.InitViewBehavior;
 import com.tool.Session;
@@ -42,7 +42,7 @@ public class TestView2 extends JFrame {
 					frame.pack();
 
 					Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN)
-							.getSign(MainSignGetter.GetterType.SIGNJ);
+							.getSign(MainSignGetter.GetterMainSginType.SIGNJ);
 
 					/*
 					 * test point
@@ -76,7 +76,7 @@ public class TestView2 extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN)
-						.getSign(MainSignGetter.GetterType.SIGNJ);
+						.getSign(MainSignGetter.GetterMainSginType.SIGNJ);
 
 				switch (e.getKeyCode()) {
 				case 37:// left

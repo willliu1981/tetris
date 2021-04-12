@@ -6,8 +6,8 @@ import java.awt.Insets;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
+import com.main.control.manager.MainSignGetter;
 import com.main.control.manager.SignManager;
-import com.main.model.MainSignGetter;
 import com.main.model.Sign;
 import com.test.mainview.behavior.InitViewBehavior;
 import com.tool.behavior.BehaviorController;
@@ -26,7 +26,7 @@ public class TestPanel extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN)
-						.getSign(MainSignGetter.GetterType.SIGNJ);
+						.getSign(MainSignGetter.GetterMainSginType.SIGNJ);
 				sign.rotateRight();
 				TestPanel.this.repaint();
 			}
@@ -54,7 +54,7 @@ public class TestPanel extends JPanel {
 
 		g.draw3DRect(10, 10, w - 20, h - 20, true);
 
-		Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN).getSign(MainSignGetter.GetterType.SIGNJ);
+		Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN).getSign(MainSignGetter.GetterMainSginType.SIGNJ);
 
 		if (sign != null) {
 			sign.setPoint(midx, midy);

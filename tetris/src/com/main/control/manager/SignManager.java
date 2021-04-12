@@ -5,9 +5,7 @@ import java.util.Map;
 
 import com.google.gson.GsonBuilder;
 import com.main.control.file.gson.serializer.EnumSerializer;
-import com.main.model.MainSignGetter;
 import com.main.model.Sign;
-import com.main.model.SignGetter;
 import com.tool.direction.Direction;
 
 /*
@@ -16,7 +14,8 @@ import com.tool.direction.Direction;
 public class SignManager {
 
 	public enum SignType {
-		MAINSIGN, DIGITSIGN;
+		MAINSIGN, DIGITSIGN, OBSTACLE;
+
 		public String toString() {
 			return new GsonBuilder().registerTypeAdapter(this.getClass(), new EnumSerializer()).create().toJson(this);
 		}
@@ -35,32 +34,16 @@ public class SignManager {
 	static private Map<SignType, SignGetter<? extends Sign>> mapSignGetter;
 
 	/*
-	 * factory-init
+	 * factory-init 首先創造一個繼承SignGetter類,於ClassTypeFactory 註冊SignGetter Class Type
+	 * 和GetterSignType Class Type, 再到這裡新增一個SignType,於下註冊建好的SignGetter, 最後到
+	 * AppManager 註冊SignGetter類 的GetterSignType
 	 */
 	static {
 		mapSignGetter = new HashMap<>();
 		mapSignGetter.put(SignType.MAINSIGN, new MainSignGetter());
+		mapSignGetter.put(SignType.OBSTACLE, new ObstacleSignGetter());
 	}
 
-	public static void initialize() {
-		SignManager manager = SignManager.getManager(SignManager.SignType.MAINSIGN);
-		manager.addSign(MainSignGetter.GetterType.SIGNS);
-		manager.addSign(MainSignGetter.GetterType.SIGNZ);
-		manager.addSign(MainSignGetter.GetterType.SIGNT);
-		manager.addSign(MainSignGetter.GetterType.SIGNL);
-		manager.addSign(MainSignGetter.GetterType.SIGNJ);
-		manager.addSign(MainSignGetter.GetterType.SIGNO);
-		manager.addSign(MainSignGetter.GetterType.SIGNI);
-
-		/*
-		Sign signS = manager.getSign(MainSignGetter.GetterType.SignS);
-		signS.setSize(4, 4);
-		Sign signZ = manager.getSign(MainSignGetter.GetterType.SignZ);
-		signZ.setSize(3, 7);
-		Sign signT = manager.getSign(MainSignGetter.GetterType.SignT);
-		signT.setSize(7, 3);
-		*/
-	}
 
 	/*
 	 * get and set
@@ -74,7 +57,7 @@ public class SignManager {
 		this.getSignGetter().addSign(type, x, y);
 	}
 
-	public void addSign(Enum<?> type) {
+	public void createNewSign(Enum<?> type) {
 		this.getSignGetter().addSign(type, 0, 0);
 	}
 

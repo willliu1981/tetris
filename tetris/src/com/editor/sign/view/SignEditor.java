@@ -25,11 +25,12 @@ import com.editor.sign.control.behavior.listselect.ListSelectSignIlkBehavior;
 import com.editor.sign.control.behavior.listselect.ListSelectSignTypeBehavior;
 import com.main.control.exception.FileErrorException;
 import com.main.control.file.FileManager;
+import com.main.control.manager.AppManager;
+import com.main.control.manager.MainSignGetter;
 import com.main.control.manager.SignManager;
+import com.main.control.manager.MainSignGetter.GetterMainSginType;
 import com.main.control.manager.SignManager.SignType;
-import com.main.model.MainSignGetter;
 import com.main.model.Sign;
-import com.main.model.MainSignGetter.GetterType;
 import com.sun.glass.ui.Size;
 import com.tool.Session;
 import com.tool.behavior.Behavior;
@@ -56,6 +57,7 @@ import java.awt.event.ActionEvent;
 
 public class SignEditor extends JFrame {
 
+	private AppManager appManager = AppManager.getDefaultManager();
 	private JPanel contentPane;
 	private JList<?> list_signtype;// 放置Sign Cube 的 BorderLayout的父元件
 	private JPanel panel_grid_main;// 放置Sign Cube 的 BorderLayout中間的元件
@@ -64,6 +66,7 @@ public class SignEditor extends JFrame {
 	private JList<?> list_signilk;
 	private static Session session;
 	private JLabel lblNewLabel_pointer;
+	private JLabel lblNewLabel_szie;
 
 	/**
 	 * Launch the application.
@@ -102,7 +105,7 @@ public class SignEditor extends JFrame {
 		try {
 			FileManager.loadSignDate();
 		} catch (FileErrorException ex) {
-			SignManager.initialize();
+			System.out.println(ex.getMessage());
 		}
 
 		createComponent();
@@ -171,6 +174,7 @@ public class SignEditor extends JFrame {
 				Behavior behavior = new ListSelectSignIlkBehavior();
 				behavior.setParameter("list_signilk", list_signilk);
 				behavior.setParameter("list_signtype", list_signtype);
+				behavior.setParameter("panel_grid_main", panel_grid_main);
 
 				BehaviorController.sendBehavior(behavior);
 			}
@@ -478,6 +482,9 @@ public class SignEditor extends JFrame {
 		JPanel panel_rbar_bottom = new JPanel();
 		panel_rbar_bottom.setPreferredSize(new Dimension(10, 250));
 		panel_c1_east.add(panel_rbar_bottom);
+
+		lblNewLabel_szie = new JLabel("0 ╳ 0");
+		panel_rbar_bottom.add(lblNewLabel_szie);
 	}
 
 	/*
@@ -493,7 +500,7 @@ public class SignEditor extends JFrame {
 
 	public Sign getCurrentSign() {
 		return SignManager.getManager((SignType) list_signilk.getSelectedValue())
-				.getSign((GetterType) list_signtype.getSelectedValue());
+				.getSign((Enum<?>) list_signtype.getSelectedValue());
 	}
 
 	public JFrame getThisFrame() {
@@ -509,6 +516,7 @@ abstract class SelectSignTypeMouseAdapter extends MouseAdapter implements SignSu
 		Behavior behavior = new ListSelectSignTypeBehavior();
 		behavior.setParameter("sign", getSign());
 		behavior.setParameter("lblNewLabel_pointer", getPointerComponent());
+		// behavior.setParameter("lblNewLabel_szie", getSizeComponent());
 
 		BehaviorController.sendBehavior(behavior);
 

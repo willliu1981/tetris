@@ -1,9 +1,11 @@
 package com.main.control.file.gson;
 
+import com.main.control.manager.MainSignGetter;
+import com.main.control.manager.MainSignGetter.GetterMainSginType;
+import com.main.control.manager.ObstacleSignGetter;
+import com.main.control.manager.ObstacleSignGetter.GetterObstacleSignType;
 import com.main.control.manager.SignManager.SignType;
 import com.main.model.MainSign;
-import com.main.model.MainSignGetter;
-import com.main.model.MainSignGetter.GetterType;
 import com.tool.direction.Direction;
 import com.tool.gson.ClassTypeFactory;
 
@@ -20,7 +22,9 @@ public class TClassTypeFactory extends ClassTypeFactory {
 	@Override
 	protected void init() {
 		this.setClassType("MainSignGetter",MainSignGetter.class);
-		this.setClassType("GetterType",GetterType.class);
+		this.setClassType("ObstacleSignGetter", ObstacleSignGetter.class);
+		this.setClassType("GetterMainSginType",GetterMainSginType.class);
+		this.setClassType("GetterObstacleSignType",GetterObstacleSignType.class);
 		this.setClassType("SignType",SignType.class);
 		this.setClassType("MainSign",MainSign.class);
 		this.setClassType("Direction",Direction.class);

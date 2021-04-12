@@ -13,8 +13,8 @@ import javax.swing.border.EmptyBorder;
 
 import com.main.control.InputControl;
 import com.main.control.file.FileManager;
+import com.main.control.manager.MainSignGetter;
 import com.main.control.manager.SignManager;
-import com.main.model.MainSignGetter;
 import com.main.model.Sign;
 import com.test.mainview.behavior.InitViewBehavior;
 import com.tool.Session;
@@ -44,7 +44,7 @@ public class MainView extends JFrame {
 					frame.pack();
 
 					Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN)
-							.getSign(MainSignGetter.GetterType.SIGNJ);
+							.getSign(MainSignGetter.GetterMainSginType.SIGNJ);
 
 					/*
 					 * test point

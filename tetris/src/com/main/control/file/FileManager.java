@@ -34,11 +34,11 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.main.control.exception.FileErrorException;
 import com.main.control.file.gson.wrapper.SignGetterMapWrapper;
+import com.main.control.manager.MainSignGetter;
+import com.main.control.manager.SignGetter;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.SignManager.SignType;
-import com.main.model.MainSignGetter;
 import com.main.model.Sign;
-import com.main.model.SignGetter;
 
 public class FileManager {
 	private static final String Basepath = "data";
@@ -65,15 +65,6 @@ public class FileManager {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-
-		/*
-		System.out.println(wrapper);
-		wrapper.get().forEach((x, y) -> { System.out.format("%s , %s\n", x, y);
-		y.getSignMap().forEach((x1, y1) -> {
-		System.out.println(y1.getCubeMap().size()); System.out.format("%s , %s\n",
-		x1, y1); y1.getCubeMap().forEach((x2, y2) -> { System.out.format("%s , %s\n",
-		x2, y2); }); }); });
-		*/
 
 		SignManager.setSignGetterMap(wrapper.get());
 	}

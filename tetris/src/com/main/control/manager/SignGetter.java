@@ -1,8 +1,9 @@
-package com.main.model;
+package com.main.control.manager;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import com.main.model.Sign;
 import com.tool.Cycle;
 
 /*
