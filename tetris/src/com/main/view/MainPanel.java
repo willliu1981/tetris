@@ -6,12 +6,15 @@ import java.awt.Insets;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
+import com.main.control.manager.AppManager;
 import com.main.control.manager.MainSignGetter;
+import com.main.control.manager.ObstacleSignGetter;
 import com.main.control.manager.SignManager;
 import com.main.model.Sign;
 import com.test.mainview.behavior.InitViewBehavior;
 import com.tool.behavior.BehaviorController;
 import com.tool.direction.Direction;
+import com.tool.draw.SignDraw;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -44,30 +47,24 @@ public class MainPanel extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		Insets inset = this.getInsets();
+		SignDraw draw = new SignDraw(this, AppManager.getCubesSize());
 
-		// 實際內容尺寸
-		int w = this.getWidth() - (inset.left + inset.right);
-		int h = this.getHeight() - (inset.top + inset.bottom);
-
-		// cube 的寬度
-		int len = w / 12;
-
-		// cube 在 x、y 各方向的數量
-		int arrw = w / len;
-		int arrh = h / len;
-
-		// test:放置在中間位置
-		int midx = arrw / 2;
-		int midy = arrh / 2;
-
-		Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN)
+		Sign mainSign = SignManager.getManager(SignManager.SignType.MAINSIGN)
 				.getSign(MainSignGetter.GetterMainSginType.SIGNJ);
-		if (sign != null) {
+		draw.setSign(mainSign);
+		System.out.println(mainSign);
+		if (mainSign != null) {
+			for (Direction d : mainSign.getCubeMap().keySet()) {
+				g.fill3DRect(draw.getX(d), draw.getY(d), draw.getLenW(), draw.getLenH(), true);
+			}
+		}
 
-			for (Direction d : sign.getCubeMap().keySet()) {
-
-				g.fill3DRect((d.getX() + sign.getLTX()) * len, (d.getY() + sign.getLTY()) * len, len, len, true);
+		Sign wallSign = SignManager.getManager(SignManager.SignType.OBSTACLE)
+				.getSign(ObstacleSignGetter.GetterObstacleSignType.WALL);
+		draw.setSign(wallSign);
+		if (wallSign != null) {
+			for (Direction d : wallSign.getCubeMap().keySet()) {
+				g.fill3DRect(draw.getX(d), draw.getY(d), draw.getLenW(), draw.getLenH(), true);
 			}
 		}
 

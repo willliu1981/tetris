@@ -19,6 +19,9 @@ public class GameManager {
 	private static Direction backgroundCubeSize = SignManager.getManager(SignManager.SignType.OBSTACLE)
 			.getSign(ObstacleSignGetter.GetterObstacleSignType.WALL).getDirection();
 
+	/*
+	 * 建議尺寸,實際會因為Panel 元件的設計需求,產生些微差距
+	 */
 	private final static int CUBEUNITSIZE = 30;
 
 //	SignManager managerObstacleSign = SignManager.getManager(SignManager.SignType.OBSTACLE);
@@ -47,9 +50,9 @@ public class GameManager {
 	 * 以像素做為單位
 	 */
 	public static  Direction getBackgroundSize() {
-		Direction bcSize = getBackgroundCubeSize();
+		Direction siez = getBackgroundCubeSize();
 
-		return new Direction(0, 0, bcSize.getWidth() * CUBEUNITSIZE, bcSize.getHeight() * CUBEUNITSIZE);
+		return new Direction(0, 0, siez.getWidth() * CUBEUNITSIZE, siez.getHeight() * CUBEUNITSIZE);
 	}
 
 //	public void test() {

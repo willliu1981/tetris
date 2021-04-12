@@ -40,5 +40,12 @@ public class AppManager {
 		Direction d = GameManager.getBackgroundSize();
 		return new Dimension(d.getWidth(), d.getHeight());
 	}
+	
+	/*
+	 * 以Cbue數量為單位回傳 w和h 的長度
+	 */
+	public static Direction getCubesSize() {
+		return GameManager.getBackgroundCubeSize();
+	}
 
 }
