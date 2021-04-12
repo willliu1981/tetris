@@ -5,6 +5,7 @@ import com.main.control.file.FileManager;
 
 public class AppManager {
 	private static AppManager appManager = new AppManager();
+	private static GameManager gameManage=GameManager.getManager();
 
 	private AppManager() {
 		try {

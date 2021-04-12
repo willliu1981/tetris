@@ -32,6 +32,7 @@ import com.main.control.manager.MainSignGetter.GetterMainSginType;
 import com.main.control.manager.SignManager.SignType;
 import com.main.model.Sign;
 import com.sun.glass.ui.Size;
+import com.tool.Request;
 import com.tool.Session;
 import com.tool.behavior.Behavior;
 import com.tool.behavior.BehaviorController;
@@ -67,6 +68,7 @@ public class SignEditor extends JFrame {
 	private static Session session;
 	private JLabel lblNewLabel_pointer;
 	private JLabel lblNewLabel_szie;
+	private Request request=new Request();
 
 	/**
 	 * Launch the application.
@@ -507,6 +509,8 @@ public class SignEditor extends JFrame {
 		return this;
 	}
 
+	
+	
 }
 
 abstract class SelectSignTypeMouseAdapter extends MouseAdapter implements SignSupplier {

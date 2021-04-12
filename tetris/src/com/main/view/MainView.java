@@ -29,7 +29,7 @@ import javax.swing.JTextField;
 
 public class MainView extends JFrame {
 
-	private AppManager appManager=AppManager.getDefaultManager();
+	private AppManager appManager = AppManager.getDefaultManager();
 	private JPanel contentPane;
 	private static Session session;
 	private static Dimension main_panel_size = new Dimension(400, 600);
@@ -45,12 +45,12 @@ public class MainView extends JFrame {
 					frame.setVisible(true);
 					frame.pack();
 
-					Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN)
-							.getSign(MainSignGetter.GetterMainSginType.SIGNJ);
-
 					/*
 					 * test point
 					 */
+					Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN)
+							.getSign(MainSignGetter.GetterMainSginType.SIGNJ);
+
 					sign.setPoint(6, 9);
 
 				} catch (Exception e) {
@@ -85,7 +85,6 @@ public class MainView extends JFrame {
 
 			}
 		});
-
 
 		createComponent();
 
