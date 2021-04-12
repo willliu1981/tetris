@@ -1,60 +1,40 @@
 package com.editor.sign.view;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.function.Supplier;
 
 import javax.swing.AbstractListModel;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.SoftBevelBorder;
 
 import com.editor.sign.control.behavior.listselect.ListSelectSignIlkBehavior;
 import com.editor.sign.control.behavior.listselect.ListSelectSignTypeBehavior;
 import com.main.control.exception.FileErrorException;
 import com.main.control.file.FileManager;
 import com.main.control.manager.AppManager;
-import com.main.control.manager.MainSignGetter;
 import com.main.control.manager.SignManager;
-import com.main.control.manager.MainSignGetter.GetterMainSginType;
 import com.main.control.manager.SignManager.SignType;
 import com.main.model.Sign;
-import com.sun.glass.ui.Size;
-import com.tool.Request;
 import com.tool.Session;
 import com.tool.behavior.Behavior;
 import com.tool.behavior.BehaviorController;
 import com.tool.behavior.BorderFixer;
-import com.tool.direction.Direction;
-import com.tool.direction.Directions;
-
-import java.awt.Dimension;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.JButton;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JLabel;
-import java.awt.SystemColor;
-import java.awt.FlowLayout;
-import javax.swing.JTextField;
-import javax.swing.border.EtchedBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class SignEditor extends JFrame {
 
@@ -66,9 +46,7 @@ public class SignEditor extends JFrame {
 	private volatile JPanel panel_c1_main;
 	private JList<?> list_signilk;
 	private static Session session;
-	private JLabel lblNewLabel_pointer;
-	private JLabel lblNewLabel_szie;
-	private Request request=new Request();
+	private Behavior.Request request = new Behavior.Request();
 
 	/**
 	 * Launch the application.
@@ -218,15 +196,10 @@ public class SignEditor extends JFrame {
 		list_signtype = new JList();
 		panel_list_signtype.add(list_signtype);
 		list_signtype.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		list_signtype.addMouseListener(new SelectSignTypeMouseAdapter() {
+		list_signtype.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
 			@Override
 			public Sign getSign() {
 				return getCurrentSign();
-			}
-
-			@Override
-			public Component getPointerComponent() {
-				return lblNewLabel_pointer;
 			}
 
 		});
@@ -244,7 +217,7 @@ public class SignEditor extends JFrame {
 		JButton btnNewButton_signtype_rotate_backword = new JButton("◄");
 		btnNewButton_signtype_rotate_backword
 				.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
-		btnNewButton_signtype_rotate_backword.addMouseListener(new SelectSignTypeMouseAdapter() {
+		btnNewButton_signtype_rotate_backword.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
 			@Override
 			public Sign getSign() {
 				Sign sign = null;
@@ -256,11 +229,6 @@ public class SignEditor extends JFrame {
 				return sign;
 			}
 
-			@Override
-			public Component getPointerComponent() {
-				return lblNewLabel_pointer;
-			}
-
 		});
 		panel_list_signtype_index.setLayout(new GridLayout(0, 2, 0, 0));
 		btnNewButton_signtype_rotate_backword.setBackground(SystemColor.controlHighlight);
@@ -268,7 +236,7 @@ public class SignEditor extends JFrame {
 
 		JButton btnNewButton_signtype_rotate_forword = new JButton("►");
 		btnNewButton_signtype_rotate_forword.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
-		btnNewButton_signtype_rotate_forword.addMouseListener(new SelectSignTypeMouseAdapter() {
+		btnNewButton_signtype_rotate_forword.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
 			@Override
 			public Sign getSign() {
 				Sign sign = null;
@@ -278,11 +246,6 @@ public class SignEditor extends JFrame {
 
 				sign.rotateRight();
 				return sign;
-			}
-
-			@Override
-			public Component getPointerComponent() {
-				return lblNewLabel_pointer;
 			}
 
 		});
@@ -295,7 +258,7 @@ public class SignEditor extends JFrame {
 
 		JButton btnNewButton_cycle_add = new JButton("+");
 		btnNewButton_cycle_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
-		btnNewButton_cycle_add.addMouseListener(new SelectSignTypeMouseAdapter() {
+		btnNewButton_cycle_add.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
 			@Override
 			public Sign getSign() {
 				Sign sign = null;
@@ -307,17 +270,12 @@ public class SignEditor extends JFrame {
 				return sign;
 			}
 
-			@Override
-			public Component getPointerComponent() {
-				return lblNewLabel_pointer;
-			}
-
 		});
 		panel_add_and_subtract_cycle.setLayout(new BoxLayout(panel_add_and_subtract_cycle, BoxLayout.X_AXIS));
 
 		JButton btnNewButton_cycle_subtract = new JButton("-");
 		btnNewButton_cycle_subtract.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
-		btnNewButton_cycle_subtract.addMouseListener(new SelectSignTypeMouseAdapter() {
+		btnNewButton_cycle_subtract.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
 			@Override
 			public Sign getSign() {
 				Sign sign = null;
@@ -327,11 +285,6 @@ public class SignEditor extends JFrame {
 
 				sign.removeCurrentSignMap();
 				return sign;
-			}
-
-			@Override
-			public Component getPointerComponent() {
-				return lblNewLabel_pointer;
 			}
 
 		});
@@ -362,7 +315,7 @@ public class SignEditor extends JFrame {
 		panel_btnpanel1.setLayout(new GridLayout(0, 2, 0, 0));
 
 		JButton btnNewButton_col_subtract = new JButton("-◄");
-		btnNewButton_col_subtract.addMouseListener(new SelectSignTypeMouseAdapter() {
+		btnNewButton_col_subtract.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
 			@Override
 			public Sign getSign() {
 				Sign sign = null;
@@ -380,7 +333,7 @@ public class SignEditor extends JFrame {
 		panel_btnpanel1.add(btnNewButton_col_subtract);
 
 		JButton btnNewButton_col_add = new JButton("►+");
-		btnNewButton_col_add.addMouseListener(new SelectSignTypeMouseAdapter() {
+		btnNewButton_col_add.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
 			@Override
 			public Sign getSign() {
 				Sign sign = null;
@@ -405,7 +358,7 @@ public class SignEditor extends JFrame {
 		panel_btnpanel2.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JButton btnNewButton_row_subtract = new JButton("▲-");
-		btnNewButton_row_subtract.addMouseListener(new SelectSignTypeMouseAdapter() {
+		btnNewButton_row_subtract.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
 			@Override
 			public Sign getSign() {
 				Sign sign = null;
@@ -423,7 +376,7 @@ public class SignEditor extends JFrame {
 		panel_btnpanel2.add(btnNewButton_row_subtract);
 
 		JButton btnNewButton_row_add = new JButton("▼+");
-		btnNewButton_row_add.addMouseListener(new SelectSignTypeMouseAdapter() {
+		btnNewButton_row_add.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
 			@Override
 			public Sign getSign() {
 				Sign sign = null;
@@ -450,15 +403,16 @@ public class SignEditor extends JFrame {
 		JPanel panel_rbar_top = new JPanel();
 		panel_c1_east.add(panel_rbar_top);
 
-		lblNewLabel_pointer = new JLabel("0 / 0");
+		JLabel lblNewLabel_pointer = new JLabel("0 / 0");
 		panel_rbar_top.add(lblNewLabel_pointer);
+		request.addParameter("lblNewLabel_pointer", lblNewLabel_pointer);
 
 		JPanel panel_rbar_center = new JPanel();
 		panel_c1_east.add(panel_rbar_center);
 		panel_rbar_center.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JButton btnNewButton_reset_pointer = new JButton("Reset ID");
-		btnNewButton_reset_pointer.addMouseListener(new SelectSignTypeMouseAdapter() {
+		btnNewButton_reset_pointer.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
 			@Override
 			public Sign getSign() {
 				Sign sign = null;
@@ -468,11 +422,6 @@ public class SignEditor extends JFrame {
 
 				sign.resetPointerToCurrentCycleElement();
 				return sign;
-			}
-
-			@Override
-			public Component getPointerComponent() {
-				return lblNewLabel_pointer;
 			}
 
 		});
@@ -485,8 +434,9 @@ public class SignEditor extends JFrame {
 		panel_rbar_bottom.setPreferredSize(new Dimension(10, 250));
 		panel_c1_east.add(panel_rbar_bottom);
 
-		lblNewLabel_szie = new JLabel("0 ╳ 0");
+		JLabel lblNewLabel_szie = new JLabel("0 ╳ 0");
 		panel_rbar_bottom.add(lblNewLabel_szie);
+		request.addParameter("lblNewLabel_szie", lblNewLabel_szie);
 	}
 
 	/*
@@ -509,29 +459,37 @@ public class SignEditor extends JFrame {
 		return this;
 	}
 
-	
-	
 }
 
-abstract class SelectSignTypeMouseAdapter extends MouseAdapter implements SignSupplier {
+abstract class SelectSignTypeMouseAdapter extends MouseAdapter {
+
+	private Behavior.Request request;
+
+	public SelectSignTypeMouseAdapter(Behavior.Request request) {
+		this.request = request;
+	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		Behavior behavior = new ListSelectSignTypeBehavior();
 		behavior.setParameter("sign", getSign());
-		behavior.setParameter("lblNewLabel_pointer", getPointerComponent());
-		// behavior.setParameter("lblNewLabel_szie", getSizeComponent());
+		behavior.setRequest(getRequest());
 
 		BehaviorController.sendBehavior(behavior);
 
 	}
 
-	public Component getPointerComponent() {
-		return null;
+	/*
+	 * get and set
+	 */
+
+	public abstract Sign getSign();
+
+	private Behavior.Request getRequest() {
+		if (this.request == null) {
+			this.request = new Behavior.Request();
+		}
+		return this.request;
 	}
 
-}
-
-interface SignSupplier {
-	public Sign getSign();
 }

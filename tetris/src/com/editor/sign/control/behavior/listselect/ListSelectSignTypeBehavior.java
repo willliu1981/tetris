@@ -35,6 +35,7 @@ public class ListSelectSignTypeBehavior extends Behavior {
 		BorderFixer<?> center_grid_fixer = (BorderFixer<?>) session.getAttribute("center_grid_fixer");
 
 		JLabel lblNewLabel_pointer = (JLabel) this.getParameter("lblNewLabel_pointer");
+		JLabel lblNewLabel_szie = (JLabel) this.getParameter("lblNewLabel_szie");
 		Sign sign = (Sign) this.getParameter("sign");
 		if (sign == null) {
 			return;
@@ -74,6 +75,8 @@ public class ListSelectSignTypeBehavior extends Behavior {
 			lblNewLabel_pointer
 					.setText(String.format("%d / %d", sign.getCycleCurrentPointer() + 1, sign.getCycleSize()));
 		}
+		
+		lblNewLabel_szie.setText(String.format("%d ╳ %d", w,h));
 	}
 
 }
