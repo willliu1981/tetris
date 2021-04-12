@@ -49,8 +49,7 @@ public class MainView extends JFrame {
 					/*
 					 * test point
 					 */
-					Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN)
-							.getSign(MainSignGetter.GetterMainSginType.SIGNJ);
+					Sign sign = AppManager.getSign(AppManager.signType.MAINSIGN, AppManager.getterMainSignType.SIGNJ);
 
 					sign.setPoint(6, 9);
 

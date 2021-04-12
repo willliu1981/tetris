@@ -10,7 +10,7 @@ import com.main.control.exception.FileErrorException;
 import com.main.model.Sign;
 import com.tool.direction.Direction;
 
-public class SignDraw {
+public class SignDrawer {
 	private int width;
 	private int height;
 	private int lenW;
@@ -23,11 +23,11 @@ public class SignDraw {
 	private int fixedX;
 	private int fixedY;
 
-	public SignDraw(JComponent comp, Direction cubesSize) {
+	public SignDrawer(JComponent comp, Direction cubesSize) {
 		this(comp, comp.getInsets(), cubesSize);
 	}
 
-	public SignDraw(JComponent comp, Insets inset, Direction cubesSize) {
+	public SignDrawer(JComponent comp, Insets inset, Direction cubesSize) {
 		int gapW = 0, gapH = 0;
 		if (inset != null) {
 			gapW = inset.left + inset.right;

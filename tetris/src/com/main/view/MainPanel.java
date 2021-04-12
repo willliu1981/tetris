@@ -14,7 +14,7 @@ import com.main.model.Sign;
 import com.test.mainview.behavior.InitViewBehavior;
 import com.tool.behavior.BehaviorController;
 import com.tool.direction.Direction;
-import com.tool.draw.SignDraw;
+import com.tool.draw.SignDrawer;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -31,8 +31,10 @@ public class MainPanel extends JPanel {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				Sign sign = SignManager.getManager(SignManager.SignType.MAINSIGN)
-						.getSign(MainSignGetter.GetterMainSginType.SIGNJ);
+				/*
+				 * test 
+				 */
+				Sign sign = AppManager.getSign(AppManager.signType.MAINSIGN, AppManager.getterMainSignType.SIGNJ);
 				sign.rotateRight();
 				MainPanel.this.repaint();
 
@@ -47,24 +49,22 @@ public class MainPanel extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		SignDraw draw = new SignDraw(this, AppManager.getCubesSize());
+		SignDrawer drawer = new SignDrawer(this, AppManager.getCubesSize());
 
-		Sign mainSign = SignManager.getManager(SignManager.SignType.MAINSIGN)
-				.getSign(MainSignGetter.GetterMainSginType.SIGNJ);
-		draw.setSign(mainSign);
+		Sign mainSign = AppManager.getSign(AppManager.signType.MAINSIGN, AppManager.getterMainSignType.SIGNJ);
+		drawer.setSign(mainSign);
 		System.out.println(mainSign);
 		if (mainSign != null) {
 			for (Direction d : mainSign.getCubeMap().keySet()) {
-				g.fill3DRect(draw.getX(d), draw.getY(d), draw.getLenW(), draw.getLenH(), true);
+				g.fill3DRect(drawer.getX(d), drawer.getY(d), drawer.getLenW(), drawer.getLenH(), true);
 			}
 		}
 
-		Sign wallSign = SignManager.getManager(SignManager.SignType.OBSTACLE)
-				.getSign(ObstacleSignGetter.GetterObstacleSignType.WALL);
-		draw.setSign(wallSign);
+		Sign wallSign = AppManager.getSign(AppManager.signType.OBSTACLE, AppManager.getterObstacleSignType.WALL);
+		drawer.setSign(wallSign);
 		if (wallSign != null) {
 			for (Direction d : wallSign.getCubeMap().keySet()) {
-				g.fill3DRect(draw.getX(d), draw.getY(d), draw.getLenW(), draw.getLenH(), true);
+				g.fill3DRect(drawer.getX(d), drawer.getY(d), drawer.getLenW(), drawer.getLenH(), true);
 			}
 		}
 

@@ -4,11 +4,17 @@ import java.awt.Dimension;
 
 import com.main.control.exception.FileErrorException;
 import com.main.control.file.FileManager;
+import com.main.model.Sign;
 import com.tool.direction.Direction;
 
 public class AppManager {
+	public static SignManager.SignType signType;
+	public static MainSignGetter.GetterMainSginType getterMainSignType;
+	public static ObstacleSignGetter.GetterObstacleSignType getterObstacleSignType;
+
 	private static AppManager appManager = new AppManager();
 	private static GameManager gameManage = GameManager.getManager();
+	
 
 	private AppManager() {
 		try {
@@ -46,6 +52,10 @@ public class AppManager {
 	 */
 	public static Direction getCubesSize() {
 		return GameManager.getBackgroundCubeSize();
+	}
+	
+	public static Sign getSign(SignManager.SignType signType,Enum<?> getterSignType) {
+		return SignManager.getManager(signType).getSign(getterSignType);
 	}
 
 }
