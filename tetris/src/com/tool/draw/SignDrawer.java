@@ -2,6 +2,8 @@ package com.tool.draw;
 
 import java.awt.Component;
 import java.awt.Insets;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.swing.JComponent;
@@ -16,6 +18,9 @@ public class SignDrawer {
 	private int lenW;
 	private int lenH;
 	private Optional<Sign> sign = Optional.empty();
+	private Optional<Map<Integer, Map<Integer, Sign>>> backgroundSign = Optional.empty();
+	private Iterator currentIt;
+	private Direction currentDirectoin;
 
 	/*
 	 * 修正後的 X和Y
@@ -41,6 +46,17 @@ public class SignDrawer {
 		this.fixedY = (this.height - cubesSize.getHeight() * lenH) / 2;
 	}
 
+	public boolean hashNext() {
+		if (this.currentIt == null) {
+			this.currentIt = this.getSign().getCubeMap().keySet().iterator();
+		}
+		return currentIt.hasNext();
+	}
+
+	public Direction next() {
+		return currentDirectoin = (Direction) currentIt.next();
+	}
+
 	/*
 	 * get and set
 	 */
@@ -56,6 +72,14 @@ public class SignDrawer {
 		return this.sign.orElseThrow(() -> new FileErrorException("Sign is null"));
 	}
 
+	public void setBackgroundSign(Map<Integer, Map<Integer, Sign>> map) {
+
+	}
+
+	public Map<Integer, Map<Integer, Sign>> getBakcgroundSign() {
+		return this.backgroundSign.orElseThrow(() -> new FileErrorException("Sign is null"));
+	}
+
 	/*
 	 * 回傳修正後的置中位置的欲繪製Cube的座標
 	 */
@@ -65,6 +89,14 @@ public class SignDrawer {
 
 	public int getY(Direction d) {
 		return this.getFixedY() + (d.getY() + getSign().getLTY()) * this.getLenH();
+	}
+
+	public int getX() {
+		return this.getX(this.currentDirectoin);
+	}
+
+	public int getY() {
+		return this.getY(this.currentDirectoin);
 	}
 
 	public int getWidth() {

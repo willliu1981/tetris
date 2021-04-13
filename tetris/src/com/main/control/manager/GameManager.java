@@ -1,5 +1,8 @@
 package com.main.control.manager;
 
+import java.util.List;
+
+import com.main.control.SignControl;
 import com.main.model.Sign;
 import com.tool.direction.Direction;
 
@@ -48,6 +51,12 @@ public class GameManager {
 	}
 
 	public Sign getCurrentSign() {
+		return null;
+	}
+	
+	public List<Sign> getBackgroundSign(){
+		SignControl.getControl().getMapBackground();
+		
 		return null;
 	}
 

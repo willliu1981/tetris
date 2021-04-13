@@ -49,11 +49,18 @@ public class MainPanel extends JPanel {
 
 		Sign wallSign = AppManager.getSign(AppManager.signType.OBSTACLE, AppManager.getterObstacleSignType.WALL);
 		drawer.setSign(wallSign);
-		if (wallSign != null) {
-			for (Direction d : wallSign.getCubeMap().keySet()) {
-				g.fill3DRect(drawer.getX(d), drawer.getY(d), drawer.getLenW(), drawer.getLenH(), true);
-			}
+		
+		while(drawer.hashNext()) {
+			drawer.next();
+			g.fill3DRect(drawer.getX(), drawer.getY(), drawer.getLenW(), drawer.getLenH(), true);
 		}
+		
+		
+//		if (wallSign != null) {
+//			for (Direction d : wallSign.getCubeMap().keySet()) {
+//				g.fill3DRect(drawer.getX(d), drawer.getY(d), drawer.getLenW(), drawer.getLenH(), true);
+//			}
+//		}
 
 	}
 

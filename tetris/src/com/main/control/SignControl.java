@@ -1,16 +1,18 @@
 package com.main.control;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.main.control.manager.AppManager;
 import com.main.model.Sign;
 import com.tool.direction.Direction;
 
 public class SignControl {
-	private SignControl control=new SignControl();
+	private static SignControl control=new SignControl();
 	
 	/*
 	 * Map<行數,Map<列數,Sign>>
@@ -18,10 +20,13 @@ public class SignControl {
 	private static Map<Integer, Map<Integer, Sign>> mapBackground = new HashMap<>();
 	
 	static {
-		
 		for(int i=0;i<AppManager.getCubesSize().getHeight();i++) {
 			mapBackground.put(i, new HashMap<>());
 		}
+	}
+	
+	private SignControl() {
+		initialize();
 	}
 	
 	public static void initialize() {
@@ -38,6 +43,22 @@ public class SignControl {
 		
 		return false;
 	}
+	
+	/*
+	 * get and set
+	 */
+	
+	public static SignControl getControl() {
+		return control;
+	}
+
+	public  Map<Integer, Map<Integer, Sign>> getMapBackground() {
+		return mapBackground;
+	}
+	
+
+
+
 	
 	
 }
