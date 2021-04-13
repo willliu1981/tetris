@@ -15,6 +15,7 @@ import com.test.mainview.behavior.InitViewBehavior;
 import com.tool.behavior.BehaviorController;
 import com.tool.direction.Direction;
 import com.tool.draw.SignDrawer;
+import com.tool.draw.XSignDrawer;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -37,8 +38,14 @@ public class MainPanel extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		SignDrawer drawer = new SignDrawer(this, AppManager.getCubesSize());
+		XSignDrawer xdrawer = new XSignDrawer(this, AppManager.getCubesSize());
+		xdrawer.setBackgroundSign(AppManager.getBackgroundSignList());
+		while (xdrawer.hashNext()) {
+			xdrawer.next();
+			g.fill3DRect(xdrawer.getX(), xdrawer.getY(), xdrawer.getLenW(), xdrawer.getLenH(), true);
+		}
 
+		SignDrawer drawer = new SignDrawer(this, AppManager.getCubesSize());
 		Sign mainSign = AppManager.getSign(AppManager.signType.MAINSIGN, AppManager.getterMainSignType.SIGNJ);
 		drawer.setSign(mainSign);
 		if (mainSign != null) {
@@ -46,21 +53,6 @@ public class MainPanel extends JPanel {
 				g.fill3DRect(drawer.getX(d), drawer.getY(d), drawer.getLenW(), drawer.getLenH(), true);
 			}
 		}
-
-		Sign wallSign = AppManager.getSign(AppManager.signType.OBSTACLE, AppManager.getterObstacleSignType.WALL);
-		drawer.setSign(wallSign);
-		
-		while(drawer.hashNext()) {
-			drawer.next();
-			g.fill3DRect(drawer.getX(), drawer.getY(), drawer.getLenW(), drawer.getLenH(), true);
-		}
-		
-		
-//		if (wallSign != null) {
-//			for (Direction d : wallSign.getCubeMap().keySet()) {
-//				g.fill3DRect(drawer.getX(d), drawer.getY(d), drawer.getLenW(), drawer.getLenH(), true);
-//			}
-//		}
 
 	}
 

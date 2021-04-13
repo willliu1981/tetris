@@ -9,6 +9,7 @@ import java.util.Optional;
 import javax.swing.JComponent;
 
 import com.main.control.exception.FileErrorException;
+import com.main.control.exception.TNullException;
 import com.main.model.Sign;
 import com.tool.direction.Direction;
 
@@ -18,8 +19,8 @@ public class SignDrawer {
 	private int lenW;
 	private int lenH;
 	private Optional<Sign> sign = Optional.empty();
-	private Optional<Map<Integer, Map<Integer, Sign>>> backgroundSign = Optional.empty();
-	private Iterator currentIt;
+
+	private Iterator<Direction> currentCuteIt;
 	private Direction currentDirectoin;
 
 	/*
@@ -47,14 +48,14 @@ public class SignDrawer {
 	}
 
 	public boolean hashNext() {
-		if (this.currentIt == null) {
-			this.currentIt = this.getSign().getCubeMap().keySet().iterator();
+		if (this.currentCuteIt == null) {
+			this.currentCuteIt = this.getSign().getCubeMap().keySet().iterator();
 		}
-		return currentIt.hasNext();
+		return currentCuteIt.hasNext();
 	}
 
 	public Direction next() {
-		return currentDirectoin = (Direction) currentIt.next();
+		return currentDirectoin = (Direction) currentCuteIt.next();
 	}
 
 	/*
@@ -72,14 +73,6 @@ public class SignDrawer {
 		return this.sign.orElseThrow(() -> new FileErrorException("Sign is null"));
 	}
 
-	public void setBackgroundSign(Map<Integer, Map<Integer, Sign>> map) {
-
-	}
-
-	public Map<Integer, Map<Integer, Sign>> getBakcgroundSign() {
-		return this.backgroundSign.orElseThrow(() -> new FileErrorException("Sign is null"));
-	}
-
 	/*
 	 * 回傳修正後的置中位置的欲繪製Cube的座標
 	 */
@@ -92,10 +85,16 @@ public class SignDrawer {
 	}
 
 	public int getX() {
+		if (this.currentDirectoin == null) {
+			throw new TNullException();
+		}
 		return this.getX(this.currentDirectoin);
 	}
 
 	public int getY() {
+		if (this.currentDirectoin == null) {
+			throw new TNullException();
+		}
 		return this.getY(this.currentDirectoin);
 	}
 

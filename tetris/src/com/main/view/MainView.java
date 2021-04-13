@@ -1,33 +1,22 @@
 package com.main.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.SoftBevelBorder;
 
 import com.main.control.InputControl;
-import com.main.control.file.FileManager;
 import com.main.control.manager.AppManager;
-import com.main.control.manager.GameManager;
-import com.main.control.manager.MainSignGetter;
-import com.main.control.manager.SignManager;
 import com.main.model.Sign;
-import com.test.mainview.behavior.InitViewBehavior;
-import com.tool.BorderFixer;
 import com.tool.Session;
-import com.tool.behavior.Behavior;
 import com.tool.behavior.BehaviorController;
-
-import java.awt.Dimension;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.JTextField;
 
 public class MainView extends JFrame {
 

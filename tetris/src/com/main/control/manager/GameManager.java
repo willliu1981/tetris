@@ -54,10 +54,8 @@ public class GameManager {
 		return null;
 	}
 	
-	public List<Sign> getBackgroundSign(){
-		SignControl.getControl().getMapBackground();
-		
-		return null;
+	public static  List<Sign> getBackgroundSignList(){
+		return SignControl.getBackgroundList();
 	}
 
 }

@@ -136,11 +136,11 @@ public abstract class Sign implements java.io.Serializable {
 		int h = this.getHeight();
 		int x, y;
 		if ((x = this.getCubeMap().keySet().stream().max((x1, x2) -> x1.getX() - x2.getX()).orElse(new Direction(0, 0))
-				.getX()+1) > this.getWidth()) {
+				.getX() + 1) > this.getWidth()) {
 			w = x;
 		}
 		if ((y = this.getCubeMap().keySet().stream().max((y1, y2) -> y1.getY() - y2.getY()).orElse(new Direction(0, 0))
-				.getY()+1) > this.getHeight()) {
+				.getY() + 1) > this.getHeight()) {
 			h = y;
 		}
 
@@ -202,12 +202,13 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	public int getLTX() {
-		return this.getX()-this.getDirection().getPivotX();
+		return this.getX() - this.getDirection().getPivotX();
 	}
+
 	public int getLTY() {
-		return this.getY()-this.getDirection().getPivotY();
+		return this.getY() - this.getDirection().getPivotY();
 	}
-	
+
 	public int getWidth() {
 		if (this.getDirection().getWidth() <= 0) {
 			this.getDirection().setSize(1, 1);

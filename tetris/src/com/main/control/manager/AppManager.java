@@ -1,6 +1,7 @@
 package com.main.control.manager;
 
 import java.awt.Dimension;
+import java.util.List;
 
 import com.main.control.exception.FileErrorException;
 import com.main.control.file.FileManager;
@@ -77,5 +78,10 @@ public class AppManager {
 	public static Sign getCurrentSign() {
 		return gameManage.getCurrentSign();
 	}
+	
+	public static List<Sign> getBackgroundSignList() {
+		return GameManager.getBackgroundSignList();
+	}
+	
 
 }
