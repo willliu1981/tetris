@@ -1,9 +1,13 @@
 package com.main.control.manager;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.GsonBuilder;
+import com.main.control.file.gson.TClassTypeFactory;
 import com.main.control.file.gson.serializer.EnumSerializer;
 import com.main.model.Sign;
 import com.tool.direction.Direction;
@@ -14,7 +18,8 @@ import com.tool.direction.Direction;
 public class SignManager {
 
 	public enum SignType {
-		MAINSIGN, DIGITSIGN, OBSTACLE;
+		MAINSIGN, OBSTACLE;
+		// DIGITSIGN
 
 		public String toString() {
 			return new GsonBuilder().registerTypeAdapter(this.getClass(), new EnumSerializer()).create().toJson(this);
@@ -41,12 +46,39 @@ public class SignManager {
 	 * 和GetterSignType Class Type, 再到這裡新增一個SignType,於下註冊建好的SignGetter, 最後到
 	 * AppManager 註冊SignGetter類 的GetterSignType
 	 */
-	static {
+	public static void initialize() {
 		mapSignGetter = new HashMap<>();
 		mapSignGetter.put(SignType.MAINSIGN, new MainSignGetter());
 		mapSignGetter.put(SignType.OBSTACLE, new ObstacleSignGetter());
 	}
 
+	public static boolean isSignHasNewData() {
+		List<SignType> types = Arrays.asList(SignType.values());
+		if (!mapSignGetter.keySet().containsAll(types)) {
+			return true;
+		}
+
+		for (SignType type : mapSignGetter.keySet()) {
+			List<Enum<?>> getterTypes = Arrays.asList(mapSignGetter.get(type).getTypes());
+			if (!mapSignGetter.get(type).getSignMap().keySet().containsAll(getterTypes)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public static void updateSignData() {
+		Map<SignType, SignGetter<? extends Sign>> oldMap = mapSignGetter;
+		AppManager.initialize();
+
+		for (SignType type : oldMap.keySet()) {
+			for (Enum<?> getterType : oldMap.get(type).getSignMap().keySet()) {
+				mapSignGetter.get(type).addSign(getterType, oldMap.get(type).getSign(getterType));
+			}
+		}
+
+	}
 
 	/*
 	 * get and set
@@ -72,12 +104,11 @@ public class SignManager {
 		this.getSignGetter().getSign(type).setPivot(x, y);
 	}
 
-//	public Direction getDirection() {
-//		return this.getSignGetter().getSign(type).getDirection();
-//	}
-
 	public SignGetter<?> getSignGetter() {
-		return SignManager.mapSignGetter.get(this.type);
+		if (mapSignGetter == null) {
+			initialize();
+		}
+		return mapSignGetter.get(this.type);
 	}
 
 	public static Map<SignType, SignGetter<? extends Sign>> getSignGetterMap() {

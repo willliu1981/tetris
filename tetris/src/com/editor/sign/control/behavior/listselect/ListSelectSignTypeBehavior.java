@@ -17,12 +17,12 @@ import com.main.control.manager.SignManager.SignType;
 import com.main.model.Sign;
 import com.sun.glass.ui.Size;
 import com.sun.javafx.scene.control.skin.BehaviorSkinBase;
+import com.tool.BorderFixer;
+import com.tool.BorderFixers;
 import com.tool.Session;
 import com.tool.TColor;
 import com.tool.behavior.Behavior;
 import com.tool.behavior.BehaviorController;
-import com.tool.behavior.BorderFixer;
-import com.tool.behavior.BorderFixers;
 import com.tool.direction.Direction;
 
 public class ListSelectSignTypeBehavior extends Behavior {

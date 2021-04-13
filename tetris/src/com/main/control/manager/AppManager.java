@@ -20,15 +20,19 @@ public class AppManager {
 		try {
 			FileManager.loadSignDate();
 		} catch (FileErrorException ex) {
+			System.out.println(ex.getMessage());
 			this.initialize();
 		}
 	}
 
-	public static AppManager getDefaultManager() {
+	public static AppManager getSingletonManager() {
+		
 		return appManager;
 	}
 
-	private void initialize() {
+	public static void initialize() {
+		SignManager.initialize();
+		
 		SignManager managerMainSign = SignManager.getManager(SignManager.SignType.MAINSIGN);
 		managerMainSign.createNewSign(MainSignGetter.GetterMainSginType.SIGNS);
 		managerMainSign.createNewSign(MainSignGetter.GetterMainSginType.SIGNZ);
@@ -40,6 +44,18 @@ public class AppManager {
 
 		SignManager managerObstacleSign = SignManager.getManager(SignManager.SignType.OBSTACLE);
 		managerObstacleSign.createNewSign(ObstacleSignGetter.GetterObstacleSignType.WALL);
+		managerObstacleSign.createNewSign(ObstacleSignGetter.GetterObstacleSignType.WALLCUBE);
+		managerObstacleSign.createNewSign(ObstacleSignGetter.GetterObstacleSignType.REMAINS);
+
+	}
+	
+	public static boolean isSignHasNewData() {
+		return SignManager.isSignHasNewData();
+	}
+	
+	public static void updateSignData() {
+		SignManager.updateSignData();
+		
 	}
 
 	public static Dimension getMainPanelSize() {
@@ -56,6 +72,10 @@ public class AppManager {
 	
 	public static Sign getSign(SignManager.SignType signType,Enum<?> getterSignType) {
 		return SignManager.getManager(signType).getSign(getterSignType);
+	}
+	
+	public static Sign getCurrentSign() {
+		return gameManage.getCurrentSign();
 	}
 
 }

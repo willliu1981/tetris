@@ -45,6 +45,9 @@ public class SignDrawer {
 	 * get and set
 	 */
 
+	/*
+	 * 用於取得 Sign 的 left-top-point
+	 */
 	public void setSign(Sign s) {
 		this.sign = Optional.of(s);
 	}
@@ -54,7 +57,7 @@ public class SignDrawer {
 	}
 
 	/*
-	 * 回傳修正後的置中位置的座標
+	 * 回傳修正後的置中位置的欲繪製Cube的座標
 	 */
 	public int getX(Direction d) {
 		return this.getFixedX() + (d.getX() + getSign().getLTX()) * this.getLenW();

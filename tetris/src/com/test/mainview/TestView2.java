@@ -16,9 +16,10 @@ import com.main.control.manager.MainSignGetter;
 import com.main.control.manager.SignManager;
 import com.main.model.Sign;
 import com.test.mainview.behavior.InitViewBehavior;
+import com.tool.BorderFixer;
 import com.tool.Session;
 import com.tool.behavior.BehaviorController;
-import com.tool.behavior.BorderFixer;
+
 import java.awt.Dimension;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;

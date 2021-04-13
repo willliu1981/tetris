@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -25,20 +27,21 @@ import javax.swing.border.SoftBevelBorder;
 
 import com.editor.sign.control.behavior.listselect.ListSelectSignIlkBehavior;
 import com.editor.sign.control.behavior.listselect.ListSelectSignTypeBehavior;
+import com.editor.sign.control.behavior.listselect.ShowSignIlkBehavior;
 import com.main.control.exception.FileErrorException;
 import com.main.control.file.FileManager;
 import com.main.control.manager.AppManager;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.SignManager.SignType;
 import com.main.model.Sign;
+import com.tool.BorderFixer;
 import com.tool.Session;
 import com.tool.behavior.Behavior;
 import com.tool.behavior.BehaviorController;
-import com.tool.behavior.BorderFixer;
 
 public class SignEditor extends JFrame {
 
-	private AppManager appManager = AppManager.getDefaultManager();
+	private AppManager appManager = AppManager.getSingletonManager();
 	private JPanel contentPane;
 	private JList<?> list_signtype;// 放置Sign Cube 的 BorderLayout的父元件
 	private JPanel panel_grid_main;// 放置Sign Cube 的 BorderLayout中間的元件
@@ -57,6 +60,7 @@ public class SignEditor extends JFrame {
 				try {
 					SignEditor frame = new SignEditor();
 					frame.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -81,12 +85,6 @@ public class SignEditor extends JFrame {
 				super.windowClosing(arg0);
 			}
 		});
-
-		try {
-			FileManager.loadSignDate();
-		} catch (FileErrorException ex) {
-			System.out.println(ex.getMessage());
-		}
 
 		createComponent();
 
@@ -151,6 +149,9 @@ public class SignEditor extends JFrame {
 		list_signilk.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				/*
+				 * 於Behavior do setModel
+				 */
 				Behavior behavior = new ListSelectSignIlkBehavior();
 				behavior.setParameter("list_signilk", list_signilk);
 				behavior.setParameter("list_signtype", list_signtype);
@@ -160,30 +161,48 @@ public class SignEditor extends JFrame {
 			}
 		});
 		list_signilk.setFont(new Font("新細明體", Font.PLAIN, 18));
-		list_signilk.setModel(new AbstractListModel() {
-			/**
-			 * 
-			 */
-			Enum[] signs;
-			{
-				signs = new Enum[SignManager.getSignGetterMap().size()];
-				SignManager.getSignGetterMap().keySet().toArray(signs);
-			}
-
-			public int getSize() {
-				return signs.length;
-			}
-
-			public Enum getElementAt(int index) {
-				return signs[index];
-			}
-		});
+		Behavior behaviorSignilk = new ShowSignIlkBehavior();
+		behaviorSignilk.setParameter("list_signilk", list_signilk);
+		BehaviorController.sendBehavior(behaviorSignilk);
+		
 		if (list_signilk.getModel().getSize() > 0) {
 			list_signilk.setSelectedIndex(0);
 		} else {
 			list_signilk.setSelectedIndex(-1);
 		}
 		panel_lbar_top.add(list_signilk);
+
+		/*
+		 * When the sign dates need to be update
+		 */
+		if (AppManager.isSignHasNewData()) {
+			JButton btnNewButton_update = new JButton("Update");
+			btnNewButton_update.setBackground(SystemColor.controlHighlight);
+			panel_lbar_top.add(btnNewButton_update);
+			btnNewButton_update.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					AppManager.updateSignData();
+
+					Behavior behavior = new ShowSignIlkBehavior();
+					behavior.setParameter("list_signilk", list_signilk);
+					BehaviorController.sendBehavior(behavior);
+					
+					btnNewButton_update.setVisible(false);
+					list_signtype.setModel(new AbstractListModel() {
+						@Override
+						public Object getElementAt(int arg0) {
+							return null;
+						}
+
+						@Override
+						public int getSize() {
+							return 0;
+						}});
+					panel_grid_main.removeAll();
+				}
+			});
+		}
 
 		JPanel panel_lbar_center1 = new JPanel();
 		panel_lbar_center1.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));

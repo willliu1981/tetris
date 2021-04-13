@@ -1,8 +1,5 @@
 package com.main.control.manager;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.main.model.Sign;
 import com.tool.direction.Direction;
 
@@ -11,21 +8,16 @@ import com.tool.direction.Direction;
  */
 public class GameManager {
 
-	private Map<Direction, Sign> mapBackground = new HashMap<>();
-	
 	/*
 	 * 以Obstacle 的 WALL 大小做為遊戲活動空間大小,於getBackgroundSize 回傳給AppManager 或 MainView
 	 */
-	private static Direction backgroundCubeSize = SignManager.getManager(SignManager.SignType.OBSTACLE)
-			.getSign(ObstacleSignGetter.GetterObstacleSignType.WALL).getDirection();
+	private static Direction backgroundCubeSize = AppManager
+			.getSign(AppManager.signType.OBSTACLE, AppManager.getterObstacleSignType.WALL).getDirection();
 
 	/*
-	 * 建議尺寸,實際會因為Panel 元件的設計需求,產生些微差距
+	 * 建議尺寸,實際會因為Panel 元件的設計需求計算後產生些微差距
 	 */
 	private final static int CUBEUNITSIZE = 30;
-
-//	SignManager managerObstacleSign = SignManager.getManager(SignManager.SignType.OBSTACLE);
-//	managerObstacleSign.createNewSign(ObstacleSignGetter.GetterObstacleSignType.WALL);
 
 	private GameManager() {
 
@@ -42,21 +34,21 @@ public class GameManager {
 	/*
 	 * 以Cube數量做為單位
 	 */
-	public static  Direction getBackgroundCubeSize() {
+	public static Direction getBackgroundCubeSize() {
 		return backgroundCubeSize;
 	}
 
 	/*
 	 * 以像素做為單位
 	 */
-	public static  Direction getBackgroundSize() {
+	public static Direction getBackgroundSize() {
 		Direction siez = getBackgroundCubeSize();
 
 		return new Direction(0, 0, siez.getWidth() * CUBEUNITSIZE, siez.getHeight() * CUBEUNITSIZE);
 	}
 
-//	public void test() {
-//		System.out.println("game manager ** "+this.backgroundCubeSize);
-//	}
+	public Sign getCurrentSign() {
+		return null;
+	}
 
 }

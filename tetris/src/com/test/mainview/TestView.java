@@ -11,9 +11,9 @@ import javax.swing.border.EmptyBorder;
 
 import com.main.control.file.FileManager;
 import com.test.mainview.behavior.InitViewBehavior;
+import com.tool.BorderFixer;
 import com.tool.Session;
 import com.tool.behavior.BehaviorController;
-import com.tool.behavior.BorderFixer;
 
 public class TestView extends JFrame {
 	

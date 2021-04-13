@@ -12,7 +12,7 @@ public class ObstacleSignGetter extends SignGetter<MainSign> {
 	private static final long serialVersionUID = 1L;
 
 	static public enum GetterObstacleSignType {
-		WALL,REMAINS;
+		WALL,REMAINS,WALLCUBE;
 
 		public String toString() {
 			return new GsonBuilder().registerTypeAdapter(this.getClass(), new EnumSerializer()).create().toJson(this);
@@ -24,6 +24,13 @@ public class ObstacleSignGetter extends SignGetter<MainSign> {
 	@Override
 	public void addSign(Enum<?> type, int x, int y) {
 		this.mapSign.put((GetterObstacleSignType) type, new MainSign(x, y));
+	}
+
+
+
+	@Override
+	public Enum<?>[] getTypes() {
+		return GetterObstacleSignType.values();
 	}
 
 }

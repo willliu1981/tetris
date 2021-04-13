@@ -28,18 +28,6 @@ public class MainPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public MainPanel() {
-		this.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				/*
-				 * test 
-				 */
-				Sign sign = AppManager.getSign(AppManager.signType.MAINSIGN, AppManager.getterMainSignType.SIGNJ);
-				sign.rotateRight();
-				MainPanel.this.repaint();
-
-			}
-		});
 
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 
@@ -53,7 +41,6 @@ public class MainPanel extends JPanel {
 
 		Sign mainSign = AppManager.getSign(AppManager.signType.MAINSIGN, AppManager.getterMainSignType.SIGNJ);
 		drawer.setSign(mainSign);
-		System.out.println(mainSign);
 		if (mainSign != null) {
 			for (Direction d : mainSign.getCubeMap().keySet()) {
 				g.fill3DRect(drawer.getX(d), drawer.getY(d), drawer.getLenW(), drawer.getLenH(), true);

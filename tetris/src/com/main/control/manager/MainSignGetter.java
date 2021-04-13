@@ -24,4 +24,9 @@ public class MainSignGetter extends SignGetter<MainSign> {
 		this.mapSign.put((GetterMainSginType) type, new MainSign(x, y));
 	}
 
+	@Override
+	public Enum<?>[] getTypes() {
+		return GetterMainSginType.values();
+	}
+
 }

@@ -12,7 +12,7 @@ import com.tool.behavior.Behavior;
 import com.tool.behavior.IBehavior;
 
 /*
- * 遊戲進行所輸入的控制器
+ * 遊戲進行所輸入的指令的控制器
  */
 public class InputControl implements IBehavior {
 	private Behavior behavior;

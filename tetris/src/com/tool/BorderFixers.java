@@ -1,4 +1,4 @@
-package com.tool.behavior;
+package com.tool;
 
 import java.awt.Component;
 
