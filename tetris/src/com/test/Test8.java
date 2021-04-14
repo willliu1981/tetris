@@ -1,6 +1,8 @@
 package com.test;
 
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,13 +14,18 @@ public class Test8 {
 
 	public static void main(String[] args) throws CloneNotSupportedException {
 
-		Task t = new Task();
-
-		Timer tr = new Timer();
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.SECOND, c.get(Calendar.SECOND) + 3);
-
-		tr.schedule(t, c.getTime(), 300);
+		Set<String > s1=new HashSet<>();
+		s1.add("a");
+		s1.add("b");
+		
+		Set<String > s2=new HashSet<>();
+		s2.add("a2");
+		s2.add("b2");
+		
+		s1.addAll(s2);
+		System.out.println(s1);
+		
+		
 
 	}
 
