@@ -1,31 +1,23 @@
 package com.test;
 
-import java.util.Calendar;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.Timer;
 import java.util.TimerTask;
-
-import com.main.model.MainSign;
-import com.main.model.Sign;
-import com.tool.direction.Direction;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Test8 {
 
 	public static void main(String[] args) throws CloneNotSupportedException {
 
-		Set<String > s1=new HashSet<>();
-		s1.add("a");
-		s1.add("b");
+		Set<String> setstr=new HashSet<>();
+		setstr.add("1");
+		setstr.add("2");
+		setstr.add("3");
 		
-		Set<String > s2=new HashSet<>();
-		s2.add("a2");
-		s2.add("b2");
-		
-		s1.addAll(s2);
-		System.out.println(s1);
-		
-		
+		List<Integer> lstis=setstr.stream().map(Integer::valueOf).collect(Collectors.toList());
+		lstis.stream().map(x->x*2).forEach(System.out::println);
 
 	}
 
