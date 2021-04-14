@@ -4,8 +4,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JPanel;
 
-import com.main.control.manager.MainSignGetter;
 import com.main.control.manager.SignManager;
+import com.main.control.signgetter.MainSignGetter;
 import com.main.model.Sign;
 import com.main.view.MainView;
 import com.tool.behavior.Behavior;

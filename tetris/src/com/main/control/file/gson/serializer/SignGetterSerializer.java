@@ -8,7 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.reflect.TypeToken;
-import com.main.control.manager.SignGetter;
+import com.main.control.signgetter.SignGetter;
 import com.main.model.Sign;
 import com.tool.gson.CustSerializer;
 

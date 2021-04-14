@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.main.control.exception.FileErrorException;
 import com.main.control.file.FileManager;
+import com.main.control.signgetter.MainSignGetter;
+import com.main.control.signgetter.ObstacleSignGetter;
 import com.main.model.Sign;
 import com.tool.direction.Direction;
 

@@ -34,10 +34,10 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.main.control.exception.FileErrorException;
 import com.main.control.file.gson.wrapper.SignGetterMapWrapper;
-import com.main.control.manager.MainSignGetter;
-import com.main.control.manager.SignGetter;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.SignManager.SignType;
+import com.main.control.signgetter.MainSignGetter;
+import com.main.control.signgetter.SignGetter;
 import com.main.model.Sign;
 
 public class FileManager {

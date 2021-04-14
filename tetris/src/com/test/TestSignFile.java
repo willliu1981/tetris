@@ -1,8 +1,8 @@
 package com.test;
 
 import com.main.control.file.FileManager;
-import com.main.control.manager.MainSignGetter;
 import com.main.control.manager.SignManager;
+import com.main.control.signgetter.MainSignGetter;
 import com.main.model.Sign;
 
 public class TestSignFile {

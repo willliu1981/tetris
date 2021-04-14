@@ -1,10 +1,10 @@
 package com.main.control.file.gson;
 
-import com.main.control.manager.MainSignGetter;
-import com.main.control.manager.MainSignGetter.GetterMainSginType;
-import com.main.control.manager.ObstacleSignGetter;
-import com.main.control.manager.ObstacleSignGetter.GetterObstacleSignType;
 import com.main.control.manager.SignManager.SignType;
+import com.main.control.signgetter.MainSignGetter;
+import com.main.control.signgetter.ObstacleSignGetter;
+import com.main.control.signgetter.MainSignGetter.GetterMainSginType;
+import com.main.control.signgetter.ObstacleSignGetter.GetterObstacleSignType;
 import com.main.model.MainSign;
 import com.main.model.ObstacleSign;
 import com.tool.direction.Direction;

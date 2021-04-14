@@ -32,11 +32,11 @@ public class SignControl {
 			sign.setPoint(d.getX(), d.getY());
 			mapBackground.get(d.getY()).put(new Direction(d.getX(), d.getY()), sign);
 		}
-
+		
 	}
-
+	
 	public boolean isCollide(Sign sign) {
-
+		
 		return false;
 	}
 

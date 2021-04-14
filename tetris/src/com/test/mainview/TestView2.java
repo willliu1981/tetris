@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.main.control.file.FileManager;
-import com.main.control.manager.MainSignGetter;
 import com.main.control.manager.SignManager;
+import com.main.control.signgetter.MainSignGetter;
 import com.main.model.Sign;
 import com.test.mainview.behavior.InitViewBehavior;
 import com.tool.Session;

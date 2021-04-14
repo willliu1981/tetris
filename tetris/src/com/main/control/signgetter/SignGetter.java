@@ -1,4 +1,4 @@
-package com.main.control.manager;
+package com.main.control.signgetter;
 
 import java.util.HashMap;
 import java.util.Map;

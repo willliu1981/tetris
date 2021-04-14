@@ -6,8 +6,8 @@ import com.google.gson.GsonBuilder;
 import com.main.control.file.gson.deserializer.EnumDeserializer;
 import com.main.control.file.gson.deserializer.SignGetterDeserializer;
 import com.main.control.file.gson.serializer.SignGetterSerializer;
-import com.main.control.manager.SignGetter;
 import com.main.control.manager.SignManager.SignType;
+import com.main.control.signgetter.SignGetter;
 import com.main.model.Sign;
 import com.tool.gson.GsonWrapper;
 

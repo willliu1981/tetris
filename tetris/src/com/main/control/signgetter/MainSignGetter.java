@@ -1,4 +1,4 @@
-package com.main.control.manager;
+package com.main.control.signgetter;
 
 import com.google.gson.GsonBuilder;
 import com.main.control.file.gson.serializer.EnumSerializer;

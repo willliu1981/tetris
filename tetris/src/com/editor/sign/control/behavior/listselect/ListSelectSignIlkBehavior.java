@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 
 import com.editor.sign.view.EditorSignPanel;
 import com.main.control.manager.SignManager;
-import com.main.control.manager.MainSignGetter.GetterMainSginType;
 import com.main.control.manager.SignManager.SignType;
+import com.main.control.signgetter.MainSignGetter.GetterMainSginType;
 import com.main.model.Sign;
 import com.sun.glass.ui.Size;
 import com.tool.behavior.Behavior;

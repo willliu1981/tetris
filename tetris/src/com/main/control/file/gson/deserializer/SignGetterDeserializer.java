@@ -8,7 +8,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.main.control.file.gson.TClassTypeFactory;
-import com.main.control.manager.SignGetter;
+import com.main.control.signgetter.SignGetter;
 import com.main.model.Sign;
 import com.sun.javafx.scene.traversal.Direction;
 import com.tool.gson.CustDeserializer;
