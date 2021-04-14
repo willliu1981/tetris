@@ -28,8 +28,8 @@ public class SignControl {
 	public static void initialize() {
 		Sign wall = AppManager.getSign(AppManager.signType.OBSTACLE, AppManager.getterObstacleSignType.WALL);
 		for (Direction d : wall.getCubeMap().keySet()) {
-			ObstacleSign sign = new ObstacleSign(d.getX(), d.getY());
-			sign.addCube(0, 0);
+			ObstacleSign sign=(ObstacleSign) AppManager.getDefaultSign(AppManager.signType.OBSTACLE);
+			sign.setPoint(d.getX(), d.getY());
 			mapBackground.get(d.getY()).put(new Direction(d.getX(), d.getY()), sign);
 		}
 

@@ -6,7 +6,7 @@ import java.util.Map;
 import com.tool.Cycle;
 import com.tool.direction.Direction;
 
-public abstract class Sign implements java.io.Serializable {
+public abstract class Sign implements java.io.Serializable, Cloneable {
 
 	/**
 	 * 
@@ -152,8 +152,16 @@ public abstract class Sign implements java.io.Serializable {
 	}
 
 	/*
-	 * get and set
+	 * get and set					
 	 */
+
+	@Override
+	public Sign clone() throws CloneNotSupportedException {
+		Sign sign = (Sign) super.clone();
+		sign.direction = (Direction) this.direction.clone();
+
+		return sign;
+	}
 
 	public void addCube(int x, int y) {
 		this.getCubeMap().put(new Direction(x, y), new Cube());
@@ -259,6 +267,10 @@ public abstract class Sign implements java.io.Serializable {
 
 	public int getCycleSize() {
 		return this.cycleCubeMap.size();
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String toString() {

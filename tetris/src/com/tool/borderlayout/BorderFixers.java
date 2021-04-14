@@ -1,4 +1,4 @@
-package com.tool;
+package com.tool.borderlayout;
 
 import java.awt.Component;
 

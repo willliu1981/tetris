@@ -34,10 +34,10 @@ import com.main.control.manager.AppManager;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.SignManager.SignType;
 import com.main.model.Sign;
-import com.tool.BorderFixer;
 import com.tool.Session;
 import com.tool.behavior.Behavior;
 import com.tool.behavior.BehaviorController;
+import com.tool.borderlayout.BorderFixer;
 
 public class SignEditor extends JFrame {
 

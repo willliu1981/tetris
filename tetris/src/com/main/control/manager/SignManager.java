@@ -51,6 +51,8 @@ public class SignManager {
 		mapSignGetter.put(SignType.MAINSIGN, new MainSignGetter());
 		mapSignGetter.put(SignType.OBSTACLE, new ObstacleSignGetter());
 	}
+	
+	
 
 	public static boolean isSignHasNewData() {
 		List<SignType> types = Arrays.asList(SignType.values());
@@ -91,6 +93,11 @@ public class SignManager {
 	public void addSign(Enum<?> type, int x, int y) {
 		this.getSignGetter().addSign(type, x, y);
 	}
+	
+	public Sign getDefaultSign() {
+		return this.getSignGetter().getDefaultSign();
+	}
+		
 
 	public void createNewSign(Enum<?> type) {
 		this.getSignGetter().addSign(type, 0, 0);

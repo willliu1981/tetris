@@ -29,6 +29,8 @@ public abstract class SignGetter<V extends Sign> implements java.io.Serializable
 
 	abstract public Enum<?>[] getTypes();
 
+	abstract public V getDefaultSign();
+
 	public Map<Enum<?>, Sign> getSignMap() {
 		return this.mapSign;
 	}

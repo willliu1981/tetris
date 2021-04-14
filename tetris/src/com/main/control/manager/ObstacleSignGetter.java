@@ -4,8 +4,9 @@ import com.google.gson.GsonBuilder;
 import com.main.control.file.gson.serializer.EnumSerializer;
 import com.main.model.MainSign;
 import com.main.model.ObstacleSign;
+import com.main.model.Sign;
 
-public class ObstacleSignGetter extends SignGetter<MainSign> {
+public class ObstacleSignGetter extends SignGetter<ObstacleSign> {
 
 	/**
 	 * 
@@ -28,6 +29,13 @@ public class ObstacleSignGetter extends SignGetter<MainSign> {
 	@Override
 	public Enum<?>[] getTypes() {
 		return GetterObstacleSignType.values();
+	}
+
+	@Override
+	public ObstacleSign getDefaultSign() {
+		ObstacleSign sign = new ObstacleSign(0, 0);
+		sign.addCube(0, 0);
+		return sign;
 	}
 
 }

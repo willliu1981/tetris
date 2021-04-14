@@ -74,6 +74,9 @@ public class AppManager {
 	public static Sign getSign(SignManager.SignType signType,Enum<?> getterSignType) {
 		return SignManager.getManager(signType).getSign(getterSignType);
 	}
+	public static Sign getDefaultSign(SignManager.SignType signType) {
+		return SignManager.getManager(signType).getDefaultSign();
+	}
 	
 	public static Sign getCurrentSign() {
 		return gameManage.getCurrentSign();

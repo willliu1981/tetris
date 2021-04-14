@@ -8,15 +8,20 @@ import com.main.control.file.gson.serializer.DirectionSerializer;
 /*
  * tetris 專用 座標
  */
-public class Direction implements java.io.Serializable {
+public class Direction implements java.io.Serializable, Cloneable {
 
-	public static class Size implements java.io.Serializable {
+	public static class Size implements java.io.Serializable, Cloneable {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
 		private int width;
 		private int height;
+
+		@Override
+		protected Object clone() throws CloneNotSupportedException {
+			return super.clone();
+		}
 
 		/*
 		 * get and set
@@ -27,9 +32,9 @@ public class Direction implements java.io.Serializable {
 		}
 
 		public int getWidth() {
-			return this.width ;
+			return this.width;
 		}
-		
+
 		public int getHeight() {
 			return this.height;
 		}
@@ -89,6 +94,15 @@ public class Direction implements java.io.Serializable {
 	public int hashCode() {
 
 		return this.getX() * 3 + this.getY() * 5;
+	}
+
+	@Override
+	public Direction clone() throws CloneNotSupportedException {
+		Direction d = (Direction) super.clone();
+		d.point = (Point) this.point.clone();
+		d.pivot = (Point) this.pivot.clone();
+		d.size = (Size) this.size.clone();
+		return d;
 	}
 
 	/*

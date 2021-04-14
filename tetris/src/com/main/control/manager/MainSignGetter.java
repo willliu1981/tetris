@@ -3,6 +3,7 @@ package com.main.control.manager;
 import com.google.gson.GsonBuilder;
 import com.main.control.file.gson.serializer.EnumSerializer;
 import com.main.model.MainSign;
+import com.main.model.ObstacleSign;
 
 public class MainSignGetter extends SignGetter<MainSign> {
 
@@ -27,6 +28,13 @@ public class MainSignGetter extends SignGetter<MainSign> {
 	@Override
 	public Enum<?>[] getTypes() {
 		return GetterMainSginType.values();
+	}
+
+	@Override
+	public MainSign getDefaultSign() {
+		MainSign sign = new MainSign(0, 0);
+		sign.addCube(0, 0);
+		return sign;
 	}
 
 }

@@ -4,10 +4,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.test.mainview.TestView;
-import com.tool.BorderFixer;
-import com.tool.BorderFixers;
 import com.tool.Session;
 import com.tool.behavior.Behavior;
+import com.tool.borderlayout.BorderFixer;
+import com.tool.borderlayout.BorderFixers;
 import com.tool.direction.Direction;
 
 public class InitViewBehavior extends Behavior {
