@@ -70,13 +70,6 @@ public class Input implements IBehavior {
 							break;
 						}
 					}
-					System.out.println("input single ** ");
-					setSingleKeyType.forEach(x-> System.out.print(x+" "));
-					System.out.println();
-					System.out.println("input period ** ");
-					mapPeriodKeyType.forEach(x-> System.out.print(x+" "));
-					System.out.println();
-
 				}
 			};
 		}
@@ -89,6 +82,19 @@ public class Input implements IBehavior {
 
 	public Object getParameter(String name) {
 		return this.getBehavior().getParameter(name);
+	}
+
+	public static int getHorizontal() {
+		if (mapPeriodKeyType.contains(KeyType.LEFT)) {
+			return -1;
+		} else if (mapPeriodKeyType.contains(KeyType.RIGHT)) {
+			return 1;
+		}
+		return 0;
+	}
+
+	public static int getVertical() {
+		return 0;
 	}
 
 }
