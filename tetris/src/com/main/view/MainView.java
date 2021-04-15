@@ -12,7 +12,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 
-import com.main.control.game.Input;
+import com.main.control.game.input.Input;
 import com.main.control.manager.AppManager;
 import com.main.model.Sign;
 import com.tool.Session;
@@ -43,7 +43,7 @@ public class MainView extends JFrame {
 
 					sign.setPoint(6, 9);
 					
-					AppManager.startApp();
+					AppManager.initialize();
 
 				} catch (Exception e) {
 					e.printStackTrace();

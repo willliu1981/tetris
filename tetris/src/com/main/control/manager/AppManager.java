@@ -6,6 +6,8 @@ import java.util.List;
 import com.main.control.exception.FileErrorException;
 import com.main.control.file.FileManager;
 import com.main.control.game.Scene;
+import com.main.control.game.input.Input;
+import com.main.control.game.input.Input.KeyType;
 import com.main.control.signgetter.MainSignGetter;
 import com.main.control.signgetter.ObstacleSignGetter;
 import com.main.model.Sign;
@@ -24,7 +26,7 @@ public class AppManager {
 			FileManager.loadSignDate();
 		} catch (FileErrorException ex) {
 			System.out.println(ex.getMessage());
-			this.initialize();
+			this.initializeSign();
 		}
 	}
 
@@ -33,9 +35,12 @@ public class AppManager {
 		return appManager;
 	}
 
-	public static void initialize() {
+	public static void initializeSign() {
 		SignManager.initialize();
 
+		/*
+		 * Sign initialize
+		 */
 		SignManager managerMainSign = SignManager.getManager(SignManager.SignType.MAINSIGN);
 		managerMainSign.createNewSign(MainSignGetter.GetterMainSginType.SIGNS);
 		managerMainSign.createNewSign(MainSignGetter.GetterMainSginType.SIGNZ);
@@ -52,9 +57,16 @@ public class AppManager {
 
 	}
 
-	public static void startApp() {
+	public static void initialize() {
 		GameManager.getSingletonManager().initialize();
 
+		/*
+		 * Input initialize
+		 */
+		Input.addKeyCode(37, KeyType.LEFT);
+		Input.addKeyCode(38, KeyType.UP);
+		Input.addKeyCode(39, KeyType.RIGHT);
+		Input.addKeyCode(40, KeyType.DOWN);
 	}
 
 	public static boolean isSignHasNewData() {

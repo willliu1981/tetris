@@ -75,7 +75,7 @@ public class SignManager {
 
 	public static void updateSignData() {
 		Map<SignType, SignGetter<? extends Sign>> oldMap = mapSignGetter;
-		AppManager.initialize();
+		AppManager.initializeSign();
 
 		for (SignType type : oldMap.keySet()) {
 			for (Enum<?> getterType : oldMap.get(type).getSignMap().keySet()) {

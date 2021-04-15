@@ -1,10 +1,13 @@
-package com.main.control.game;
+package com.main.control.game.input;
 
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.tool.behavior.Behavior;
+import com.tool.behavior.BehaviorController;
 import com.tool.behavior.IBehavior;
 
 /*
@@ -22,6 +25,15 @@ public class Input implements IBehavior {
 	private Behavior behavior;
 	private static Set<KeyType> setSingleKeyType = new HashSet<>();
 	private static Set<KeyType> mapPeriodKeyType = new HashSet<>();
+	private static Map<KeyType, Behavior> mapProcess = new HashMap<>();// <keyCode,process behavior>
+	private static Map<Integer, KeyType> mapKeyType = new HashMap<>();// <keyCode,process behavior>
+
+	static {
+		addProcess(KeyType.LEFT, new ProcessLeftBehavior());
+		addProcess(KeyType.UP, new ProcessUpBehavior());
+		addProcess(KeyType.RIGHT, new ProcessRightBehavior());
+		addProcess(KeyType.DOWN, new ProcessDownBehavior());
+	}
 
 	@Override
 	public void run() {
@@ -41,39 +53,36 @@ public class Input implements IBehavior {
 				public void run() {
 					KeyEvent keyEvent = (KeyEvent) this.getParameter("event");
 					KeyState keyState = (KeyState) this.getParameter("state");
-
-					if (!(keyEvent == null || keyState == null)) {
-						boolean r = false;
-						switch (keyEvent.getKeyCode()) {
-						case 37:// left
-							setSingleKeyType.add(KeyType.LEFT);
-							r = (keyState == KeyState.keyPressed)
-									? mapPeriodKeyType.add(KeyType.LEFT) || mapPeriodKeyType.remove(KeyType.RIGHT)
-									: mapPeriodKeyType.remove(KeyType.LEFT);
-							break;
-						case 38:// up
-							setSingleKeyType.add(KeyType.UP);
-							break;
-						case 39:// right
-							setSingleKeyType.add(KeyType.RIGHT);
-							r = (keyState == KeyState.keyPressed)
-									? mapPeriodKeyType.add(KeyType.RIGHT) || mapPeriodKeyType.remove(KeyType.LEFT)
-									: mapPeriodKeyType.remove(KeyType.RIGHT);
-							break;
-						case 40:// down
-							setSingleKeyType.add(KeyType.DOWN);
-							r = (keyState == KeyState.keyPressed) ? mapPeriodKeyType.add(KeyType.DOWN)
-									: mapPeriodKeyType.remove(KeyType.DOWN);
-							break;
-
-						default:
-							break;
-						}
+					
+					try {
+					Behavior behavior = getProcess(getKeyType(keyEvent.getKeyCode()));
+					behavior.setParameter("keyState", keyState);
+					behavior.setParameter("setSingleKeyType", setSingleKeyType);
+					behavior.setParameter("mapPeriodKeyType", mapPeriodKeyType);
+					BehaviorController.sendBehavior(behavior);
+					}catch(NullPointerException e) {
+						e.printStackTrace();
 					}
 				}
 			};
 		}
 		return behavior;
+	}
+
+	private static void addProcess(KeyType keyType, Behavior behavior) {
+		mapProcess.put(keyType, behavior);
+	}
+
+	private static Behavior getProcess(KeyType keyType) {
+		return mapProcess.get(keyType);
+	}
+
+	public static void addKeyCode(int keyCode, KeyType keyType) {
+		mapKeyType.put(keyCode, keyType);
+	}
+
+	private static KeyType getKeyType(int keyCode) {
+		return mapKeyType.get(keyCode);
 	}
 
 	public void setParameter(String name, Object obj) {
