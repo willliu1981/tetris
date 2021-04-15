@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import com.main.control.game.Scene.Performance;
 import com.main.control.game.input.Input;
 import com.main.control.manager.AppManager;
+import com.main.control.manager.GameManager;
 import com.main.model.Sign;
 import com.main.view.MainView;
 
@@ -63,11 +64,14 @@ public class TestGameObject implements Performance {
 		if (Input.getRotate()) {
 			if (!activeRot) {
 				AppManager.getCurrentSign().rotateRight();
-				activeRot=true;
+				activeRot = true;
 			}
 		} else {
-			activeRot=false;
+			activeRot = false;
 		}
+		
+		System.out.println("TestGB ** "+GameManager.isCurrentSignCollide());
+	
 
 		JPanel main_panel = (JPanel) MainView.getSession().getAttribute("main_panel");
 		main_panel.repaint();

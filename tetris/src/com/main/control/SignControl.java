@@ -10,6 +10,7 @@ import com.main.control.manager.AppManager;
 import com.main.model.ObstacleSign;
 import com.main.model.Sign;
 import com.tool.direction.Direction;
+import com.tool.direction.Directions;
 
 public class SignControl {
 	private static SignControl control = new SignControl();
@@ -36,9 +37,15 @@ public class SignControl {
 
 	}
 
-	public boolean isCollide(Sign sign) {
-
-		return false;
+	public static boolean isCollide(Sign sign) {
+		boolean r = sign.getCubeMap().keySet().stream().anyMatch(cd -> {
+			boolean r2 = getBackgroundMap().get(Directions.getCubeWorldPoint(sign, cd).getY()).keySet().stream()
+					.anyMatch(od -> {
+						return Directions.getCubeWorldPoint(sign, cd).equals(od);
+					});
+			return r2;
+		});
+		return r;
 	}
 
 	/*

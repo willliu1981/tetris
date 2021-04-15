@@ -152,7 +152,7 @@ public abstract class Sign implements java.io.Serializable, Cloneable {
 	}
 
 	/*
-	 * get and set					
+	 * get and set
 	 */
 
 	@Override

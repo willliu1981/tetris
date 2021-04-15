@@ -16,6 +16,15 @@ import com.tool.direction.Direction;
  * 遊戲管理
  */
 public class GameManager {
+	static class Task extends TimerTask {
+
+		@Override
+		public void run() {
+			SceneManager.getScene().run();
+		}
+
+	}
+
 	private static GameManager manager = new GameManager();
 	private static int interval = 20;
 
@@ -69,7 +78,11 @@ public class GameManager {
 		return new Direction(0, 0, siez.getWidth() * CUBEUNITSIZE, siez.getHeight() * CUBEUNITSIZE);
 	}
 
-	public Sign getCurrentSign() {
+	public static boolean isCurrentSignCollide() {
+		return SignControl.isCollide(getCurrentSign());
+	}
+
+	public static Sign getCurrentSign() {
 		/*
 		 * test
 		 */
@@ -86,15 +99,6 @@ public class GameManager {
 
 	public static void setInterval(int interval) {
 		GameManager.interval = interval;
-	}
-
-	static class Task extends TimerTask {
-
-		@Override
-		public void run() {
-			SceneManager.getScene().run();
-		}
-
 	}
 
 }
