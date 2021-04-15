@@ -6,6 +6,7 @@ import java.awt.Insets;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
+import com.main.control.exception.LogicErrorException;
 import com.main.control.manager.AppManager;
 import com.main.control.manager.SignManager;
 import com.main.control.signgetter.MainSignGetter;
@@ -29,7 +30,6 @@ public class MainPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public MainPanel() {
-
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 
 	}
@@ -38,20 +38,25 @@ public class MainPanel extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		XSignDrawer xdrawer = new XSignDrawer(this, AppManager.getCubesSize());
-		xdrawer.setBackgroundSign(AppManager.getBackgroundSignList());
-		while (xdrawer.hashNext()) {
-			xdrawer.next();
-			g.fill3DRect(xdrawer.getX(), xdrawer.getY(), xdrawer.getLenW(), xdrawer.getLenH(), true);
-		}
-
-		SignDrawer drawer = new SignDrawer(this, AppManager.getCubesSize());
-		Sign mainSign = AppManager.getSign(AppManager.signType.MAINSIGN, AppManager.getterMainSignType.SIGNJ);
-		drawer.setSign(mainSign);
-		if (mainSign != null) {
-			for (Direction d : mainSign.getCubeMap().keySet()) {
-				g.fill3DRect(drawer.getX(d), drawer.getY(d), drawer.getLenW(), drawer.getLenH(), true);
+		try {
+			XSignDrawer xdrawer = new XSignDrawer(this, AppManager.getCubesSize());
+			AppManager.getBackgroundSignList();
+			xdrawer.setBackgroundSign(AppManager.getBackgroundSignList());
+			while (xdrawer.hashNext()) {
+				xdrawer.next();
+				g.fill3DRect(xdrawer.getX(), xdrawer.getY(), xdrawer.getLenW(), xdrawer.getLenH(), true);
 			}
+
+			SignDrawer drawer = new SignDrawer(this, AppManager.getCubesSize());
+			Sign mainSign = AppManager.getSign(AppManager.signType.MAINSIGN, AppManager.getterMainSignType.SIGNJ);
+			drawer.setSign(mainSign);
+			if (mainSign != null) {
+				for (Direction d : mainSign.getCubeMap().keySet()) {
+					g.fill3DRect(drawer.getX(d), drawer.getY(d), drawer.getLenW(), drawer.getLenH(), true);
+				}
+			}
+		} catch (LogicErrorException e) {
+			System.out.println(e.getMessage());
 		}
 
 	}

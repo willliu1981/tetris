@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.main.control.exception.LogicErrorException;
 import com.main.control.manager.AppManager;
 import com.main.model.ObstacleSign;
 import com.main.model.Sign;
@@ -28,15 +29,15 @@ public class SignControl {
 	public static void initialize() {
 		Sign wall = AppManager.getSign(AppManager.signType.OBSTACLE, AppManager.getterObstacleSignType.WALL);
 		for (Direction d : wall.getCubeMap().keySet()) {
-			ObstacleSign sign=(ObstacleSign) AppManager.getDefaultSign(AppManager.signType.OBSTACLE);
+			ObstacleSign sign = (ObstacleSign) AppManager.getDefaultSign(AppManager.signType.OBSTACLE);
 			sign.setPoint(d.getX(), d.getY());
 			mapBackground.get(d.getY()).put(new Direction(d.getX(), d.getY()), sign);
 		}
-		
+
 	}
-	
+
 	public boolean isCollide(Sign sign) {
-		
+
 		return false;
 	}
 
@@ -53,9 +54,17 @@ public class SignControl {
 	}
 
 	public static List<Sign> getBackgroundList() {
-		return getBackgroundMap().values().stream().reduce((x1, x2) -> {
-			x1.putAll(x2);
-			return x1;
-		}).get().values().stream().collect(Collectors.toList());
+		List<Sign> list = null;
+		try {
+			list = getBackgroundMap().values().stream().reduce((x1, x2) -> {
+				x1.putAll(x2);
+				return x1;
+			}).get().values().stream().collect(Collectors.toList());
+
+		} catch (Exception e) {
+			throw new LogicErrorException(e.getMessage());
+		}
+
+		return list;
 	}
 }

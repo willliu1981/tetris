@@ -9,6 +9,7 @@ import java.util.Optional;
 import javax.swing.JComponent;
 
 import com.main.control.exception.FileErrorException;
+import com.main.control.exception.LogicErrorException;
 import com.main.control.exception.TNullException;
 import com.main.model.Sign;
 import com.tool.direction.Direction;
@@ -41,10 +42,15 @@ public class SignDrawer {
 		}
 		this.width = comp.getWidth() - gapW;
 		this.height = comp.getHeight() - gapH;
-		this.lenW = this.width / cubesSize.getWidth();
-		this.lenH = this.height / cubesSize.getHeight();
+		try {
+			this.lenW = this.width / cubesSize.getWidth();
+			this.lenH = this.height / cubesSize.getHeight();
+		} catch (Exception e) {
+			throw new LogicErrorException(e.getMessage() );
+		}
 		this.fixedX = (this.width - cubesSize.getWidth() * lenW) / 2;
 		this.fixedY = (this.height - cubesSize.getHeight() * lenH) / 2;
+
 	}
 
 	public boolean hashNext() {

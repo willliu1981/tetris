@@ -70,7 +70,10 @@ public class GameManager {
 	}
 
 	public Sign getCurrentSign() {
-		return null;
+		/*
+		 * test
+		 */
+		return AppManager.getSign(AppManager.signType.MAINSIGN, AppManager.getterMainSignType.SIGNJ);
 	}
 
 	public static List<Sign> getBackgroundSignList() {

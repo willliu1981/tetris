@@ -26,7 +26,7 @@ public class AppManager {
 			FileManager.loadSignDate();
 		} catch (FileErrorException ex) {
 			System.out.println(ex.getMessage());
-			this.initializeSign();
+			AppManager.initializeSign();
 		}
 	}
 
@@ -38,9 +38,6 @@ public class AppManager {
 	public static void initializeSign() {
 		SignManager.initialize();
 
-		/*
-		 * Sign initialize
-		 */
 		SignManager managerMainSign = SignManager.getManager(SignManager.SignType.MAINSIGN);
 		managerMainSign.createNewSign(MainSignGetter.GetterMainSginType.SIGNS);
 		managerMainSign.createNewSign(MainSignGetter.GetterMainSginType.SIGNZ);
