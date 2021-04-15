@@ -20,7 +20,11 @@ public class GameManager {
 
 		@Override
 		public void run() {
-			SceneManager.getScene().run();
+			try {
+				SceneManager.getScene().run();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -78,9 +82,15 @@ public class GameManager {
 		return new Direction(0, 0, siez.getWidth() * CUBEUNITSIZE, siez.getHeight() * CUBEUNITSIZE);
 	}
 
-	public static boolean isCurrentSignCollide() {
+	public static boolean isCurrentSignCollide() {	
 		return SignControl.isCollide(getCurrentSign());
 	}
+	
+	 public static boolean isCurrentSignCollide(Sign pioneer) {
+		 return SignControl.isCollide(pioneer);
+	 }
+	
+	
 
 	public static Sign getCurrentSign() {
 		/*

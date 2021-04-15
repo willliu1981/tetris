@@ -80,9 +80,9 @@ public class AppManager {
 		return new Dimension(d.getWidth(), d.getHeight());
 	}
 	
-//	public static boolean isCurrentSignCollide() {
-//		return GameManager.isCurrentSignCollide();
-//	}
+	public static boolean isCurrentSignCollide() {
+		return GameManager.isCurrentSignCollide();
+	}
 
 	/*
 	 * 以Cbue數量為單位回傳 w和h 的長度

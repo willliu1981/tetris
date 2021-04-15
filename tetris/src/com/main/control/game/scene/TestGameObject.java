@@ -27,7 +27,7 @@ public class TestGameObject implements Performance {
 	}
 
 	@Override
-	public void update() {
+	public void update() throws CloneNotSupportedException {
 		int h = 0;
 		int v = 0;
 		/*
@@ -63,30 +63,42 @@ public class TestGameObject implements Performance {
 		 */
 		if (Input.getRotate()) {
 			if (!activeRot) {
-				AppManager.getCurrentSign().rotateRight();
+				rotate();
 				activeRot = true;
 			}
 		} else {
 			activeRot = false;
 		}
-		
-		System.out.println("TestGB ** "+GameManager.isCurrentSignCollide());
-	
 
 		JPanel main_panel = (JPanel) MainView.getSession().getAttribute("main_panel");
 		main_panel.repaint();
 	}
 
-	private void moveH(int x) {
+	private void moveH(int x) throws CloneNotSupportedException {
 		Sign sign = AppManager.getCurrentSign();
-		sign.setPoint(sign.getX() + x, sign.getY());
-
+		Sign pioneer = sign.clone();
+		pioneer.setPoint(pioneer.getX() + x, pioneer.getY());
+		if (!GameManager.isCurrentSignCollide(pioneer)) {
+			sign.setPoint(sign.getX() + x, sign.getY());
+		}
 	}
 
-	private void moveV(int y) {
+	private void moveV(int y) throws CloneNotSupportedException {
 		Sign sign = AppManager.getCurrentSign();
-		sign.setPoint(sign.getX(), sign.getY() + y);
+		Sign pioneer = sign.clone();
+		pioneer.setPoint(pioneer.getX(), pioneer.getY() + y);
+		if (!GameManager.isCurrentSignCollide(pioneer)) {
+			sign.setPoint(sign.getX(), sign.getY() + y);
+		}
+	}
 
+	private void rotate() throws CloneNotSupportedException {
+		Sign sign = AppManager.getCurrentSign();
+		Sign pioneer = sign.clone();
+		pioneer.rotateRight();
+		if (!GameManager.isCurrentSignCollide(pioneer)) {
+			sign.rotateRight();
+		}
 	}
 
 }

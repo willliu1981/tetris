@@ -159,6 +159,7 @@ public abstract class Sign implements java.io.Serializable, Cloneable {
 	public Sign clone() throws CloneNotSupportedException {
 		Sign sign = (Sign) super.clone();
 		sign.direction = (Direction) this.direction.clone();
+		sign.cycleCubeMap=this.cycleCubeMap.clone();
 
 		return sign;
 	}

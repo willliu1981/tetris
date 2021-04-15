@@ -14,3 +14,7 @@
 
 .	com.main.control.game.scene 只能放有impelements Performance 的腳本 (當啟動檢查機制時)
 
+
+註:
+.	Sign 的 Cube 尚未做 Cloneable
+

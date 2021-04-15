@@ -6,11 +6,12 @@ import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 import com.main.control.exception.TNullException;
+import com.main.model.Sign;
 
 /*
  * stock Cube in this project
  */
-public class Cycle<E> extends ArrayDeque<E> implements java.io.Serializable {
+public class Cycle<E> extends ArrayDeque<E> implements java.io.Serializable, Cloneable {
 
 	/**
 	 * 
@@ -64,6 +65,11 @@ public class Cycle<E> extends ArrayDeque<E> implements java.io.Serializable {
 				System.out.println("-L-");
 			}
 		}
+	}
+
+	@Override
+	public Cycle<E> clone() {
+		return (Cycle<E>) super.clone();
 	}
 
 	/*

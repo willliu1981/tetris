@@ -11,12 +11,24 @@ public class GameObject implements GameObjectEvent {
 
 	@Override
 	public void start() {
-		this.mapPerformance.values().forEach(Performance::start);
+		this.mapPerformance.values().forEach(t -> {
+			try {
+				t.start();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	@Override
 	public void update() {
-		this.mapPerformance.values().forEach(Performance::update);
+		this.mapPerformance.values().forEach(t -> {
+			try {
+				t.update();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	@Override

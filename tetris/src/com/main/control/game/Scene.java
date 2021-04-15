@@ -5,21 +5,21 @@ import java.util.Map;
 
 public class Scene {
 	static public interface Performance {
-		public void start();
+		public void start()throws Exception;
 
-		public void update();
+		public void update() throws Exception;
 	}
 
 	Map<String, Performance> performances = new HashMap<>();
 	private boolean isInitialize = false;
 
-	private void initialize() {
+	private void initialize() throws Exception {
 		for (Performance p : performances.values()) {
 			p.start();
 		}
 	}
 
-	public void run() {
+	public void run() throws Exception{
 		if (!this.isInitialize) {
 			this.initialize();
 			this.isInitialize = true;
