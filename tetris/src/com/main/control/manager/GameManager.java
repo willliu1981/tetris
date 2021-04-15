@@ -40,7 +40,7 @@ public class GameManager {
 		GameObject mainGB = new GameObject();
 		mainGB.attachScript("test", new TestGameObject());
 
-		SceneManager.getScene().addPerformance("gameObject", mainGB);
+		//SceneManager.getScene().addPerformance("gameObject", mainGB);
 
 		timer.schedule(new Task(), 1000, 20);
 	}

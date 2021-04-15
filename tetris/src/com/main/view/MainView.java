@@ -12,7 +12,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 
-import com.main.control.InputControl;
+import com.main.control.game.Input;
 import com.main.control.manager.AppManager;
 import com.main.model.Sign;
 import com.tool.Session;
@@ -71,11 +71,22 @@ public class MainView extends JFrame {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				InputControl input = new InputControl();
+				Input input = new Input();
+				input.setParameter("state",Input.KeyState.keyPressed);
 				input.setParameter("event", e);
 				BehaviorController.sendBehavior(input);
 
 			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				Input input = new Input();
+				input.setParameter("state", Input.KeyState.keyReleased);
+				input.setParameter("event", e);
+				BehaviorController.sendBehavior(input);
+			}
+			
+			
 		});
 
 		createComponent();
