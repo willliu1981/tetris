@@ -14,7 +14,13 @@ public class ProcessUpBehavior extends Behavior {
 		Set<KeyType> setSingleKeyType = (Set<KeyType>) this.getParameter("setSingleKeyType");
 		Set<KeyType> mapPeriodKeyType = (Set<KeyType>) this.getParameter("mapPeriodKeyType");
 
-		setSingleKeyType.add(KeyType.UP);
+		if (keyState == KeyState.keyPressed) {
+			setSingleKeyType.add(KeyType.UP);
+			mapPeriodKeyType.add(KeyType.UP);
+		} else {
+			setSingleKeyType.remove(KeyType.UP);
+			mapPeriodKeyType.remove(KeyType.UP);
+		}
 
 	}
 

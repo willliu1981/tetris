@@ -53,14 +53,14 @@ public class Input implements IBehavior {
 				public void run() {
 					KeyEvent keyEvent = (KeyEvent) this.getParameter("event");
 					KeyState keyState = (KeyState) this.getParameter("state");
-					
+
 					try {
-					Behavior behavior = getProcess(getKeyType(keyEvent.getKeyCode()));
-					behavior.setParameter("keyState", keyState);
-					behavior.setParameter("setSingleKeyType", setSingleKeyType);
-					behavior.setParameter("mapPeriodKeyType", mapPeriodKeyType);
-					BehaviorController.sendBehavior(behavior);
-					}catch(NullPointerException e) {
+						Behavior behavior = getProcess(getKeyType(keyEvent.getKeyCode()));
+						behavior.setParameter("keyState", keyState);
+						behavior.setParameter("setSingleKeyType", setSingleKeyType);
+						behavior.setParameter("mapPeriodKeyType", mapPeriodKeyType);
+						BehaviorController.sendBehavior(behavior);
+					} catch (NullPointerException e) {
 						e.printStackTrace();
 					}
 				}
@@ -103,7 +103,17 @@ public class Input implements IBehavior {
 	}
 
 	public static int getVertical() {
+		if (mapPeriodKeyType.contains(KeyType.DOWN)) {
+			return 1;
+		}
 		return 0;
+	}
+
+	public static boolean getRotate() {
+		if (mapPeriodKeyType.contains(KeyType.UP)) {
+			return true;
+		}
+		return false;
 	}
 
 }
