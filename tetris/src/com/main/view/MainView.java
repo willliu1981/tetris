@@ -42,6 +42,8 @@ public class MainView extends JFrame {
 					Sign sign = AppManager.getSign(AppManager.signType.MAINSIGN, AppManager.getterMainSignType.SIGNJ);
 
 					sign.setPoint(6, 9);
+					
+					AppManager.startApp();
 
 				} catch (Exception e) {
 					e.printStackTrace();

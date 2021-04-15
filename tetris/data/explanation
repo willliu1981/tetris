@@ -12,3 +12,5 @@
 
 .	InputControl: 使用者輸入按鍵指令的反應
 
+.	com.main.control.game.scene 只能放有impelements Performance 的腳本 (當啟動檢查機制時)
+

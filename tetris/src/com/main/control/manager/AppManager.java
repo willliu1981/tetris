@@ -17,8 +17,7 @@ public class AppManager {
 	public static ObstacleSignGetter.GetterObstacleSignType getterObstacleSignType;
 
 	private static AppManager appManager = new AppManager();
-	private static GameManager gameManage = GameManager.getManager();
-	
+	private static GameManager gameManage = GameManager.getSingletonManager();
 
 	private AppManager() {
 		try {
@@ -30,13 +29,13 @@ public class AppManager {
 	}
 
 	public static AppManager getSingletonManager() {
-		
+
 		return appManager;
 	}
 
 	public static void initialize() {
 		SignManager.initialize();
-		
+
 		SignManager managerMainSign = SignManager.getManager(SignManager.SignType.MAINSIGN);
 		managerMainSign.createNewSign(MainSignGetter.GetterMainSginType.SIGNS);
 		managerMainSign.createNewSign(MainSignGetter.GetterMainSginType.SIGNZ);
@@ -52,46 +51,47 @@ public class AppManager {
 		managerObstacleSign.createNewSign(ObstacleSignGetter.GetterObstacleSignType.REMAINS);
 
 	}
-	
+
+	public static void startApp() {
+		GameManager.getSingletonManager().initialize();
+
+	}
+
 	public static boolean isSignHasNewData() {
 		return SignManager.isSignHasNewData();
 	}
-	
+
 	public static void updateSignData() {
 		SignManager.updateSignData();
-		
+
 	}
 
 	public static Dimension getMainPanelSize() {
 		Direction d = GameManager.getBackgroundSize();
 		return new Dimension(d.getWidth(), d.getHeight());
 	}
-	
+
 	/*
 	 * 以Cbue數量為單位回傳 w和h 的長度
 	 */
 	public static Direction getCubesSize() {
 		return GameManager.getBackgroundCubeSize();
 	}
-	
-	public static Sign getSign(SignManager.SignType signType,Enum<?> getterSignType) {
+
+	public static Sign getSign(SignManager.SignType signType, Enum<?> getterSignType) {
 		return SignManager.getManager(signType).getSign(getterSignType);
 	}
+
 	public static Sign getDefaultSign(SignManager.SignType signType) {
 		return SignManager.getManager(signType).getDefaultSign();
 	}
-	
+
 	public static Sign getCurrentSign() {
 		return gameManage.getCurrentSign();
 	}
-	
+
 	public static List<Sign> getBackgroundSignList() {
 		return GameManager.getBackgroundSignList();
 	}
-	
-	public static Scene getScene() {
-		return gameManage.getScene();
-	}
-	
 
 }

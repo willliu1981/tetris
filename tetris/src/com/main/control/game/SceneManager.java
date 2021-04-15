@@ -15,12 +15,13 @@ import com.tool.TFiles;
 
 public class SceneManager {
 	private static String scenePath = "src/com/main/control/game/scene/";
+	private final static Scene scene=new Scene();
 
-	public static void main(String[] s) throws IOException, ClassNotFoundException {
-		SceneManager.AddPerformances();
-	}
+//	public static void main(String s[]) throws ClassNotFoundException, IOException {
+//		System.out.println(checkPerformances());
+//	}
 
-	public static void AddPerformances() throws IOException, ClassNotFoundException {
+	public static boolean checkPerformances() throws IOException, ClassNotFoundException {
 		Set<File> files = TFiles.getFiles(scenePath);
 
 		files.stream().forEach(x -> {
@@ -29,15 +30,12 @@ public class SceneManager {
 				c = (Class<Performance>) Class.forName(TFiles.removeExtension(
 						TFiles.separatorToDot(Paths.get(TFiles.root).relativize(Paths.get(x.toString())).toString(),
 								TFiles.regularSeparator)));
-
-				AppManager.getScene().addPerformance(c.getName(), c.newInstance());
+				Performance p=c.newInstance();
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ClassCastException e) {
 				throw new TCastException(
@@ -45,10 +43,13 @@ public class SceneManager {
 			}
 		});
 		
-	 	AppManager.getScene().getPerformance(TestGameObject.class.getTypeName()).start();
-	 	AppManager.getScene().getPerformance(TestGameObject.class.getTypeName()).update();
-	 	AppManager.getScene().getPerformance(TestGB.class.getTypeName()).start();
-	 	AppManager.getScene().getPerformance(TestGB.class.getTypeName()).update();
-
+		return true;
+	}
+	
+	/*
+	 * get and set
+	 */
+	public static Scene getScene() {
+		return scene;
 	}
 }

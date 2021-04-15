@@ -5,7 +5,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.main.control.SignControl;
+import com.main.control.game.GameObject;
 import com.main.control.game.Scene;
+import com.main.control.game.SceneManager;
+import com.main.control.game.scene.TestGameObject;
 import com.main.model.Sign;
 import com.tool.direction.Direction;
 
@@ -15,7 +18,6 @@ import com.tool.direction.Direction;
 public class GameManager {
 	private static GameManager manager = new GameManager();
 	private static int interval = 20;
-	private final static Scene scene=new Scene();
 
 	/*
 	 * 以Obstacle 的 WALL 大小做為遊戲活動空間大小,於getBackgroundSize 回傳給AppManager 或 MainView
@@ -35,18 +37,19 @@ public class GameManager {
 	}
 
 	public void initialize() {
-		
-		//this.getScene().
-		
-		
-		timer.schedule(new Task(),1000, 20);
+		GameObject mainGB = new GameObject();
+		mainGB.attachScript("test", new TestGameObject());
+
+		SceneManager.getScene().addPerformance("gameObject", mainGB);
+
+		timer.schedule(new Task(), 1000, 20);
 	}
 
 	/*
 	 * get and set
 	 */
 
-	public static GameManager getManager() {
+	public static GameManager getSingletonManager() {
 		return new GameManager();
 	}
 
@@ -82,19 +85,13 @@ public class GameManager {
 		GameManager.interval = interval;
 	}
 
-	public static Scene getScene() {
-		return scene;
-	}
-
 	static class Task extends TimerTask {
 
 		@Override
 		public void run() {
-			GameManager.getScene().run();
+			SceneManager.getScene().run();
 		}
 
 	}
 
 }
-
-
