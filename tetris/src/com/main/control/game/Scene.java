@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Scene {
+	/*
+	 * script
+	 */
 	static public interface Performance {
 		public void start()throws Exception;
 

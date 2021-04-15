@@ -8,7 +8,7 @@ import java.util.Set;
 
 import com.main.control.exception.TCastException;
 import com.main.control.game.Scene.Performance;
-import com.main.control.game.scene.TestGameObject;
+import com.main.control.game.scene.InputControlScript;
 import com.main.control.game.scene.test.TestGB;
 import com.main.control.manager.AppManager;
 import com.tool.TFiles;

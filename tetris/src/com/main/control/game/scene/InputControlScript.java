@@ -11,7 +11,7 @@ import com.main.control.manager.GameManager;
 import com.main.model.Sign;
 import com.main.view.MainView;
 
-public class TestGameObject implements Performance {
+public class InputControlScript implements Performance {
 
 	private static int intervalH = 50;
 	private long timeH;
@@ -23,7 +23,7 @@ public class TestGameObject implements Performance {
 
 	@Override
 	public void start() {
-		System.out.println("start: TestGameObject");
+		System.out.println("start: InputControlScript");
 	}
 
 	@Override
@@ -70,15 +70,14 @@ public class TestGameObject implements Performance {
 			activeRot = false;
 		}
 
-		JPanel main_panel = (JPanel) MainView.getSession().getAttribute("main_panel");
-		main_panel.repaint();
+		
 	}
 
 	private void moveH(int x) throws CloneNotSupportedException {
 		Sign sign = AppManager.getCurrentSign();
 		Sign pioneer = sign.clone();
 		pioneer.setPoint(pioneer.getX() + x, pioneer.getY());
-		if (!GameManager.isCurrentSignCollide(pioneer)) {
+		if (!GameManager.isCollide(pioneer)) {
 			sign.setPoint(sign.getX() + x, sign.getY());
 		}
 	}
@@ -87,7 +86,7 @@ public class TestGameObject implements Performance {
 		Sign sign = AppManager.getCurrentSign();
 		Sign pioneer = sign.clone();
 		pioneer.setPoint(pioneer.getX(), pioneer.getY() + y);
-		if (!GameManager.isCurrentSignCollide(pioneer)) {
+		if (!GameManager.isCollide(pioneer)) {
 			sign.setPoint(sign.getX(), sign.getY() + y);
 		}
 	}
@@ -96,7 +95,7 @@ public class TestGameObject implements Performance {
 		Sign sign = AppManager.getCurrentSign();
 		Sign pioneer = sign.clone();
 		pioneer.rotateRight();
-		if (!GameManager.isCurrentSignCollide(pioneer)) {
+		if (!GameManager.isCollide(pioneer)) {
 			sign.rotateRight();
 		}
 	}

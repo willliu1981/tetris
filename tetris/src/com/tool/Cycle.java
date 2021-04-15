@@ -59,10 +59,8 @@ public class Cycle<E> extends ArrayDeque<E> implements java.io.Serializable, Clo
 			half *= difference > 0 ? 1 : -1;
 			if (difference <= half) {
 				this.rotateRight();
-				System.out.println("-R-");
 			} else {
 				this.rotateLeft();
-				System.out.println("-L-");
 			}
 		}
 	}

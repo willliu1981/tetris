@@ -4,24 +4,30 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JPanel;
+
 import com.main.control.SignControl;
 import com.main.control.game.GameObject;
 import com.main.control.game.Scene;
 import com.main.control.game.SceneManager;
-import com.main.control.game.scene.TestGameObject;
+import com.main.control.game.scene.InputControlScript;
+import com.main.control.game.scene.SignControlScript;
 import com.main.model.Sign;
+import com.main.view.MainView;
 import com.tool.direction.Direction;
 
 /*
  * 遊戲管理
  */
 public class GameManager {
-	static class Task extends TimerTask {
+	static class MainTask extends TimerTask {
 
 		@Override
 		public void run() {
 			try {
 				SceneManager.getScene().run();
+				JPanel main_panel = (JPanel) MainView.getSession().getAttribute("main_panel");
+				main_panel.repaint();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -50,12 +56,13 @@ public class GameManager {
 	}
 
 	public void initialize() {
-		GameObject mainGB = new GameObject();
-		mainGB.attachScript("test", new TestGameObject());
+		GameObject mainGameObject = new GameObject();
+		mainGameObject.attachScript("InputControl", new InputControlScript());
+		mainGameObject.attachScript("SignControlScript", new SignControlScript());
 
-		SceneManager.getScene().addPerformance("gameObject", mainGB);
+		SceneManager.getScene().addPerformance("mainGameObject", mainGameObject);
 
-		timer.schedule(new Task(), 1000, interval);
+		timer.schedule(new MainTask(), 1000, interval);
 	}
 
 	/*
@@ -82,15 +89,13 @@ public class GameManager {
 		return new Direction(0, 0, siez.getWidth() * CUBEUNITSIZE, siez.getHeight() * CUBEUNITSIZE);
 	}
 
-	public static boolean isCurrentSignCollide() {	
+	public static boolean isCurrentSignCollide() {
 		return SignControl.isCollide(getCurrentSign());
 	}
-	
-	 public static boolean isCurrentSignCollide(Sign pioneer) {
-		 return SignControl.isCollide(pioneer);
-	 }
-	
-	
+
+	public static boolean isCollide(Sign sign) {
+		return SignControl.isCollide(sign);
+	}
 
 	public static Sign getCurrentSign() {
 		/*

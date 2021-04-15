@@ -36,8 +36,6 @@ public class SignControl {
 		}
 
 	}
-	
-	
 
 	public static boolean isCollide(Sign sign) {
 		boolean r = sign.getCubeMap().keySet().stream().anyMatch(cd -> {
