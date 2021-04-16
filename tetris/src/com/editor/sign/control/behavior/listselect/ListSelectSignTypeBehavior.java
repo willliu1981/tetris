@@ -75,8 +75,10 @@ public class ListSelectSignTypeBehavior extends Behavior {
 			lblNewLabel_pointer
 					.setText(String.format("%d / %d", sign.getCycleCurrentPointer() + 1, sign.getCycleSize()));
 		}
-		
-		lblNewLabel_szie.setText(String.format("%d ╳ %d", w,h));
+
+		if (lblNewLabel_szie != null) {
+			lblNewLabel_szie.setText(String.format("%d ╳ %d", w, h));
+		}
 	}
 
 }

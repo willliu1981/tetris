@@ -108,13 +108,16 @@ public class GameManager {
 
 	public static Sign setCurrentSign() {
 		currentSign = getNextSign();
-		if(currentSign==null) {
-			setNextSign();
-			currentSign = getNextSign();
-		}else {
-			throw new TNullException();
+		try {
+			if (currentSign == null) {
+				setNextSign();
+				currentSign = getNextSign();
+			}
+
+		} catch (NullPointerException e) {
+			throw new TNullException(e.getMessage());
 		}
-		currentSign.setPoint(startPoint.getX(), startPoint.getY());  
+		currentSign.setPoint(startPoint.getX(), startPoint.getY());
 		setNextSign();
 		return currentSign;
 	}
@@ -126,7 +129,6 @@ public class GameManager {
 	private static void setNextSign() {
 		GetterMainSginType[] types = GetterMainSginType.values();
 		GetterMainSginType type = new Random().ints(1, 0, types.length).mapToObj(x -> types[x]).findFirst().get();
-
 		try {
 			nextSign = AppManager.getSign(AppManager.signType.MAINSIGN, type).clone();
 		} catch (CloneNotSupportedException e) {

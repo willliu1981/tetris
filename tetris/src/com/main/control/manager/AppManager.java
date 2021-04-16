@@ -68,8 +68,7 @@ public class AppManager {
 
 	public static void start() {
 		initialize();
-		Sign sign=getNewCurrentSign();
-
+		getNewCurrentSign();
 		GameManager.getSingletonManager().initialize();
 
 	}
