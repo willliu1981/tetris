@@ -55,7 +55,6 @@ public class AppManager {
 	}
 
 	public static void initialize() {
-		GameManager.getSingletonManager().initialize();
 
 		/*
 		 * Input initialize
@@ -64,6 +63,15 @@ public class AppManager {
 		Input.addKeyCode(38, KeyType.UP);
 		Input.addKeyCode(39, KeyType.RIGHT);
 		Input.addKeyCode(40, KeyType.DOWN);
+
+	}
+
+	public static void start() {
+		initialize();
+		Sign sign=getNewCurrentSign();
+
+		GameManager.getSingletonManager().initialize();
+
 	}
 
 	public static boolean isSignHasNewData() {
@@ -79,7 +87,7 @@ public class AppManager {
 		Direction d = GameManager.getBackgroundSize();
 		return new Dimension(d.getWidth(), d.getHeight());
 	}
-	
+
 	public static boolean isCurrentSignCollide() {
 		return GameManager.isCurrentSignCollide();
 	}
@@ -105,6 +113,15 @@ public class AppManager {
 
 	public static List<Sign> getBackgroundSignList() {
 		return GameManager.getBackgroundSignList();
+	}
+
+	public static Sign getNewCurrentSign() {
+		gameManage.setCurrentSign();
+		return gameManage.getCurrentSign();
+	}
+
+	public static Sign getNextSign() {
+		return gameManage.getNextSign();
 	}
 
 }

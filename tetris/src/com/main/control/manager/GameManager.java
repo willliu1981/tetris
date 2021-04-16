@@ -1,17 +1,21 @@
 package com.main.control.manager;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Stream;
 
 import javax.swing.JPanel;
 
 import com.main.control.SignControl;
+import com.main.control.exception.TNullException;
 import com.main.control.game.GameObject;
 import com.main.control.game.Scene;
 import com.main.control.game.SceneManager;
 import com.main.control.game.scene.InputControlScript;
 import com.main.control.game.scene.SignControlScript;
+import com.main.control.signgetter.MainSignGetter.GetterMainSginType;
 import com.main.model.Sign;
 import com.main.view.MainView;
 import com.tool.direction.Direction;
@@ -36,7 +40,12 @@ public class GameManager {
 	}
 
 	private static GameManager manager = new GameManager();
+	private static final Direction startPoint = new Direction(7, 0);
 	private static int interval = 20;
+	private static Sign currentSign;
+	private static Sign nextSign;
+	private static int score;
+	private static int maxScore;
 
 	/*
 	 * 以Obstacle 的 WALL 大小做為遊戲活動空間大小,於getBackgroundSize 回傳給AppManager 或 MainView
@@ -97,11 +106,36 @@ public class GameManager {
 		return SignControl.isCollide(sign);
 	}
 
+	public static Sign setCurrentSign() {
+		currentSign = getNextSign();
+		if(currentSign==null) {
+			setNextSign();
+			currentSign = getNextSign();
+		}else {
+			throw new TNullException();
+		}
+		currentSign.setPoint(startPoint.getX(), startPoint.getY());  
+		setNextSign();
+		return currentSign;
+	}
+
 	public static Sign getCurrentSign() {
-		/*
-		 * test
-		 */
-		return AppManager.getSign(AppManager.signType.MAINSIGN, AppManager.getterMainSignType.SIGNJ);
+		return currentSign;
+	}
+
+	private static void setNextSign() {
+		GetterMainSginType[] types = GetterMainSginType.values();
+		GetterMainSginType type = new Random().ints(1, 0, types.length).mapToObj(x -> types[x]).findFirst().get();
+
+		try {
+			nextSign = AppManager.getSign(AppManager.signType.MAINSIGN, type).clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static Sign getNextSign() {
+		return nextSign;
 	}
 
 	public static List<Sign> getBackgroundSignList() {

@@ -8,7 +8,7 @@ import com.main.control.manager.GameManager;
 import com.main.model.Sign;
 
 public class SignControlScript implements Performance {
-	private static int interval =360;
+	private static int interval = 360;
 	private long time;
 
 	@Override
@@ -21,9 +21,11 @@ public class SignControlScript implements Performance {
 		if (new Date().getTime() > time) {
 			Sign sign = AppManager.getCurrentSign();
 			Sign pioneer = sign.clone();
-			pioneer.setPoint(pioneer.getX(), pioneer.getY()+1);
+			pioneer.setPoint(pioneer.getX(), pioneer.getY() + 1);
 			if (!GameManager.isCollide(pioneer)) {
-				sign.setPoint(sign.getX(), sign.getY()+1);
+				sign.setPoint(sign.getX(), sign.getY() + 1);
+			} else {
+				AppManager.getNewCurrentSign();
 			}
 			time = new Date().getTime() + interval;
 		}

@@ -1,13 +1,19 @@
 package com.test;
 
-import com.tool.direction.Direction;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+import com.main.control.signgetter.MainSignGetter.GetterMainSginType;
 
 public class Test10 {
 
 	public static void main(String[] args) {
-		Direction d1=new Direction(1,1);
-		Direction d2=new Direction(1,1);
-		System.out.println(d1.equals(d2));
+		GetterMainSginType[] types = GetterMainSginType.values();
+		Random rand = new Random();
+		GetterMainSginType type = rand.ints(1, 0, types.length).mapToObj(x -> types[x]).findFirst().get();
+
+		System.out.println(type);
 	}
 
 }
