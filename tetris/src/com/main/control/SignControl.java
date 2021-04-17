@@ -18,7 +18,7 @@ public class SignControl {
 	/*
 	 * Map<行數,Map<列數,Sign>>
 	 */
-	private static Map<Integer, Map<Direction, Sign>> mapBackground = new HashMap<>();
+	private volatile static Map<Integer, Map<Direction, Sign>> mapBackground = new HashMap<>();
 	private static Map<Direction, Sign> defaultUnitObstacleMap;
 
 	static {
@@ -56,14 +56,35 @@ public class SignControl {
 
 	public static int bingo() {
 		int count = 0;
-		for (int v = mapBackground.size() - 2, p = v; v >= 0; v--) {
+		out: for (int v = mapBackground.size() - 2, p = v; v >= 0; v--) {
 			while (mapBackground.get(p).size() >= AppManager.getCubesSize().getWidth()) {
-				System.out.println("SC ** " +p+" , "+ mapBackground.get(p).size());
 				p--;
+				if (p < 0) {
+					break out;
+				}
 			}
+			int _v = v;
+			int _p = p;
+
+			Map<Direction, Sign> signMap = new HashMap<>();
+			mapBackground.get(p).keySet().stream().forEach(x -> {
+				Sign sign=null;
+				try {
+					sign = mapBackground.get(_p).get(x).clone();
+				} catch (CloneNotSupportedException e) {
+					e.printStackTrace();
+				}
+				sign.setPoint(sign.getX(), _v);
+				signMap.put(new Direction(x.getX(), _v), sign);
+			});
+
+			mapBackground.put(v, signMap);
+
+			p--;
 		}
 
 		return count;
+
 	}
 
 	public static boolean isCollide(Sign sign) {
@@ -94,16 +115,16 @@ public class SignControl {
 
 	public static List<Sign> getBackgroundList() {
 		List<Sign> list = null;
+		Map<Direction,Sign> map=new HashMap<>();
 		try {
-			list = getBackgroundMap().values().stream().reduce((x1, x2) -> {
+			list = getBackgroundMap().values().stream().reduce(map,(x1, x2) -> {
 				x1.putAll(x2);
 				return x1;
-			}).get().values().stream().collect(Collectors.toList());
-
+			}).values().stream().collect(Collectors.toList());
 		} catch (Exception e) {
 			throw new LogicErrorException(e.getMessage());
 		}
-
+		
 		return list;
 	}
 }

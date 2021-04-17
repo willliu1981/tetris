@@ -61,7 +61,7 @@ public class Input implements IBehavior {
 						behavior.setParameter("mapPeriodKeyType", mapPeriodKeyType);
 						BehaviorController.sendBehavior(behavior);
 					} catch (NullPointerException e) {
-						e.printStackTrace();
+						System.out.println(e.getMessage()+" : KeyEvent or KeyState is null");
 					}
 				}
 			};

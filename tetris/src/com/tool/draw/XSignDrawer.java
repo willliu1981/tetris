@@ -62,5 +62,13 @@ public class XSignDrawer {
 	public int getLenH() {
 		return drawer.getLenH();
 	}
+	
+	public int getWidth() {
+		return drawer.getWidth();
+	}
+	
+	public int getHeight() {
+		return drawer.getHeight();
+	}
 
 }

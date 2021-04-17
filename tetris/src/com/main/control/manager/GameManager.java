@@ -30,8 +30,7 @@ public class GameManager {
 		public void run() {
 			try {
 				SceneManager.getScene().run();
-				JPanel main_panel = (JPanel) MainView.getSession().getAttribute("main_panel");
-				main_panel.repaint();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

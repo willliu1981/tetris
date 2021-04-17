@@ -2,10 +2,14 @@ package com.main.control.game.scene;
 
 import java.util.Date;
 
+import javax.swing.JPanel;
+
+import com.main.control.SignControl;
 import com.main.control.game.Scene.Performance;
 import com.main.control.manager.AppManager;
 import com.main.control.manager.GameManager;
 import com.main.model.Sign;
+import com.main.view.MainView;
 
 public class SignControlScript implements Performance {
 	private static int interval = 360;
@@ -27,12 +31,18 @@ public class SignControlScript implements Performance {
 			} else {
 				AppManager.getNewCurrentSign();
 				GameManager.SignMapToBackGround(sign);
+				//System.out.println("Sc** befort :" + SignControl.getBackgroundMap().get(18).size());
+				System.out.println("Sc** befort :" + AppManager.getBackgroundSignList().size());
+
 				int count = GameManager.bingo();
-				System.out.println("SignControlSrcipt ** " + count);
-				
+				//System.out.println("Sc** after :" + SignControl.getBackgroundMap().get(18).size());
+				System.out.println("Sc** after :" + AppManager.getBackgroundSignList().size());
+
 			}
 			time = new Date().getTime() + interval;
 		}
+		JPanel main_panel = (JPanel) MainView.getSession().getAttribute("main_panel");
+		main_panel.repaint();
 	}
 
 }

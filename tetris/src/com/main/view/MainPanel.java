@@ -1,5 +1,6 @@
 package com.main.view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Insets;
 
@@ -13,6 +14,7 @@ import com.main.control.signgetter.MainSignGetter;
 import com.main.control.signgetter.ObstacleSignGetter;
 import com.main.model.Sign;
 import com.test.mainview.behavior.InitViewBehavior;
+import com.tool.TColor;
 import com.tool.behavior.BehaviorController;
 import com.tool.direction.Direction;
 import com.tool.draw.SignDrawer;
@@ -39,14 +41,19 @@ public class MainPanel extends JPanel {
 		super.paint(g);
 
 		try {
+			/*
+			 * 繪製background
+			 */
 			XSignDrawer xdrawer = new XSignDrawer(this, AppManager.getCubesSize());
-			AppManager.getBackgroundSignList();
 			xdrawer.setBackgroundSign(AppManager.getBackgroundSignList());
 			while (xdrawer.hashNext()) {
 				xdrawer.next();
 				g.fill3DRect(xdrawer.getX(), xdrawer.getY(), xdrawer.getLenW(), xdrawer.getLenH(), true);
 			}
 
+			/*
+			 * 繪製sign
+			 */
 			SignDrawer drawer = new SignDrawer(this, AppManager.getCubesSize());
 			Sign mainSign = AppManager.getCurrentSign();
 			drawer.setSign(mainSign);
