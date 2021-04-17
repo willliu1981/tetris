@@ -46,7 +46,7 @@ public class SignDrawer {
 			this.lenW = this.width / cubesSize.getWidth();
 			this.lenH = this.height / cubesSize.getHeight();
 		} catch (Exception e) {
-			throw new LogicErrorException(e.getMessage() );
+			throw new LogicErrorException("SignDrawer:" + e.getMessage());
 		}
 		this.fixedX = (this.width - cubesSize.getWidth() * lenW) / 2;
 		this.fixedY = (this.height - cubesSize.getHeight() * lenH) / 2;

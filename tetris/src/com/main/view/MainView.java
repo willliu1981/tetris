@@ -17,6 +17,7 @@ import com.main.control.manager.AppManager;
 import com.main.model.Sign;
 import com.tool.Session;
 import com.tool.behavior.BehaviorController;
+import javax.swing.BoxLayout;
 
 public class MainView extends JFrame {
 
@@ -103,6 +104,38 @@ public class MainView extends JFrame {
 		panel_rbar.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		panel_rbar.setPreferredSize(new Dimension(200, 10));
 		contentPane.add(panel_rbar, BorderLayout.EAST);
+		panel_rbar.setLayout(new BoxLayout(panel_rbar, BoxLayout.Y_AXIS));
+		
+		JPanel panel_next = new JPanel();
+		panel_next.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		panel_rbar.add(panel_next);
+		panel_next.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_3 = new JPanel();
+		panel_next.add(panel_3, BorderLayout.NORTH);
+		
+		JPanel panel_4 = new JPanel();
+		panel_next.add(panel_4, BorderLayout.SOUTH);
+		
+		JPanel panel_5 = new JPanel();
+		panel_next.add(panel_5, BorderLayout.WEST);
+		
+		JPanel panel_6 = new JPanel();
+		panel_next.add(panel_6, BorderLayout.EAST);
+		
+		NextPanel nextPanel = new NextPanel();
+		panel_next.add(nextPanel, BorderLayout.CENTER);
+		getSession().addAttribute("nextPanel", nextPanel);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setPreferredSize(new Dimension(10, 200));
+		panel_1.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		panel_rbar.add(panel_1);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setPreferredSize(new Dimension(10, 200));
+		panel_2.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		panel_rbar.add(panel_2);
 
 		JPanel panel_center = new JPanel();
 		panel_center.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));

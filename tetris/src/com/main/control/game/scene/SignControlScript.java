@@ -31,13 +31,9 @@ public class SignControlScript implements Performance {
 			} else {
 				AppManager.getNewCurrentSign();
 				GameManager.SignMapToBackGround(sign);
-				//System.out.println("Sc** befort :" + SignControl.getBackgroundMap().get(18).size());
-				System.out.println("Sc** befort :" + AppManager.getBackgroundSignList().size());
-
 				int count = GameManager.bingo();
-				//System.out.println("Sc** after :" + SignControl.getBackgroundMap().get(18).size());
-				System.out.println("Sc** after :" + AppManager.getBackgroundSignList().size());
-
+				JPanel nextPanel = (JPanel) MainView.getSession().getAttribute("nextPanel");
+				nextPanel.repaint();
 			}
 			time = new Date().getTime() + interval;
 		}

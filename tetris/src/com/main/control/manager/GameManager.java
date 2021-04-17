@@ -30,7 +30,7 @@ public class GameManager {
 		public void run() {
 			try {
 				SceneManager.getScene().run();
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -39,7 +39,8 @@ public class GameManager {
 	}
 
 	private static GameManager manager = new GameManager();
-	private static final Direction startPoint = new Direction(6, -3);
+	private static final Direction currentSignStartPoint = new Direction(6, -3);
+	private static final Direction nextSignStartPoint = new Direction(2, 2);
 	private static int interval = 20;
 	private static Sign currentSign;
 	private static Sign nextSign;
@@ -124,7 +125,7 @@ public class GameManager {
 		} catch (NullPointerException e) {
 			throw new TNullException(e.getMessage());
 		}
-		currentSign.setPoint(startPoint.getX(), startPoint.getY());
+		currentSign.setPoint(currentSignStartPoint.getX(), currentSignStartPoint.getY());
 		setNextSign();
 		return currentSign;
 	}
@@ -138,6 +139,7 @@ public class GameManager {
 		GetterMainSginType type = new Random().ints(1, 0, types.length).mapToObj(x -> types[x]).findFirst().get();
 		try {
 			nextSign = AppManager.getSign(AppManager.signType.MAINSIGN, type).clone();
+			nextSign.setPoint(nextSignStartPoint.getX(), nextSignStartPoint.getY());
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
