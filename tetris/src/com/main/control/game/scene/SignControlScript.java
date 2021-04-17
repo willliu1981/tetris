@@ -26,6 +26,10 @@ public class SignControlScript implements Performance {
 				sign.setPoint(sign.getX(), sign.getY() + 1);
 			} else {
 				AppManager.getNewCurrentSign();
+				GameManager.SignMapToBackGround(sign);
+				int count = GameManager.bingo();
+				System.out.println("SignControlSrcipt ** " + count);
+				
 			}
 			time = new Date().getTime() + interval;
 		}

@@ -40,7 +40,7 @@ public class GameManager {
 	}
 
 	private static GameManager manager = new GameManager();
-	private static final Direction startPoint = new Direction(7, 0);
+	private static final Direction startPoint = new Direction(6, -3);
 	private static int interval = 20;
 	private static Sign currentSign;
 	private static Sign nextSign;
@@ -74,6 +74,22 @@ public class GameManager {
 		timer.schedule(new MainTask(), 1000, interval);
 	}
 
+	public static void SignMapToBackGround(Sign sign) {
+		SignControl.SignMapToBackGround(sign);
+	}
+
+	public static boolean isCurrentSignCollide() {
+		return SignControl.isCollide(getCurrentSign());
+	}
+
+	public static boolean isCollide(Sign sign) {
+		return SignControl.isCollide(sign);
+	}
+
+	public static int bingo() {
+		return SignControl.bingo();
+	}
+
 	/*
 	 * get and set
 	 */
@@ -96,14 +112,6 @@ public class GameManager {
 		Direction siez = getBackgroundCubeSize();
 
 		return new Direction(0, 0, siez.getWidth() * CUBEUNITSIZE, siez.getHeight() * CUBEUNITSIZE);
-	}
-
-	public static boolean isCurrentSignCollide() {
-		return SignControl.isCollide(getCurrentSign());
-	}
-
-	public static boolean isCollide(Sign sign) {
-		return SignControl.isCollide(sign);
 	}
 
 	public static Sign setCurrentSign() {
