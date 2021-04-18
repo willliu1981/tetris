@@ -1,6 +1,7 @@
 package com.editor.sign.control.behavior.listselect;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.AbstractListModel;
@@ -22,6 +23,7 @@ public class ListSelectSignIlkBehavior extends Behavior {
 		@Override
 		public Component getListCellRendererComponent(JList<? extends Enum<?>> list, Enum<?> value, int index,
 				boolean isSelected, boolean cellHasFocus) {
+			this.setFont(new Font(Font.SERIF,Font.PLAIN,16));
 			this.setText(value.name());
 			return this;
 		}

@@ -1,6 +1,7 @@
 package com.editor.sign.control.behavior.listselect;
 
 import java.awt.Component;
+import java.awt.Font;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JLabel;
@@ -16,6 +17,7 @@ public class ShowSignIlkBehavior extends Behavior {
 		@Override
 		public Component getListCellRendererComponent(JList<? extends SignType> list, SignType value, int index,
 				boolean isSelected, boolean cellHasFocus) {
+			this.setFont(new Font(Font.SERIF,Font.PLAIN,16));
 			this.setText(value.name());
 			return this;
 		}
