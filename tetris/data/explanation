@@ -14,6 +14,12 @@
 
 .	com.main.control.game.scene 只能放有impelements Performance 的腳本 (當啟動檢查機制時)
 
+.	主入口:package com.main.view.MainView.java
+
+.	Sign:是方塊結構,包含形狀、顏色和音效,目前只有實做形狀,所以方塊都是黑色的...
+
+.	其它次要的待補中...
+
 
 註:
 .	Sign 的 Cube 尚未做 Cloneable
