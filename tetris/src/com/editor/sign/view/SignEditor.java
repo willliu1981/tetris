@@ -227,7 +227,7 @@ public class SignEditor extends JFrame {
 
 		JPanel panel_lbar_center2 = new JPanel();
 		panel_c1_west.add(panel_lbar_center2);
-		panel_lbar_center2.setLayout(new GridLayout(2, 1, 0, 0));
+		panel_lbar_center2.setLayout(new GridLayout(3, 1, 0, 0));
 
 		JPanel panel_list_signtype_index = new JPanel();
 		panel_list_signtype_index.setPreferredSize(new Dimension(20, 20));
@@ -270,49 +270,23 @@ public class SignEditor extends JFrame {
 		});
 		btnNewButton_signtype_rotate_forword.setBackground(SystemColor.controlHighlight);
 		panel_list_signtype_index.add(btnNewButton_signtype_rotate_forword);
-
+		
+		JPanel panel = new JPanel();
+		panel_lbar_center2.add(panel);
+		
 		JPanel panel_add_and_subtract_cycle = new JPanel();
-		panel_add_and_subtract_cycle.setPreferredSize(new Dimension(20, 20));
 		panel_lbar_center2.add(panel_add_and_subtract_cycle);
-
-		JButton btnNewButton_cycle_add = new JButton("+");
-		btnNewButton_cycle_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
-		btnNewButton_cycle_add.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
-			@Override
-			public Sign getSign() {
-				Sign sign = null;
-				if ((sign = getCurrentSign()) == null) {
-					return null;
-				}
-
-				sign.insertSignMapAtTheBack();
-				return sign;
-			}
-
-		});
-		panel_add_and_subtract_cycle.setLayout(new BoxLayout(panel_add_and_subtract_cycle, BoxLayout.X_AXIS));
-
+		panel_add_and_subtract_cycle.setLayout(new GridLayout(0, 2, 0, 0));
+		
 		JButton btnNewButton_cycle_subtract = new JButton("-");
-		btnNewButton_cycle_subtract.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
-		btnNewButton_cycle_subtract.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
-			@Override
-			public Sign getSign() {
-				Sign sign = null;
-				if ((sign = getCurrentSign()) == null) {
-					return null;
-				}
-
-				sign.removeCurrentSignMap();
-				return sign;
-			}
-
-		});
-		btnNewButton_cycle_subtract.setPreferredSize(new Dimension(60, 23));
 		btnNewButton_cycle_subtract.setFont(new Font("新細明體", Font.BOLD, 18));
+		btnNewButton_cycle_subtract.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_cycle_subtract.setBackground(SystemColor.controlHighlight);
 		panel_add_and_subtract_cycle.add(btnNewButton_cycle_subtract);
-		btnNewButton_cycle_add.setPreferredSize(new Dimension(60, 23));
+		
+		JButton btnNewButton_cycle_add = new JButton("+");
 		btnNewButton_cycle_add.setFont(new Font("新細明體", Font.BOLD, 18));
+		btnNewButton_cycle_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_cycle_add.setBackground(SystemColor.controlHighlight);
 		panel_add_and_subtract_cycle.add(btnNewButton_cycle_add);
 
@@ -373,6 +347,7 @@ public class SignEditor extends JFrame {
 		panel_col_and_row.add(panel_spacepanel1);
 
 		JPanel panel_btnpanel2 = new JPanel();
+		panel_btnpanel2.setPreferredSize(new Dimension(10, 50));
 		panel_col_and_row.add(panel_btnpanel2);
 		panel_btnpanel2.setLayout(new GridLayout(0, 1, 0, 0));
 
@@ -394,26 +369,17 @@ public class SignEditor extends JFrame {
 		btnNewButton_row_subtract.setBackground(SystemColor.controlHighlight);
 		panel_btnpanel2.add(btnNewButton_row_subtract);
 
-		JButton btnNewButton_row_add = new JButton("▼+");
-		btnNewButton_row_add.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
-			@Override
-			public Sign getSign() {
-				Sign sign = null;
-				if ((sign = getCurrentSign()) == null) {
-					return null;
-				}
-
-				sign.setSize(sign.getWidth(), sign.getHeight() + 1);
-				return sign;
-			}
-
-		});
-		btnNewButton_row_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
-		btnNewButton_row_add.setBackground(SystemColor.controlHighlight);
-		panel_btnpanel2.add(btnNewButton_row_add);
-
 		JPanel panel_spacepanel2 = new JPanel();
 		panel_col_and_row.add(panel_spacepanel2);
+		panel_spacepanel2.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JButton btnNewButton_row_add = new JButton("▼+");
+		panel_spacepanel2.add(btnNewButton_row_add);
+		btnNewButton_row_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
+		btnNewButton_row_add.setBackground(SystemColor.controlHighlight);
+		
+		JPanel panel_1 = new JPanel();
+		panel_col_and_row.add(panel_1);
 
 		JPanel panel_c1_east = new JPanel();
 		panel_c1.add(panel_c1_east, BorderLayout.EAST);

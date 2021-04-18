@@ -16,6 +16,14 @@ public abstract class SignGetter<V extends Sign> implements java.io.Serializable
 	 */
 	private static final long serialVersionUID = 1L;
 	protected Map<Enum<?>, Sign> mapSign = new HashMap<>();
+	
+	public  void remove(Enum<?> type) {
+		this.mapSign.remove(type);
+	}
+	
+	/*
+	 * get and set
+	 */
 
 	public Sign getSign(Enum<?> type) {
 		return this.mapSign.get(type);

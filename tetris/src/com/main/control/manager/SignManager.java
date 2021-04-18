@@ -54,8 +54,6 @@ public class SignManager {
 		mapSignGetter.put(SignType.MAINSIGN, new MainSignGetter());
 		mapSignGetter.put(SignType.OBSTACLE, new ObstacleSignGetter());
 	}
-	
-	
 
 	public static boolean isSignHasNewData() {
 		List<SignType> types = Arrays.asList(SignType.values());
@@ -85,6 +83,14 @@ public class SignManager {
 
 	}
 
+	public void removeSignGetter() {
+		this.getSignGetterMap().remove(this.type);
+	}
+	
+	public void removeSign(Enum<?> type) {
+		this.getSignGetter().remove(type); 
+	}
+
 	/*
 	 * get and set
 	 */
@@ -96,11 +102,10 @@ public class SignManager {
 	public void addSign(Enum<?> type, int x, int y) {
 		this.getSignGetter().addSign(type, x, y);
 	}
-	
+
 	public Sign getDefaultSign() {
 		return this.getSignGetter().getDefaultSign();
 	}
-		
 
 	public void createNewSign(Enum<?> type) {
 		this.getSignGetter().addSign(type, 0, 0);
@@ -125,6 +130,9 @@ public class SignManager {
 		return mapSignGetter;
 	}
 
+	/*
+	 * 使用於 FileManager -> loadSignDate
+	 */
 	public static void setSignGetterMap(Map<SignType, SignGetter<? extends Sign>> map) {
 		mapSignGetter = map;
 	}

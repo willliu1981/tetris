@@ -8,6 +8,7 @@ import com.main.control.file.FileManager;
 import com.main.control.game.Scene;
 import com.main.control.game.input.Input;
 import com.main.control.game.input.Input.KeyType;
+import com.main.control.manager.SignManager.SignType;
 import com.main.control.signgetter.MainSignGetter;
 import com.main.control.signgetter.ObstacleSignGetter;
 import com.main.model.Sign;
@@ -82,13 +83,25 @@ public class AppManager {
 
 	}
 
+	public static boolean isCurrentSignCollide() {
+		return GameManager.isCurrentSignCollide();
+	}
+
+	/*
+	 * get and set
+	 */
+
 	public static Dimension getMainPanelSize() {
 		Direction d = GameManager.getBackgroundSize();
 		return new Dimension(d.getWidth(), d.getHeight());
 	}
 
-	public static boolean isCurrentSignCollide() {
-		return GameManager.isCurrentSignCollide();
+	public void removeSignGetter(SignType signType) {
+		SignManager.getManager(signType).removeSignGetter();
+	}
+
+	public void removeSign(SignType signType, Enum<?> type) {
+		SignManager.getManager(signType).removeSign(type);
 	}
 
 	/*
