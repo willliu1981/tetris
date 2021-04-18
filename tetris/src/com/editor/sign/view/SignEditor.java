@@ -283,12 +283,38 @@ public class SignEditor extends JFrame {
 		btnNewButton_cycle_subtract.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_cycle_subtract.setBackground(SystemColor.controlHighlight);
 		panel_add_and_subtract_cycle.add(btnNewButton_cycle_subtract);
+		btnNewButton_cycle_subtract.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
+			@Override
+			public Sign getSign() {
+				Sign sign = null;
+				if ((sign = getCurrentSign()) == null) {
+					return null;
+				}
+
+				sign.removeCurrentSignMap();
+				return sign;
+			}
+
+		});
 		
 		JButton btnNewButton_cycle_add = new JButton("+");
 		btnNewButton_cycle_add.setFont(new Font("新細明體", Font.BOLD, 18));
 		btnNewButton_cycle_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_cycle_add.setBackground(SystemColor.controlHighlight);
 		panel_add_and_subtract_cycle.add(btnNewButton_cycle_add);
+		btnNewButton_cycle_add.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
+			@Override
+			public Sign getSign() {
+				Sign sign = null;
+				if ((sign = getCurrentSign()) == null) {
+					return null;
+				}
+
+				sign.insertSignMapAtTheBack();
+				return sign;
+			}
+
+		});
 
 		JPanel panel_lbar_bottom = new JPanel();
 		panel_lbar_bottom.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
@@ -377,6 +403,19 @@ public class SignEditor extends JFrame {
 		panel_spacepanel2.add(btnNewButton_row_add);
 		btnNewButton_row_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnNewButton_row_add.setBackground(SystemColor.controlHighlight);
+		btnNewButton_row_add.addMouseListener(new SelectSignTypeMouseAdapter(this.request) {
+			@Override
+			public Sign getSign() {
+				Sign sign = null;
+				if ((sign = getCurrentSign()) == null) {
+					return null;
+				}
+
+				sign.setSize(sign.getWidth(), sign.getHeight() + 1);
+				return sign;
+			}
+
+		});
 		
 		JPanel panel_1 = new JPanel();
 		panel_col_and_row.add(panel_1);

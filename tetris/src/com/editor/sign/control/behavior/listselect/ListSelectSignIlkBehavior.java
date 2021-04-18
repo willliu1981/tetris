@@ -2,7 +2,6 @@ package com.editor.sign.control.behavior.listselect;
 
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.GridLayout;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JLabel;
@@ -10,12 +9,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
-import com.editor.sign.view.EditorSignPanel;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.SignManager.SignType;
-import com.main.control.signgetter.MainSignGetter.GetterMainSginType;
-import com.main.model.Sign;
-import com.sun.glass.ui.Size;
 import com.tool.behavior.Behavior;
 
 public class ListSelectSignIlkBehavior extends Behavior {
