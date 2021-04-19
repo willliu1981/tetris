@@ -104,8 +104,13 @@ public class AppManager {
 	 * get and set
 	 */
 
-	public static void gameOver() {
-		gameManage.gameOver();
+
+	public static void setHighScore(int score) {
+		GameManager.setHighScore(score);
+	}
+
+	public static int getHighScore() {
+		return GameManager.getHighScore();
 	}
 
 	public static Dimension getMainPanelSize() {

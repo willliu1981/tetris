@@ -12,6 +12,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 
+import com.main.control.file.FileManager;
 import com.main.control.game.input.Input;
 import com.main.control.manager.AppManager;
 import com.main.model.Sign;
@@ -23,6 +24,10 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.GridLayout;
@@ -48,13 +53,6 @@ public class MainView extends JFrame {
 					frame.setVisible(true);
 					frame.pack();
 
-					/*
-					 * test point
-					 */
-//					Sign sign = AppManager.getSign(AppManager.signType.MAINSIGN, AppManager.getterMainSignType.SIGNJ);
-//
-//					sign.setPoint(6, 9);
-
 					AppManager.initialize();
 
 				} catch (Exception e) {
@@ -78,6 +76,12 @@ public class MainView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		addWindowListener(new   WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				FileManager.writeRecord();
+				super.windowClosing(arg0);
+			}});
 
 		this.addKeyListener(new KeyAdapter() {
 
@@ -182,17 +186,21 @@ public class MainView extends JFrame {
 		panel_score.setLayout(new GridLayout(4, 0, 0, 0));
 
 		JLabel lblNewLabel_2 = new JLabel("    Score");
+		lblNewLabel_2.setFont(new Font("新細明體", Font.PLAIN, 14));
 		panel_score.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_score = new JLabel("0");
+		lblNewLabel_score.setFont(new Font("新細明體", Font.BOLD, 20));
 		lblNewLabel_score.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_score.add(lblNewLabel_score);
 		this.getSession().addAttribute("lblNewLabel_score", lblNewLabel_score);
 
 		JLabel lblNewLabel_3 = new JLabel("    High Score");
+		lblNewLabel_3.setFont(new Font("新細明體", Font.PLAIN, 14));
 		panel_score.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_highscore = new JLabel("0");
+		lblNewLabel_highscore.setFont(new Font("新細明體", Font.BOLD, 20));
 		lblNewLabel_highscore.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_score.add(lblNewLabel_highscore);
 		this.getSession().addAttribute("lblNewLabel_highscore", lblNewLabel_highscore);

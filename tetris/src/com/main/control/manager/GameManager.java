@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import com.main.control.SignControl;
 import com.main.control.exception.TNullException;
+import com.main.control.file.FileManager;
 import com.main.control.game.GameObject;
 import com.main.control.game.Scene;
 import com.main.control.game.SceneManager;
@@ -72,6 +73,7 @@ public class GameManager {
 		mainGameObject.attachScript("SignControlScript", new SignControlScript());
 
 		SceneManager.getScene().addPerformance("mainGameObject", mainGameObject);
+		FileManager.loadRecord();
 
 	}
 
@@ -119,8 +121,8 @@ public class GameManager {
 		return highScore;
 	}
 
-	public static void setHighScore(int high) {
-		highScore = high;
+	public static void setHighScore(int score) {
+		highScore = score;
 	}
 
 	public static boolean isPause() {

@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.main.control.SignControl;
 import com.main.control.game.Scene.Performance;
 import com.main.control.manager.AppManager;
 import com.main.control.manager.GameManager;

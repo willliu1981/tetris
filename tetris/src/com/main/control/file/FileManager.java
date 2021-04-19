@@ -14,6 +14,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 import java.util.Set;
 
 import com.google.gson.Gson;
@@ -34,6 +35,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.main.control.exception.FileErrorException;
 import com.main.control.file.gson.wrapper.SignGetterMapWrapper;
+import com.main.control.manager.AppManager;
 import com.main.control.manager.SignManager;
 import com.main.control.manager.SignManager.SignType;
 import com.main.control.signgetter.MainSignGetter;
@@ -78,6 +80,27 @@ public class FileManager {
 			ex.printStackTrace();
 		}
 
+	}
+
+	public static void loadRecord() {
+		Properties prop = new Properties();
+		try {
+			prop.load(new FileInputStream("data/record.properties"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		int score = Integer.valueOf((String) prop.get("HighScore"));
+		AppManager.setHighScore(score);
+	}
+
+	public static void writeRecord() {
+		Properties prop = new Properties();
+		prop.setProperty("HighScore", "" + AppManager.getHighScore());
+		 try {
+			prop.store(new FileOutputStream("data/record.properties"), null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
