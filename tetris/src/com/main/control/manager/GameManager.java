@@ -59,8 +59,8 @@ public class GameManager {
 	 * 建議尺寸,實際會因為Panel 元件的設計需求計算後產生些微差距
 	 */
 	private final static int CUBEUNITSIZE = 30;
-
-	private final Timer timer = new Timer();
+	private  Timer timer ;
+	private static boolean pause=false;
 
 	private GameManager() {
 
@@ -73,7 +73,25 @@ public class GameManager {
 
 		SceneManager.getScene().addPerformance("mainGameObject", mainGameObject);
 
+	}
+
+	public void start() {
+		timer= new Timer();
 		timer.schedule(new MainTask(), 1000, interval);
+	}
+
+	public void pause() {
+		stop();
+		pause=true;
+	}
+
+	public void stop() {
+		timer.cancel();
+	}
+
+	public static void reset() {
+		SignControl.clear();
+		gameOver(false);
 	}
 
 	public static void SignMapToBackGround(Sign sign) {
@@ -83,16 +101,14 @@ public class GameManager {
 	public static int bingo() {
 		return SignControl.bingo();
 	}
-	
-	public static void reset() {
-		SignControl.clear();
-		gameOver(false);
-	}
 
 	/*
 	 * get and set
 	 */
 
+	public static boolean isPause() {
+		return pause;
+	}
 	public static boolean isCurrentSignCollide() {
 		return SignControl.isCollide(getCurrentSign());
 	}
@@ -118,7 +134,7 @@ public class GameManager {
 	}
 
 	public static GameManager getSingletonManager() {
-		return new GameManager();
+		return manager;
 	}
 
 	/*

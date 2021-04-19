@@ -56,8 +56,8 @@ public class MainPanel extends JPanel {
 			 */
 			SignDrawer drawer = new SignDrawer(this, AppManager.getCubesSize());
 			Sign mainSign = AppManager.getCurrentSign();
-			drawer.setSign(mainSign);
 			if (mainSign != null) {
+			drawer.setSign(mainSign);
 				for (Direction d : mainSign.getCubeMap().keySet()) {
 					g.fill3DRect(drawer.getX(d), drawer.getY(d), drawer.getLenW(), drawer.getLenH(), true);
 				}

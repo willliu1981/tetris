@@ -18,6 +18,16 @@ import com.main.model.Sign;
 import com.tool.Session;
 import com.tool.behavior.BehaviorController;
 import javax.swing.BoxLayout;
+import javax.swing.JMenuBar;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.GridLayout;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class MainView extends JFrame {
 
@@ -44,7 +54,7 @@ public class MainView extends JFrame {
 //
 //					sign.setPoint(6, 9);
 					
-					AppManager.start();
+					AppManager.initialize();
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -99,6 +109,44 @@ public class MainView extends JFrame {
 		panel_lbar.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		panel_lbar.setPreferredSize(new Dimension(200, 10));
 		contentPane.add(panel_lbar, BorderLayout.WEST);
+		panel_lbar.setLayout(new BoxLayout(panel_lbar, BoxLayout.Y_AXIS));
+		
+		JPanel panel = new JPanel();
+		panel_lbar.add(panel);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Start");
+		mntmNewMenuItem.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				AppManager.start();
+			}
+		});
+		mntmNewMenuItem.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 20));
+		panel.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Restart");
+		mntmNewMenuItem_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				AppManager.restart();
+			}
+		});
+		mntmNewMenuItem_1.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 20));
+		panel.add(mntmNewMenuItem_1);
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Pause");
+		mntmNewMenuItem_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				AppManager.pause();
+			}
+		});
+		mntmNewMenuItem_2.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 20));
+		panel.add(mntmNewMenuItem_2);
+		
+		JPanel panel_7 = new JPanel();
+		panel_lbar.add(panel_7);
 
 		JPanel panel_rbar = new JPanel();
 		panel_rbar.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
@@ -160,4 +208,21 @@ public class MainView extends JFrame {
 		return session;
 	}
 
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
+	}
 }

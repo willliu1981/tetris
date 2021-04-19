@@ -68,13 +68,23 @@ public class AppManager {
 		Input.addKeyCode(39, KeyType.RIGHT);
 		Input.addKeyCode(40, KeyType.DOWN);
 
+		GameManager.getSingletonManager().initialize();
 	}
 
 	public static void start() {
-		initialize();
-		getNewCurrentSign();
-		GameManager.getSingletonManager().initialize();
+		if (!GameManager.isPause()) {
+			getNewCurrentSign();
+		}
+		GameManager.getSingletonManager().start();
+	}
 
+	public static void pause() {
+		GameManager.getSingletonManager().pause();
+	}
+
+	public static void restart() {
+		getNewCurrentSign();
+		gameManage.reset();
 	}
 
 	public static boolean isSignHasNewData() {
@@ -93,7 +103,7 @@ public class AppManager {
 	/*
 	 * get and set
 	 */
-	
+
 	public static void gameOver() {
 		gameManage.gameOver();
 	}
@@ -146,4 +156,5 @@ public class AppManager {
 	public static boolean isGameOver() {
 		return gameManage.isGameOver();
 	}
+
 }
