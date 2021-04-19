@@ -45,7 +45,7 @@ public class GameManager {
 	private static Sign currentSign;
 	private static Sign nextSign;
 	private static int score;
-	private static int maxScore;
+	private static int highScore;
 	private static boolean gameOver = false;
 	private static int stackMaxLineNumber = 2;// 方塊堆到最高點位置
 
@@ -59,8 +59,8 @@ public class GameManager {
 	 * 建議尺寸,實際會因為Panel 元件的設計需求計算後產生些微差距
 	 */
 	private final static int CUBEUNITSIZE = 30;
-	private  Timer timer ;
-	private static boolean pause=false;
+	private Timer timer;
+	private static boolean pause = false;
 
 	private GameManager() {
 
@@ -76,13 +76,13 @@ public class GameManager {
 	}
 
 	public void start() {
-		timer= new Timer();
+		timer = new Timer();
 		timer.schedule(new MainTask(), 1000, interval);
 	}
 
 	public void pause() {
 		stop();
-		pause=true;
+		pause = true;
 	}
 
 	public void stop() {
@@ -92,6 +92,7 @@ public class GameManager {
 	public static void reset() {
 		SignControl.clear();
 		gameOver(false);
+		setScore(0);
 	}
 
 	public static void SignMapToBackGround(Sign sign) {
@@ -106,9 +107,26 @@ public class GameManager {
 	 * get and set
 	 */
 
+	public static int getScore() {
+		return score;
+	}
+
+	public static void setScore(int score) {
+		GameManager.score = score;
+	}
+
+	public static int getHighScore() {
+		return highScore;
+	}
+
+	public static void setHighScore(int high) {
+		highScore = high;
+	}
+
 	public static boolean isPause() {
 		return pause;
 	}
+
 	public static boolean isCurrentSignCollide() {
 		return SignControl.isCollide(getCurrentSign());
 	}
