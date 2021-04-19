@@ -1,24 +1,15 @@
 package com.editor.sign.control.behavior.listselect;
 
-import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.MediaTracker;
 
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 
 import com.editor.sign.control.behavior.editorsign.EditorSignShowBehavior;
 import com.editor.sign.view.EditorSignPanel;
 import com.editor.sign.view.SignEditor;
-import com.main.control.manager.SignManager;
-import com.main.control.manager.SignManager.SignType;
-import com.main.control.signgetter.MainSignGetter.GetterMainSginType;
 import com.main.model.Sign;
-import com.sun.glass.ui.Size;
-import com.sun.javafx.scene.control.skin.BehaviorSkinBase;
 import com.tool.Session;
-import com.tool.TColor;
 import com.tool.behavior.Behavior;
 import com.tool.behavior.BehaviorController;
 import com.tool.borderlayout.BorderFixer;

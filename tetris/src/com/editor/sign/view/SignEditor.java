@@ -1,6 +1,7 @@
 package com.editor.sign.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -9,6 +10,9 @@ import java.awt.GridLayout;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -20,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
@@ -50,6 +55,7 @@ public class SignEditor extends JFrame {
 	private JList<?> list_signilk;
 	private static Session session;
 	private Behavior.Request request = new Behavior.Request();
+	private JButton btnNewButton_update;
 
 	/**
 	 * Launch the application.
@@ -149,6 +155,7 @@ public class SignEditor extends JFrame {
 		list_signilk.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+
 				/*
 				 * 於Behavior do setModel
 				 */
@@ -160,48 +167,65 @@ public class SignEditor extends JFrame {
 				BehaviorController.sendBehavior(behavior);
 			}
 		});
+		list_signilk.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				/*
+				 * delete
+				 */
+				if (e.getKeyCode() == 127) {
+					int r = JOptionPane.showConfirmDialog(list_signilk,
+							"Delete :" + ((SignType) list_signilk.getSelectedValue()).name(), "",
+							JOptionPane.YES_NO_OPTION);
+					if (r == JOptionPane.YES_OPTION) {
+						AppManager.removeSignGetter((SignType) list_signilk.getSelectedValue());
+						Behavior behaviorSignilk = new ShowSignIlkBehavior();
+						behaviorSignilk.setParameter("list_signilk", list_signilk);
+						BehaviorController.sendBehavior(behaviorSignilk);
+						if (AppManager.isSignHasNewData()) {
+							btnNewButton_update.setVisible(true);
+						}
+						clearDueListSelected();
+					}
+				}
+			}
+		});
+
 		list_signilk.setFont(new Font("新細明體", Font.PLAIN, 18));
 		Behavior behaviorSignilk = new ShowSignIlkBehavior();
 		behaviorSignilk.setParameter("list_signilk", list_signilk);
 		BehaviorController.sendBehavior(behaviorSignilk);
-		
+
 		if (list_signilk.getModel().getSize() > 0) {
 			list_signilk.setSelectedIndex(0);
 		} else {
 			list_signilk.setSelectedIndex(-1);
 		}
+
 		panel_lbar_top.add(list_signilk);
 
 		/*
 		 * When the sign dates need to be update
 		 */
+		btnNewButton_update = new JButton("Update");
+		btnNewButton_update.setVisible(false);
+		btnNewButton_update.setBackground(SystemColor.controlHighlight);
+		panel_lbar_top.add(btnNewButton_update);
+		btnNewButton_update.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				AppManager.updateSignData();
+
+				Behavior behavior = new ShowSignIlkBehavior();
+				behavior.setParameter("list_signilk", list_signilk);
+				BehaviorController.sendBehavior(behavior);
+
+				clearDueListSelected();
+				btnNewButton_update.setVisible(false);
+			}
+		});
 		if (AppManager.isSignHasNewData()) {
-			JButton btnNewButton_update = new JButton("Update");
-			btnNewButton_update.setBackground(SystemColor.controlHighlight);
-			panel_lbar_top.add(btnNewButton_update);
-			btnNewButton_update.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					AppManager.updateSignData();
-
-					Behavior behavior = new ShowSignIlkBehavior();
-					behavior.setParameter("list_signilk", list_signilk);
-					BehaviorController.sendBehavior(behavior);
-					
-					btnNewButton_update.setVisible(false);
-					list_signtype.setModel(new AbstractListModel() {
-						@Override
-						public Object getElementAt(int arg0) {
-							return null;
-						}
-
-						@Override
-						public int getSize() {
-							return 0;
-						}});
-					panel_grid_main.removeAll();
-				}
-			});
+			btnNewButton_update.setVisible(true);
 		}
 
 		JPanel panel_lbar_center1 = new JPanel();
@@ -224,6 +248,30 @@ public class SignEditor extends JFrame {
 		});
 
 		list_signtype.setFont(new Font("新細明體", Font.PLAIN, 18));
+
+		list_signtype.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				/*
+				 * delete
+				 */
+				if (e.getKeyCode() == 127) {
+					int r = JOptionPane.showConfirmDialog(list_signtype,
+							"Delete :" + ((Enum<?>) list_signtype.getSelectedValue()).name(), "",
+							JOptionPane.YES_NO_OPTION);
+					if (r == JOptionPane.YES_OPTION) {
+
+						AppManager.removeSign((SignType) list_signilk.getSelectedValue(),
+								(Enum<?>) list_signtype.getSelectedValue());
+
+						if (AppManager.isSignHasNewData()) {
+							btnNewButton_update.setVisible(true);
+						}
+						clearDueListSelected();
+					}
+				}
+			}
+		});
 
 		JPanel panel_lbar_center2 = new JPanel();
 		panel_c1_west.add(panel_lbar_center2);
@@ -270,14 +318,14 @@ public class SignEditor extends JFrame {
 		});
 		btnNewButton_signtype_rotate_forword.setBackground(SystemColor.controlHighlight);
 		panel_list_signtype_index.add(btnNewButton_signtype_rotate_forword);
-		
+
 		JPanel panel = new JPanel();
 		panel_lbar_center2.add(panel);
-		
+
 		JPanel panel_add_and_subtract_cycle = new JPanel();
 		panel_lbar_center2.add(panel_add_and_subtract_cycle);
 		panel_add_and_subtract_cycle.setLayout(new GridLayout(0, 2, 0, 0));
-		
+
 		JButton btnNewButton_cycle_subtract = new JButton("-");
 		btnNewButton_cycle_subtract.setFont(new Font("新細明體", Font.BOLD, 18));
 		btnNewButton_cycle_subtract.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
@@ -296,7 +344,7 @@ public class SignEditor extends JFrame {
 			}
 
 		});
-		
+
 		JButton btnNewButton_cycle_add = new JButton("+");
 		btnNewButton_cycle_add.setFont(new Font("新細明體", Font.BOLD, 18));
 		btnNewButton_cycle_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
@@ -398,7 +446,7 @@ public class SignEditor extends JFrame {
 		JPanel panel_spacepanel2 = new JPanel();
 		panel_col_and_row.add(panel_spacepanel2);
 		panel_spacepanel2.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		JButton btnNewButton_row_add = new JButton("▼+");
 		panel_spacepanel2.add(btnNewButton_row_add);
 		btnNewButton_row_add.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
@@ -416,7 +464,7 @@ public class SignEditor extends JFrame {
 			}
 
 		});
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_col_and_row.add(panel_1);
 
@@ -461,6 +509,24 @@ public class SignEditor extends JFrame {
 		JLabel lblNewLabel_szie = new JLabel("0 ╳ 0");
 		panel_rbar_bottom.add(lblNewLabel_szie);
 		request.addParameter("lblNewLabel_szie", lblNewLabel_szie);
+	}
+	
+	/*
+	 * 更新或刪除list 後,清空子list 的內容和相關的panel內容顯示
+	 */
+	private void clearDueListSelected() {
+		list_signtype.setModel(new AbstractListModel() {
+			@Override
+			public Object getElementAt(int arg0) {
+				return null;
+			}
+
+			@Override
+			public int getSize() {
+				return 0;
+			}
+		});
+		panel_grid_main.removeAll();
 	}
 
 	/*

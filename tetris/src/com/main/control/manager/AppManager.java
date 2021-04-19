@@ -96,11 +96,11 @@ public class AppManager {
 		return new Dimension(d.getWidth(), d.getHeight());
 	}
 
-	public void removeSignGetter(SignType signType) {
+	public static void removeSignGetter(SignType signType) {
 		SignManager.getManager(signType).removeSignGetter();
 	}
 
-	public void removeSign(SignType signType, Enum<?> type) {
+	public static void removeSign(SignType signType, Enum<?> type) {
 		SignManager.getManager(signType).removeSign(type);
 	}
 
