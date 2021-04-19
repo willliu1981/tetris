@@ -39,13 +39,15 @@ public class GameManager {
 	}
 
 	private static GameManager manager = new GameManager();
-	private static final Direction currentSignStartPoint = new Direction(6, -3);
+	private static final Direction currentSignStartPoint = new Direction(6, 1);
 	private static final Direction nextSignStartPoint = new Direction(2, 2);
 	private static int interval = 20;
 	private static Sign currentSign;
 	private static Sign nextSign;
 	private static int score;
 	private static int maxScore;
+	private static boolean gameOver = false;
+	private static int stackMaxLineNumber = 2;// 方塊堆到最高點位置
 
 	/*
 	 * 以Obstacle 的 WALL 大小做為遊戲活動空間大小,於getBackgroundSize 回傳給AppManager 或 MainView
@@ -78,6 +80,19 @@ public class GameManager {
 		SignControl.SignMapToBackGround(sign);
 	}
 
+	public static int bingo() {
+		return SignControl.bingo();
+	}
+	
+	public static void reset() {
+		SignControl.clear();
+		gameOver(false);
+	}
+
+	/*
+	 * get and set
+	 */
+
 	public static boolean isCurrentSignCollide() {
 		return SignControl.isCollide(getCurrentSign());
 	}
@@ -86,13 +101,21 @@ public class GameManager {
 		return SignControl.isCollide(sign);
 	}
 
-	public static int bingo() {
-		return SignControl.bingo();
+	public static boolean isStackMaxLimit() {
+		return SignControl.checkExist(stackMaxLineNumber);
 	}
 
-	/*
-	 * get and set
-	 */
+	public static void gameOver() {
+		gameOver(true);
+	}
+
+	public static void gameOver(boolean b) {
+		gameOver = b;
+	}
+
+	public static boolean isGameOver() {
+		return gameOver;
+	}
 
 	public static GameManager getSingletonManager() {
 		return new GameManager();

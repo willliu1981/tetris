@@ -5,6 +5,8 @@
 
 .	package:com.tool: 日後可供其它專案使用的工具程式
 
+.	package com.main.control.game.scene: 遊戲腳本,如方塊方向控制、方塊自動落下控制(刪行、計分等)
+
 類別:
 .	AppManager: 管理所有物,通常用於被管物的初始化 ,例如: SignManager 、 FileManager
 

@@ -21,7 +21,7 @@ import javax.swing.BoxLayout;
 
 public class MainView extends JFrame {
 
-	private static AppManager appManager = AppManager.getSingletonManager();
+	private static AppManager appManager = AppManager.getStart();
 	private JPanel contentPane;
 	private static Session session;
 	private static Dimension main_panel_size = new Dimension(AppManager.getMainPanelSize());

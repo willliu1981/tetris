@@ -3,6 +3,7 @@ package com.main.control;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.main.control.exception.LogicErrorException;
@@ -20,7 +21,7 @@ public class SignControl {
 	 * Map<行數,Map<列數,Sign>>
 	 */
 	private volatile static Map<Integer, Map<Direction, Sign>> mapBackground = new HashMap<>();
-	private static Map<Direction, Sign> defaultUnitObstacleMap;//可用於修補牆壁
+	private static Map<Direction, Sign> defaultUnitObstacleMap;// 單位牆壁,可用於修補牆壁
 
 	static {
 		for (int i = 0; i < AppManager.getCubesSize().getHeight(); i++) {
@@ -51,7 +52,6 @@ public class SignControl {
 			Direction od = Directions.getCubeWorldPoint(sign, sd);
 			obst.setPoint(od.getX(), od.getY());
 			mapBackground.get(od.getY()).put(od, obst);
-
 		}
 	}
 
@@ -64,28 +64,46 @@ public class SignControl {
 				}
 				while (mapBackground.get(p).size() >= AppManager.getCubesSize().getWidth()) {
 					p--;
+					count++;
 				}
 			} catch (NullPointerException e) {
 				throw new TNullException(e.getMessage() + " : " + p);
 			}
-			int _v = v;
-			int _p = p;
 
-			Map<Direction, Sign> signMap = new HashMap<>();
-			mapBackground.get(p).keySet().stream().forEach(x -> {
-				Sign sign = null;
-				sign = mapBackground.get(_p).get(x);
-				sign.setPoint(sign.getX(), _v);
-				signMap.put(new Direction(x.getX(), _v), sign);
-			});
-
-			mapBackground.put(v, signMap);
+			fallOffset(p, v);
 
 			p--;
 		}
 
+		for (int i = count - 1; i >= 0; i--) {
+			mapBackground.put(0, getDefaultUnitObstacleMap());
+			fallOffset(0, i);
+		}
+
 		return count;
 
+	}
+	
+	public static void clear() {
+		for(int i=mapBackground.size()-2;i>=0;i--) {
+			mapBackground.put(0, getDefaultUnitObstacleMap());
+			fallOffset(0, i);
+		}
+	}
+
+	public static boolean checkExist(int line) {
+		return mapBackground.get(line).size() > defaultUnitObstacleMap.size();
+	}
+
+	private static void fallOffset(int ori, int des) {
+		Map<Direction, Sign> signMap = new HashMap<>();
+		mapBackground.get(ori).keySet().stream().forEach(x -> {
+			Sign sign = null;
+			sign = mapBackground.get(ori).get(x);
+			sign.setPoint(sign.getX(), des);
+			signMap.put(new Direction(x.getX(), des), sign);
+		});
+		mapBackground.put(des, signMap);
 	}
 
 	public static boolean isCollide(Sign sign) {
@@ -127,5 +145,23 @@ public class SignControl {
 		}
 
 		return list;
+	}
+
+	private static Map<Direction, Sign> getDefaultUnitObstacleMap() {
+		return defaultUnitObstacleMap.entrySet().stream().collect(Collectors.toMap(entry -> {
+			try {
+				return entry.getKey().clone();
+			} catch (CloneNotSupportedException ex) {
+				ex.printStackTrace();
+			}
+			return null;
+		}, entry -> {
+			try {
+				return entry.getValue().clone();
+			} catch (CloneNotSupportedException ex) {
+				ex.printStackTrace();
+			}
+			return null;
+		}));
 	}
 }

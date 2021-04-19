@@ -1,7 +1,6 @@
 package com.editor.sign.view;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -12,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -33,7 +31,6 @@ import javax.swing.border.SoftBevelBorder;
 import com.editor.sign.control.behavior.listselect.ListSelectSignIlkBehavior;
 import com.editor.sign.control.behavior.listselect.ListSelectSignTypeBehavior;
 import com.editor.sign.control.behavior.listselect.ShowSignIlkBehavior;
-import com.main.control.exception.FileErrorException;
 import com.main.control.file.FileManager;
 import com.main.control.manager.AppManager;
 import com.main.control.manager.SignManager;
@@ -46,7 +43,7 @@ import com.tool.borderlayout.BorderFixer;
 
 public class SignEditor extends JFrame {
 
-	private AppManager appManager = AppManager.getSingletonManager();
+	private AppManager appManager = AppManager.getStart();
 	private JPanel contentPane;
 	private JList<?> list_signtype;// 放置Sign Cube 的 BorderLayout的父元件
 	private JPanel panel_grid_main;// 放置Sign Cube 的 BorderLayout中間的元件
@@ -155,7 +152,6 @@ public class SignEditor extends JFrame {
 		list_signilk.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-
 				/*
 				 * 於Behavior do setModel
 				 */
@@ -163,7 +159,6 @@ public class SignEditor extends JFrame {
 				behavior.setParameter("list_signilk", list_signilk);
 				behavior.setParameter("list_signtype", list_signtype);
 				behavior.setParameter("panel_grid_main", panel_grid_main);
-
 				BehaviorController.sendBehavior(behavior);
 			}
 		});

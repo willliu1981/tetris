@@ -31,7 +31,10 @@ public class AppManager {
 		}
 	}
 
-	public static AppManager getSingletonManager() {
+	/*
+	 * 用於啟動 建構式初始化
+	 */
+	public static AppManager getStart() {
 
 		return appManager;
 	}
@@ -90,6 +93,10 @@ public class AppManager {
 	/*
 	 * get and set
 	 */
+	
+	public static void gameOver() {
+		gameManage.gameOver();
+	}
 
 	public static Dimension getMainPanelSize() {
 		Direction d = GameManager.getBackgroundSize();
@@ -136,4 +143,7 @@ public class AppManager {
 		return gameManage.getNextSign();
 	}
 
+	public static boolean isGameOver() {
+		return gameManage.isGameOver();
+	}
 }

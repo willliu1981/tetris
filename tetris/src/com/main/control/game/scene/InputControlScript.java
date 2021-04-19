@@ -28,49 +28,50 @@ public class InputControlScript implements Performance {
 
 	@Override
 	public void update() throws CloneNotSupportedException {
-		int h = 0;
-		int v = 0;
-		/*
-		 * 左、右
-		 */
-		if ((h = Input.getHorizontal()) != 0) {
-			if (new Date().getTime() > timeH) {
-				timeH = new Date().getTime() + intervalH + (activeH ? 0 : intervalH * 1);
-				moveH(h);
-				activeH = true;
+		if (!AppManager.isGameOver()) {
+			int h = 0;
+			int v = 0;
+			/*
+			 * 左、右
+			 */
+			if ((h = Input.getHorizontal()) != 0) {
+				if (new Date().getTime() > timeH) {
+					timeH = new Date().getTime() + intervalH + (activeH ? 0 : intervalH * 1);
+					moveH(h);
+					activeH = true;
+				}
+			} else {
+				timeH = 0;
+				activeH = false;
 			}
-		} else {
-			timeH = 0;
-			activeH = false;
+
+			/*
+			 * 下
+			 */
+			if ((v = Input.getVertical()) != 0) {
+				if (new Date().getTime() > timeV) {
+					timeV = new Date().getTime() + intervalV + (activeV ? 0 : intervalV * 1);
+					moveV(v);
+					activeV = true;
+				}
+			} else {
+				timeV = 0;
+				activeV = false;
+			}
+
+			/*
+			 * 旋轉
+			 */
+			if (Input.getRotate()) {
+				if (!activeRot) {
+					rotate();
+					activeRot = true;
+				}
+			} else {
+				activeRot = false;
+			}
 		}
 
-		/*
-		 * 下
-		 */
-		if ((v = Input.getVertical()) != 0) {
-			if (new Date().getTime() > timeV) {
-				timeV = new Date().getTime() + intervalV + (activeV ? 0 : intervalV * 1);
-				moveV(v);
-				activeV = true;
-			}
-		} else {
-			timeV = 0;
-			activeV = false;
-		}
-
-		/*
-		 * 旋轉
-		 */
-		if (Input.getRotate()) {
-			if (!activeRot) {
-				rotate();
-				activeRot = true;
-			}
-		} else {
-			activeRot = false;
-		}
-
-		
 	}
 
 	private void moveH(int x) throws CloneNotSupportedException {
